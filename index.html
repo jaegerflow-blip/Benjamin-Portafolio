@@ -139,29 +139,18 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 /* ===================== WORK ===================== */
 #work{background:var(--s1)}
 #work .section-header{margin-bottom:3rem}
-.phones-row{display:flex;gap:1.5rem;justify-content:center;align-items:flex-end;perspective:1200px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:1rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.phone-wrap{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:.75rem;cursor:pointer}
-.phone{width:130px;height:260px;background:var(--s3);border-radius:20px;border:2px solid rgba(0,255,136,.15);position:relative;overflow:hidden;transition:all .3s;box-shadow:0 15px 40px rgba(0,0,0,.5),0 0 25px rgba(0,255,136,.15);cursor:pointer}
-.phone:nth-child(1){transform:rotateY(-6deg)}
-.phone:nth-child(1):hover{transform:rotateY(-8deg) translateY(-10px) scale(1.05);box-shadow:0 25px 60px rgba(0,255,136,.4),0 0 35px rgba(0,255,136,.25);cursor:pointer}
-.phone-wrap:nth-child(2) .phone{transform:rotateY(-3deg)}
-.phone-wrap:nth-child(2) .phone:hover{transform:rotateY(-5deg) translateY(-10px) scale(1.05);box-shadow:0 25px 60px rgba(0,255,136,.4),0 0 35px rgba(0,255,136,.25);cursor:pointer}
-.phone-wrap:nth-child(3) .phone{transform:rotateY(0deg)}
-.phone-wrap:nth-child(3) .phone:hover{transform:rotateY(0deg) translateY(-10px) scale(1.05);box-shadow:0 25px 60px rgba(0,255,136,.4),0 0 35px rgba(0,255,136,.25);cursor:pointer}
-.phone-wrap:nth-child(4) .phone{transform:rotateY(3deg)}
-.phone-wrap:nth-child(4) .phone:hover{transform:rotateY(5deg) translateY(-10px) scale(1.05);box-shadow:0 25px 60px rgba(0,255,136,.4),0 0 35px rgba(0,255,136,.25);cursor:pointer}
-.phone-wrap:nth-child(5) .phone{transform:rotateY(6deg)}
-.phone-wrap:nth-child(5) .phone:hover{transform:rotateY(8deg) translateY(-10px) scale(1.05);box-shadow:0 25px 60px rgba(0,255,136,.4),0 0 35px rgba(0,255,136,.25);cursor:pointer}
-.phone-screen{position:absolute;inset:8px 6px;border-radius:14px;overflow:hidden;background:var(--s2)}
-.phone-screen img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.phone:hover .phone-screen img{transform:scale(1.05)}
-.phone-notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:40px;height:5px;background:var(--bg);border-radius:3px;z-index:2}
-.phone-overlay{position:absolute;inset:8px 6px;border-radius:14px;background:linear-gradient(135deg,rgba(0,255,136,.8),rgba(0,204,106,.8));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:all .3s;z-index:3;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
-.phone:hover .phone-overlay{opacity:1}
-.phone-overlay span{font-size:.72rem;font-weight:500;color:#fff;letter-spacing:.05em}
-.phone-label{font-size:.72rem;color:var(--muted);text-align:center;max-width:120px}
-.phone-link{font-size:.68rem;color:var(--accent-soft);text-decoration:underline;text-underline-offset:3px;transition:color .2s}
-.phone-link:hover{color:var(--accent)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:3rem}
+.project-item{display:flex;flex-direction:column;gap:1.5rem}
+.phone-mockup{display:block;aspect-ratio:9/16;border-radius:36px;border:8px solid #1f1f2e;box-shadow:0 20px 40px rgba(0,0,0,0.5);overflow:hidden;transition:all .3s;cursor:pointer;position:relative}
+.phone-mockup:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.7),0 0 30px rgba(0,255,136,0.3)}
+.phone-screen{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .4s}
+.phone-mockup:hover .phone-screen{transform:scale(1.05)}
+.project-info{display:flex;flex-direction:column;gap:1rem}
+.project-info h3{font-size:1.3rem;color:var(--text);margin:0}
+.project-handle{font-size:.85rem;color:var(--accent-soft);font-weight:500}
+.strategy-section,.results-section{display:flex;flex-direction:column;gap:.5rem}
+.strategy-label,.results-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);font-weight:600}
+.strategy-text,.results-text{font-size:.9rem;color:var(--muted);line-height:1.6;margin:0}
 
 /* Upload placeholder */
 .phone-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--faint);font-size:.7rem;text-align:center;padding:.5rem}
@@ -174,6 +163,28 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 .phone-detail-section:last-child{margin-bottom:0}
 .phone-detail-label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);font-weight:600;margin-bottom:.5rem}
 .phone-detail-text{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+/* ===================== TECH STACK CAROUSEL ===================== */
+#tech-stack{background:var(--s1);padding-block:clamp(3rem,6vw,5rem)}
+.carousel-container{position:relative;overflow:hidden;width:100%;padding:2rem 0}
+.carousel-track{display:flex;gap:2rem;animation:marquee 30s linear infinite}
+.carousel-track:hover{animation-play-state:paused}
+.tool-item-carousel{display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:2rem 1.5rem;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);min-width:140px;text-align:center;transition:all .3s;cursor:pointer;position:relative}
+.tool-item-carousel:hover{transform:translateY(-8px);border-color:rgba(0,255,136,.3);box-shadow:0 15px 40px rgba(0,255,136,.2)}
+.tool-item-carousel i{color:var(--accent);transition:all .3s}
+.tool-item-carousel:hover i{color:var(--accent-soft);transform:scale(1.1)}
+.tool-item-carousel span{font-size:.85rem;color:var(--text);font-weight:500}
+.tool-item-carousel:hover span{color:var(--accent)}
+
+/* Tooltip */
+.tool-item-carousel::after{content:attr(data-tooltip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%) translateY(-8px);background:var(--bg);color:var(--text);padding:.75rem 1rem;border-radius:var(--r-md);font-size:.75rem;white-space:nowrap;opacity:0;visibility:hidden;transition:all .2s;z-index:100;box-shadow:0 10px 30px rgba(0,0,0,.5);border:1px solid rgba(0,255,136,.2);max-width:200px;text-align:center}
+.tool-item-carousel:hover::after{opacity:1;visibility:visible;transform:translateX(-50%) translateY(-12px)}
+
+/* Marquee Animation */
+@keyframes marquee{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(calc(-50% - 1rem))}
+}
 
 /* ===================== TOOLS ===================== */
 #tools .section-header{margin-bottom:2.5rem}
@@ -269,8 +280,11 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   .bento{grid-template-columns:1fr;grid-template-rows:auto}
   .bento-wide{grid-column:1;grid-row:auto}
   .bento-sm{grid-column:1}
-  .phones-row{gap:1rem;padding-inline:1rem;justify-content:flex-start;scroll-snap-type:x mandatory}
-  .phone-wrap{scroll-snap-align:center}
+  .projects-grid{grid-template-columns:1fr;gap:2rem}
+  .phone-mockup{max-width:200px;margin:0 auto}
+  .carousel-container{padding:1rem 0}
+  .carousel-track{gap:1rem}
+  .tool-item-carousel{min-width:120px;padding:1.5rem 1rem}
   .tools-grid{grid-template-columns:repeat(4,1fr)}
   .nav-links{display:none}
   .nav-burger{display:flex}
@@ -278,8 +292,6 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   .modal-content{margin:1rem;max-width:calc(100vw - 2rem)}
   .modal-body{padding:1.5rem}
   .modal-image{max-width:300px}
-  .phone-details{width:240px;padding:1.25rem}
-  .phone-detail-text{font-size:.8rem}
   .reel-container{max-width:280px}
   .reel-phone{padding:6px}
   .reel-control-btn{width:40px;height:40px}
@@ -287,11 +299,12 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
 @media(max-width:480px){
   .stats-grid{grid-template-columns:1fr 1fr}
   .tools-grid{grid-template-columns:repeat(3,1fr)}
-  .phones-row{gap:0.75rem}
-  .phone{width:110px;height:220px}
+  .phone-mockup{max-width:160px}
+  .carousel-track{gap:0.75rem}
+  .tool-item-carousel{min-width:100px;padding:1rem .75rem}
+  .tool-item-carousel i{width:24px;height:24px}
+  .tool-item-carousel span{font-size:.75rem}
   .floating-tag{font-size:.65rem;padding:.3rem .8rem}
-  .phone-details{width:200px;padding:1rem}
-  .phone-detail-text{font-size:.75rem}
   .reel-container{max-width:240px}
 }
 </style>
@@ -487,140 +500,170 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
       <h2 data-es="Proyectos recientes" data-en="Recent Work">Proyectos recientes</h2>
       <p data-es="Marcas con las que he colaborado recientemente." data-en="Brands I've recently worked with.">Marcas con las que he colaborado recientemente.</p>
     </div>
-    <div class="phones-row" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+    <div class="projects-grid" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
 
-      <!-- PHONE 1 -->
-      <div class="phone-wrap">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/1.jpg" alt="Universo PC" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- PROJECT 1 -->
+      <div class="project-item">
+        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/1.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Universo PC</h3>
+          <span class="project-handle">@universopc_vzla</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Gestión de inventario tecnológico y creación de comunidad gamer enfocada en la educación del consumidor sobre componentes de PC, builds personalizadas y tendencias de hardware.</p>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
-          </div>
-        </div>
-        <span class="phone-label">Universo PC</span>
-        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-link">@universopc_vzla</a>
-        <div class="phone-details">
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Estrategia</span>
-            <p class="phone-detail-text">Gestión de inventario tecnológico y creación de comunidad gamer enfocada en la educación del consumidor sobre componentes de PC, builds personalizadas y tendencias de hardware.</p>
-          </div>
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Resultados</span>
-            <p class="phone-detail-text">Aumento de engagement mediante reels de hardware y atención al cliente automatizada. Incremento del 40% en consultas de builds personalizadas y mejora en la tasa de conversión de ventas de componentes de PC.</p>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Aumento de engagement mediante reels de hardware y atención al cliente automatizada. Incremento del 40% en consultas de builds personalizadas y mejora en la tasa de conversión de ventas de componentes de PC.</p>
           </div>
         </div>
       </div>
 
-      <!-- PHONE 2 -->
-      <div class="phone-wrap">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/2.jpg" alt="Multi PC Sambil" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- PROJECT 2 -->
+      <div class="project-item">
+        <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/2.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Multi PC Sambil</h3>
+          <span class="project-handle">@multipc_sambil</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Community Management y contenido para tienda física en centro comercial. Enfoque en experiencia de compra in-store, promociones flash y contenido visual de alta calidad para productos de tecnología.</p>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
-          </div>
-        </div>
-        <span class="phone-label">Multi PC Sambil</span>
-        <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer" class="phone-link">@multipc_sambil</a>
-        <div class="phone-details">
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Estrategia</span>
-            <p class="phone-detail-text">Community Management y contenido para tienda física en centro comercial. Enfoque en experiencia de compra in-store, promociones flash y contenido visual de alta calidad para productos de tecnología.</p>
-          </div>
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Resultados</span>
-            <p class="phone-detail-text">Incremento del tráfico a la tienda física del 25% mediante campañas de stories geolocalizadas. Mejora en la percepción de marca y fidelización de clientes recurrentes.</p>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Incremento del tráfico a la tienda física del 25% mediante campañas de stories geolocalizadas. Mejora en la percepción de marca y fidelización de clientes recurrentes.</p>
           </div>
         </div>
       </div>
 
-      <!-- PHONE 3 -->
-      <div class="phone-wrap">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/3.jpg" alt="Multimedia Gaming" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- PROJECT 3 -->
+      <div class="project-item">
+        <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/3.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Multimedia Gaming</h3>
+          <span class="project-handle">@multimediagaming10</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Gestión de contenido para tienda de gaming y componentes. Creación de reviews de hardware gamer, comparativas de periféricos y contenido educativo sobre optimización de setups gaming.</p>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
-          </div>
-        </div>
-        <span class="phone-label">Multimedia Gaming</span>
-        <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer" class="phone-link">@multimediagaming10</a>
-        <div class="phone-details">
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Estrategia</span>
-            <p class="phone-detail-text">Gestión de contenido para tienda de gaming y componentes. Creación de reviews de hardware gamer, comparativas de periféricos y contenido educativo sobre optimización de setups gaming.</p>
-          </div>
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Resultados</span>
-            <p class="phone-detail-text">Crecimiento orgánico del 60% en seguidores activos. Reels de unboxing y comparativas generando alto engagement. Aumento significativo en ventas de periféricos gamer y componentes de alto rendimiento.</p>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Crecimiento orgánico del 60% en seguidores activos. Reels de unboxing y comparativas generando alto engagement. Aumento significativo en ventas de periféricos gamer y componentes de alto rendimiento.</p>
           </div>
         </div>
       </div>
 
-      <!-- PHONE 4 -->
-      <div class="phone-wrap">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/4.jpg" alt="Tecniseven Computer" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- PROJECT 4 -->
+      <div class="project-item">
+        <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/4.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Tecniseven Computer</h3>
+          <span class="project-handle">@tecnisevencomputer</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Community Management y estrategia de contenido técnico enfocado en reparaciones, mantenimiento de equipos y asesoría especializada en hardware de alto rendimiento.</p>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
-          </div>
-        </div>
-        <span class="phone-label">Tecniseven Computer</span>
-        <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer" class="phone-link">@tecnisevencomputer</a>
-        <div class="phone-details">
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Estrategia</span>
-            <p class="phone-detail-text">Community Management y estrategia de contenido técnico enfocado en reparaciones, mantenimiento de equipos y asesoría especializada en hardware de alto rendimiento.</p>
-          </div>
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Resultados</span>
-            <p class="phone-detail-text">Posicionamiento como referente técnico en la comunidad. Reducción del 30% en tiempo de respuesta al cliente mediante automatización. Incremento en solicitudes de servicio técnico especializado.</p>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Posicionamiento como referente técnico en la comunidad. Reducción del 30% en tiempo de respuesta al cliente mediante automatización. Incremento en solicitudes de servicio técnico especializado.</p>
           </div>
         </div>
       </div>
 
-      <!-- PHONE 5 -->
-      <div class="phone-wrap">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/5.jpg" alt="Universo PC Gaming" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- PROJECT 5 -->
+      <div class="project-item">
+        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/5.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Universo PC Gaming</h3>
+          <span class="project-handle">@universopc_vzla</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Especializado en ventas de componentes de PC y hardware gamer. Enfoque en builds personalizadas, asesoría técnica especializada y contenido visual de alta calidad para entusiastas del gaming.</p>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
-          </div>
-        </div>
-        <span class="phone-label">Universo PC Gaming</span>
-        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-link">@universopc_vzla</a>
-        <div class="phone-details">
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Estrategia</span>
-            <p class="phone-detail-text">Especializado en ventas de componentes de PC y hardware gamer. Enfoque en builds personalizadas, asesoría técnica especializada y contenido visual de alta calidad para entusiastas del gaming.</p>
-          </div>
-          <div class="phone-detail-section">
-            <span class="phone-detail-label">Resultados</span>
-            <p class="phone-detail-text">Mayor autoridad en el nicho de hardware gamer. Aumento del 50% en consultas de builds personalizadas. Contenido técnico generando alta retención y compartidos orgánicos.</p>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Mayor autoridad en el nicho de hardware gamer. Aumento del 50% en consultas de builds personalizadas. Contenido técnico generando alta retención y compartidos orgánicos.</p>
           </div>
         </div>
       </div>
 
     </div>
-    <p class="faint" style="font-size:.75rem;margin-top:1.5rem;text-align:center" data-es="Haz clic en cada teléfono para ver más detalles" data-en="Click each phone to see more details">Haz clic en cada teléfono para ver más detalles</p>
+  </div>
+</section>
+
+<!-- TECH STACK CAROUSEL -->
+<section id="tech-stack">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" style="text-align:center;margin-bottom:3rem">
+      <span class="label">Tech Stack</span>
+      <h2 class="syne" style="margin-top:.75rem">Herramientas de Expertise</h2>
+      <p style="margin-top:.5rem;max-width:52ch;margin-inline:auto">Suite profesional para Community Management y edición de contenido</p>
+    </div>
+    
+    <div class="carousel-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+      <div class="carousel-track">
+        <div class="tool-item-carousel" data-tooltip="Premiere Pro: Edición profesional de video para contenido de marca">
+          <i data-lucide="film" style="width:32px;height:32px"></i>
+          <span>Premiere Pro</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="Photoshop: Diseño visual y edición de imágenes para redes sociales">
+          <i data-lucide="image" style="width:32px;height:32px"></i>
+          <span>Photoshop</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="CapCut: Edición dinámica y retención visual para Reels">
+          <i data-lucide="scissors" style="width:32px;height:32px"></i>
+          <span>CapCut</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="Canva: Diseño rápido y plantillas para contenido daily">
+          <i data-lucide="palette" style="width:32px;height:32px"></i>
+          <span>Canva</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="Meta Business Suite: Gestión de contenido y análisis de métricas">
+          <i data-lucide="bar-chart-3" style="width:32px;height:32px"></i>
+          <span>Meta Business</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="Metricool: Monitoreo de engagement y optimización de contenido">
+          <i data-lucide="trending-up" style="width:32px;height:32px"></i>
+          <span>Metricool</span>
+        </div>
+        
+        <!-- Duplicate for infinite scroll -->
+        <div class="tool-item-carousel" data-tooltip="Premiere Pro: Edición profesional de video para contenido de marca">
+          <i data-lucide="film" style="width:32px;height:32px"></i>
+          <span>Premiere Pro</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="Photoshop: Diseño visual y edición de imágenes para redes sociales">
+          <i data-lucide="image" style="width:32px;height:32px"></i>
+          <span>Photoshop</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="CapCut: Edición dinámica y retención visual para Reels">
+          <i data-lucide="scissors" style="width:32px;height:32px"></i>
+          <span>CapCut</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="Canva: Diseño rápido y plantillas para contenido daily">
+          <i data-lucide="palette" style="width:32px;height:32px"></i>
+          <span>Canva</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="Meta Business Suite: Gestión de contenido y análisis de métricas">
+          <i data-lucide="bar-chart-3" style="width:32px;height:32px"></i>
+          <span>Meta Business</span>
+        </div>
+        <div class="tool-item-carousel" data-tooltip="Metricool: Monitoreo de engagement y optimización de contenido">
+          <i data-lucide="trending-up" style="width:32px;height:32px"></i>
+          <span>Metricool</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -827,17 +870,26 @@ const statObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
 
-// ===================== PHONE CLICK HANDLERS =====================
-document.querySelectorAll('.phone-wrap').forEach(phoneWrap => {
-  const instagramUrl = phoneWrap.querySelector('.phone-link').href;
+// ===================== TECH STACK CAROUSEL CONTROLS =====================
+document.querySelectorAll('.tool-item-carousel').forEach(tool => {
+  // Pause animation on hover
+  tool.addEventListener('mouseenter', () => {
+    const track = tool.closest('.carousel-track');
+    if (track) track.style.animationPlayState = 'paused';
+  });
   
-  // Make entire phone clickable
-  phoneWrap.addEventListener('click', (e) => {
-    // Prevent link clicks from triggering double navigation
-    if (e.target.closest('.phone-link')) return;
-    
-    // Open Instagram in new tab
-    window.open(instagramUrl, '_blank', 'noopener,noreferrer');
+  tool.addEventListener('mouseleave', () => {
+    const track = tool.closest('.carousel-track');
+    if (track) track.style.animationPlayState = 'running';
+  });
+  
+  // Click to pause/resume
+  tool.addEventListener('click', () => {
+    const track = tool.closest('.carousel-track');
+    if (track) {
+      const isPaused = track.style.animationPlayState === 'paused';
+      track.style.animationPlayState = isPaused ? 'running' : 'paused';
+    }
   });
 });
 
