@@ -315,39 +315,75 @@ html, body {
 
 .tech-item{position:relative;z-index:5}
 .tech-item:hover .tech-icon{filter:grayscale(0) opacity(1);color:var(--accent);transform:scale(1.1)}
-.tool-item-carousel{position:relative;z-index:1}
-.tool-item-carousel:hover{z-index:50}
-.tool-item-carousel:hover img{filter:none;opacity:1}
-.tech-item:hover .tech-name{color:var(--text)}
-.tool-item-carousel::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(-4px);
-  background: #1a1a1f;
-  color: #f5f5f7;
-  padding: 0.6rem 0.9rem;
-  border-radius: 0.5rem;
-  font-size: 0.75rem;
-  white-space: normal;
-  max-width: 180px;
-  text-align: center;
-  line-height: 1.4;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease;
-  z-index: 999;
-  pointer-events: none;
-  border: 1px solid rgba(0, 255, 136, 0.2);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+.tool-item-carousel{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.75rem;
+  padding:2rem 1.5rem;
+  background:var(--s2);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  min-width:140px;
+  text-align:center;
+  transition:all .3s;
+  cursor:pointer;
+  position:relative;
+  z-index:1;
 }
 
-.tool-item-carousel:hover::after {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
+.tool-item-carousel:hover{
+  transform:translateY(-8px);
+  border-color:rgba(0,255,136,.3);
+  box-shadow:0 15px 40px rgba(0,255,136,.2);
+  z-index:50;
 }
+
+.tool-item-carousel img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+  opacity:.6;
+  filter:brightness(0) invert(1);
+  transition:opacity .3s, filter .3s, transform .3s;
+}
+
+.tool-item-carousel:hover img{
+  opacity:1;
+  filter:none;
+  transform:scale(1.08);
+}
+
+.tool-item-carousel .tool-fallback{
+  display:none;
+  width:32px;
+  height:32px;
+  border-radius:6px;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:800;
+  font-size:.65rem;
+  line-height:1;
+}
+
+.carousel-container{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  padding:2rem 0;
+}
+
+.carousel-track{
+  display:flex;
+  gap:2rem;
+  animation:marquee 30s linear infinite;
+}
+
+.carousel-track:hover{
+  animation-play-state:paused;
+}
+.tech-item:hover .tech-name{color:var(--text)}
 
 /* Blur masks for smooth edges */
 .blur-mask{position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
@@ -649,70 +685,79 @@ html, body {
     
     <div class="carousel-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
       <div class="carousel-track">
-        <!-- Bloque 1 — original -->
-        <div class="tool-item-carousel" data-tooltip="Premiere Pro — Edición profesional de video para contenido de marca">
-          <img src="https://cdn.simpleicons.org/adobepremierepro" width="32" height="32" alt="Premiere Pro" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#9999ff,#6666cc);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">Pr</span>
-          <span>Premiere Pro</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="Photoshop — Diseño visual y edición de imágenes para redes sociales">
-          <img src="https://cdn.simpleicons.org/adobephotoshop" width="32" height="32" alt="Photoshop" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#31a8ff,#0066cc);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">Ps</span>
-          <span>Photoshop</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="CapCut — Edición dinámica y retención visual para Reels">
-          <img src="https://cdn.simpleicons.org/capcut" width="32" height="32" alt="CapCut" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#000000,#333333);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">CC</span>
-          <span>CapCut</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="Canva — Diseño rápido y plantillas para contenido diario">
-          <img src="https://cdn.simpleicons.org/canva" width="32" height="32" alt="Canva" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#00c4cc,#7d2ae8);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">Cv</span>
-          <span>Canva</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="Meta Business Suite — Gestión de contenido y análisis de métricas">
-          <img src="https://cdn.simpleicons.org/meta" width="32" height="32" alt="Meta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#0082fb,#0040ff);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">M</span>
-          <span>Meta Business</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="Metricool — Monitoreo de engagement y optimización de contenido">
-          <img src="https://cdn.simpleicons.org/metricool" width="32" height="32" alt="Metricool" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#ff6b35,#ff3300);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">Mc</span>
-          <span>Metricool</span>
-        </div>
+<div class="tool-item-carousel" data-tooltip="Premiere Pro: Edición profesional de video para contenido de marca">
+  <img src="https://cdn.simpleicons.org/adobepremierepro" alt="Premiere Pro" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#9999ff,#6666cc)">Pr</span>
+  <span>Premiere Pro</span>
+</div>
 
-        <!-- Bloque 2 — duplicado exacto para loop infinito -->
-        <div class="tool-item-carousel" data-tooltip="Premiere Pro — Edición profesional de video para contenido de marca">
-          <img src="https://cdn.simpleicons.org/adobepremierepro" width="32" height="32" alt="Premiere Pro" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#9999ff,#6666cc);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">Pr</span>
-          <span>Premiere Pro</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="Photoshop — Diseño visual y edición de imágenes para redes sociales">
-          <img src="https://cdn.simpleicons.org/adobephotoshop" width="32" height="32" alt="Photoshop" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#31a8ff,#0066cc);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">Ps</span>
-          <span>Photoshop</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="CapCut — Edición dinámica y retención visual para Reels">
-          <img src="https://cdn.simpleicons.org/capcut" width="32" height="32" alt="CapCut" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#000000,#333333);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">CC</span>
-          <span>CapCut</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="Canva — Diseño rápido y plantillas para contenido diario">
-          <img src="https://cdn.simpleicons.org/canva" width="32" height="32" alt="Canva" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#00c4cc,#7d2ae8);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">Cv</span>
-          <span>Canva</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="Meta Business Suite — Gestión de contenido y análisis de métricas">
-          <img src="https://cdn.simpleicons.org/meta" width="32" height="32" alt="Meta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#0082fb,#0040ff);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">M</span>
-          <span>Meta Business</span>
-        </div>
-        <div class="tool-item-carousel" data-tooltip="Metricool — Monitoreo de engagement y optimización de contenido">
-          <img src="https://cdn.simpleicons.org/metricool" width="32" height="32" alt="Metricool" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="opacity:0.6;transition:opacity 0.3s"/>
-          <span style="display:none;width:32px;height:32px;background:linear-gradient(135deg,#ff6b35,#ff3300);border-radius:6px;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.6rem">Mc</span>
-          <span>Metricool</span>
-        </div>
-      </div>
+<div class="tool-item-carousel" data-tooltip="Photoshop: Diseño visual y edición de imágenes para redes sociales">
+  <img src="https://cdn.simpleicons.org/adobephotoshop" alt="Photoshop" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#31a8ff,#0066cc)">Ps</span>
+  <span>Photoshop</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="CapCut: Edición dinámica y retención visual para reels">
+  <img src="https://cdn.simpleicons.org/capcut" alt="CapCut" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#111111,#333333)">CC</span>
+  <span>CapCut</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Canva: Diseño rápido y plantillas para contenido diario">
+  <img src="https://cdn.simpleicons.org/canva" alt="Canva" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#00c4cc,#7d2ae8)">Cv</span>
+  <span>Canva</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Meta Business Suite: Gestión de contenido y análisis de métricas">
+  <img src="https://cdn.simpleicons.org/meta" alt="Meta Business" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#0082fb,#0040ff)">M</span>
+  <span>Meta Business</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Metricool: Monitoreo de engagement y optimización de contenido">
+  <img src="https://cdn.simpleicons.org/metricool" alt="Metricool" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#ff6b35,#ff3300)">Mc</span>
+  <span>Metricool</span>
+</div>
+
+<!-- Duplicado exacto para scroll infinito -->
+<div class="tool-item-carousel" data-tooltip="Premiere Pro: Edición profesional de video para contenido de marca">
+  <img src="https://cdn.simpleicons.org/adobepremierepro" alt="Premiere Pro" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#9999ff,#6666cc)">Pr</span>
+  <span>Premiere Pro</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Photoshop: Diseño visual y edición de imágenes para redes sociales">
+  <img src="https://cdn.simpleicons.org/adobephotoshop" alt="Photoshop" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#31a8ff,#0066cc)">Ps</span>
+  <span>Photoshop</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="CapCut: Edición dinámica y retención visual para reels">
+  <img src="https://cdn.simpleicons.org/capcut" alt="CapCut" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#111111,#333333)">CC</span>
+  <span>CapCut</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Canva: Diseño rápido y plantillas para contenido diario">
+  <img src="https://cdn.simpleicons.org/canva" alt="Canva" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#00c4cc,#7d2ae8)">Cv</span>
+  <span>Canva</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Meta Business Suite: Gestión de contenido y análisis de métricas">
+  <img src="https://cdn.simpleicons.org/meta" alt="Meta Business" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#0082fb,#0040ff)">M</span>
+  <span>Meta Business</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Metricool: Monitoreo de engagement y optimización de contenido">
+  <img src="https://cdn.simpleicons.org/metricool" alt="Metricool" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#ff6b35,#ff3300)">Mc</span>
+  <span>Metricool</span>
+</div>
+</div>
     </div>
   </div>
 </section>
@@ -968,5 +1013,59 @@ if (reelMuteBtn && reelVideo) {
   });
 }
 </script>
+
+<div id="js-tooltip" style="
+  position: fixed;
+  z-index: 99999;
+  background: #1a1a1f;
+  color: #f5f5f7;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.78rem;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.45;
+  max-width: 220px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border: 1px solid rgba(0,255,136,0.25);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  white-space: normal;
+  transform: translateX(-50%);
+"></div>
+
+<script>
+(function () {
+  const tooltip = document.getElementById('js-tooltip');
+  const items = document.querySelectorAll('.tool-item-carousel');
+
+  function showTooltip(e) {
+    const text = this.getAttribute('data-tooltip');
+    if (!text) return;
+    tooltip.textContent = text;
+    tooltip.style.opacity = '1';
+    moveTooltip(e);
+  }
+
+  function moveTooltip(e) {
+    const x = e.clientX;
+    const y = e.clientY;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = (y - 80) + 'px';
+  }
+
+  function hideTooltip() {
+    tooltip.style.opacity = '0';
+  }
+
+  items.forEach(item => {
+    item.addEventListener('mouseenter', showTooltip);
+    item.addEventListener('mousemove', moveTooltip);
+    item.addEventListener('mouseleave', hideTooltip);
+  });
+})();
+</script>
+
 </body>
 </html>
