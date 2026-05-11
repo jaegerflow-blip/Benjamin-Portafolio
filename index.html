@@ -210,20 +210,6 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 
 /* ===================== CONTACT ===================== */
 #contact{position:relative;overflow:hidden;text-align:center}
-.contact-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,255,136,.06),transparent 70%);pointer-events:none}
-#contact h2{margin-bottom:1rem}
-#contact p{color:var(--muted);margin-bottom:2.5rem;max-width:46ch;margin-inline:auto}
-.contact-email{display:inline-block;font-size:.9rem;color:var(--accent-soft);margin-top:1.5rem;border-bottom:1px solid rgba(0,255,136,.3);padding-bottom:.2rem}
-
-/* ===================== FOOTER ===================== */
-footer{padding:2rem 0;border-top:1px solid var(--border)}
-.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.jaeger-seal{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1.1rem;border:1px solid var(--neon);border-radius:var(--r-full);color:var(--neon);font-size:.82rem;transition:all .25s;box-shadow:0 0 12px rgba(0,255,136,.25);text-shadow:0 0 8px rgba(0,255,136,.5)}
-.jaeger-seal:hover{box-shadow:0 0 28px rgba(0,255,136,.55);transform:scale(1.03)}
-.jaeger-seal .syne{font-weight:800}
-
-/* ===================== SECTION HEADER ===================== */
-.section-header{display:flex;flex-direction:column;gap:.5rem}
 .section-header p{color:var(--muted);font-size:.98rem;max-width:52ch}
 
 /* ===================== REVEAL ANIMATIONS (REMOVED - USING AOS) ===================== */
@@ -285,6 +271,13 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   .carousel-container{padding:1rem 0}
   .carousel-track{gap:1rem}
   .tool-item-carousel{min-width:120px;padding:1.5rem 1rem}
+  #tech-stack-section{padding:3rem 0}
+  .tech-title{font-size:1rem;letter-spacing:0.2em}
+  .carousel-track{gap:2rem;animation-duration:20s}
+  .tech-item{min-width:120px}
+  .tech-icon{width:32px;height:32px}
+  .tech-name{font-size:0.75rem}
+  .blur-mask{width:60px}
   .tools-grid{grid-template-columns:repeat(4,1fr)}
   .nav-links{display:none}
   .nav-burger{display:flex}
@@ -304,9 +297,45 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   .tool-item-carousel{min-width:100px;padding:1rem .75rem}
   .tool-item-carousel i{width:24px;height:24px}
   .tool-item-carousel span{font-size:.75rem}
+  #tech-stack-section{padding:2rem 0}
+  .tech-title{font-size:0.9rem;letter-spacing:0.15em}
+  .carousel-track{gap:1.5rem;animation-duration:15s}
+  .tech-item{min-width:100px}
+  .tech-icon{width:28px;height:28px}
+  .tech-name{font-size:0.7rem}
+  .blur-mask{width:40px}
   .floating-tag{font-size:.65rem;padding:.3rem .8rem}
   .reel-container{max-width:240px}
 }
+
+/* ===================== TECH STACK ===================== */
+#tech-stack-section{background:var(--s1);padding:4rem 0;position:relative;overflow:hidden}
+.tech-header{text-align:center;margin-bottom:3rem}
+.tech-title{font-size:1.2rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent-soft);font-weight:600;margin-bottom:0.5rem}
+.tech-subtitle{font-size:0.9rem;color:var(--muted);max-width:500px;margin:0 auto}
+
+.carousel-wrapper{position:relative;width:100%;overflow:hidden;padding:2rem 0}
+.carousel-track{display:flex;gap:3rem;animation:carousel-scroll 25s linear infinite;will-change:transform}
+.tech-item{display:flex;flex-direction:column;align-items:center;gap:0.75rem;min-width:140px;text-align:center;flex-shrink:0}
+.tech-icon{width:40px;height:40px;color:var(--muted);filter:grayscale(1) opacity(0.6);transition:all 0.3s ease}
+.tech-name{font-size:0.85rem;color:var(--muted);font-weight:500;transition:color 0.3s ease}
+
+.tech-item:hover .tech-icon{filter:grayscale(0) opacity(1);color:var(--accent);transform:scale(1.1)}
+.tech-item:hover .tech-name{color:var(--text)}
+
+/* Blur masks for smooth edges */
+.blur-mask{position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.blur-left{left:0;background:linear-gradient(to right, var(--s1) 0%, transparent 100%)}
+.blur-right{right:0;background:linear-gradient(to left, var(--s1) 0%, transparent 100%)}
+
+/* Carousel animation */
+@keyframes carousel-scroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(calc(-50% - 1.5rem))}
+}
+
+/* Pause on hover */
+.carousel-wrapper:hover .carousel-track{animation-play-state:paused}
 </style>
 </head>
 <body>
@@ -739,6 +768,84 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
       daniel@correo.com
     </a>
     <p class="faint" style="font-size:.75rem;margin-top:.4rem">← <span data-es="Reemplaza con tu email real" data-en="Replace with your real email">Reemplaza con tu email real</span></p>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="tech-stack-section">
+  <div class="container">
+    <div class="tech-header">
+      <h2 class="tech-title">HERRAMIENTAS Y TECNOLOGÍAS</h2>
+      <p class="tech-subtitle">Suite profesional para Community Management y creación de contenido</p>
+    </div>
+    
+    <div class="carousel-wrapper">
+      <!-- Blur masks for smooth edges -->
+      <div class="blur-mask blur-left"></div>
+      <div class="blur-mask blur-right"></div>
+      
+      <div class="carousel-track">
+        <!-- First set -->
+        <div class="tech-item">
+          <i data-lucide="briefcase" class="tech-icon"></i>
+          <span class="tech-name">Meta Business Suite</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="scissors" class="tech-icon"></i>
+          <span class="tech-name">CapCut Pro</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="palette" class="tech-icon"></i>
+          <span class="tech-name">Canva Pro</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="file-text" class="tech-icon"></i>
+          <span class="tech-name">Notion</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="video" class="tech-icon"></i>
+          <span class="tech-name">InShot</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="trending-up" class="tech-icon"></i>
+          <span class="tech-name">Metricool</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="image" class="tech-icon"></i>
+          <span class="tech-name">Photoshop Premium</span>
+        </div>
+        
+        <!-- Duplicate for infinite scroll -->
+        <div class="tech-item">
+          <i data-lucide="briefcase" class="tech-icon"></i>
+          <span class="tech-name">Meta Business Suite</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="scissors" class="tech-icon"></i>
+          <span class="tech-name">CapCut Pro</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="palette" class="tech-icon"></i>
+          <span class="tech-name">Canva Pro</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="file-text" class="tech-icon"></i>
+          <span class="tech-name">Notion</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="video" class="tech-icon"></i>
+          <span class="tech-name">InShot</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="trending-up" class="tech-icon"></i>
+          <span class="tech-name">Metricool</span>
+        </div>
+        <div class="tech-item">
+          <i data-lucide="image" class="tech-icon"></i>
+          <span class="tech-name">Photoshop Premium</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
