@@ -139,9 +139,9 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 /* ===================== WORK ===================== */
 #work{background:var(--s1)}
 #work .section-header{margin-bottom:3rem}
-.projects-grid{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;justify-items:center;align-items:start}
 .project-item{display:flex;flex-direction:column;gap:1.5rem}
-.phone-mockup{display:block;max-width:260px;width:100%;aspect-ratio:9/16;margin:0 auto;border-radius:36px;border:8px solid #1f1f2e;box-shadow:0 20px 40px rgba(0,0,0,0.5);overflow:hidden;transition:all .3s;cursor:pointer;position:relative}
+.phone-mockup{display:block;max-width:180px;width:100%;aspect-ratio:9/16;margin:0 auto;border-radius:28px;border:6px solid #1f1f2e;box-shadow:0 20px 40px rgba(0,0,0,0.5);overflow:hidden;transition:all .3s;cursor:pointer;position:relative}
 .phone-mockup:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.7),0 0 30px rgba(0,255,136,0.3)}
 .phone-screen{width:100%;height:100%;object-fit:cover;border-radius:20px;background-size:cover;background-position:center;transition:transform .4s}
 .phone-mockup:hover .phone-screen{transform:scale(1.05)}
@@ -241,8 +241,8 @@ section{padding-block:clamp(4rem,8vw,7rem)}
   .bento{grid-template-columns:1fr;grid-template-rows:auto}
   .bento-wide{grid-column:1;grid-row:auto}
   .bento-sm{grid-column:1}
-  .projects-grid{flex-direction:column;align-items:center}
-  .phone-mockup{max-width:240px}
+  .projects-grid{grid-template-columns:repeat(2,1fr);gap:1.25rem}
+  .phone-mockup{max-width:160px}
   .carousel-container{padding:1rem 0}
   .carousel-track{gap:1rem}
   .tool-item-carousel{min-width:120px;padding:1.5rem 1rem}
@@ -267,8 +267,8 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 @media(max-width:480px){
   .stats-grid{grid-template-columns:1fr 1fr}
   .tools-grid{grid-template-columns:repeat(3,1fr)}
-  .phone-mockup{max-width:280px;margin:0 auto}
-  .projects-grid{gap:1.5rem}
+  .phone-mockup{max-width:140px;margin:0 auto}
+  .projects-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
   .carousel-track{gap:0.75rem}
   .tool-item-carousel{min-width:100px;padding:1rem .75rem}
   .tool-item-carousel i{width:24px;height:24px}
@@ -510,7 +510,7 @@ section{padding-block:clamp(4rem,8vw,7rem)}
       <!-- PROJECT 1 -->
       <div class="project-item">
         <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
-          <div class="phone-screen" style="background-image: url('./imagenes/1.jpg'); background-size: cover; background-position: center;"></div>
+          <div class="phone-screen" style="background-image: url('./imagenes/2.jpg'); background-size: cover; background-position: center;"></div>
         </a>
         <div class="project-info">
           <h3 class="syne">Universo PC</h3>
@@ -529,7 +529,7 @@ section{padding-block:clamp(4rem,8vw,7rem)}
       <!-- PROJECT 2 -->
       <div class="project-item">
         <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
-          <div class="phone-screen" style="background-image: url('./imagenes/2.jpg'); background-size: cover; background-position: center;"></div>
+          <div class="phone-screen" style="background-image: url('./imagenes/1.jpg'); background-size: cover; background-position: center;"></div>
         </a>
         <div class="project-info">
           <h3 class="syne">Multi PC Sambil</h3>
@@ -545,25 +545,7 @@ section{padding-block:clamp(4rem,8vw,7rem)}
         </div>
       </div>
 
-      <!-- PROJECT 3 -->
-      <div class="project-item">
-        <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
-          <div class="phone-screen" style="background-image: url('./imagenes/3.jpg'); background-size: cover; background-position: center;"></div>
-        </a>
-        <div class="project-info">
-          <h3 class="syne">Multimedia Gaming</h3>
-          <span class="project-handle">@multimediagaming10</span>
-          <div class="strategy-section">
-            <span class="strategy-label">Estrategia</span>
-            <p class="strategy-text">Gestión de contenido para tienda de gaming y componentes. Creación de reviews de hardware gamer, comparativas de periféricos y contenido educativo sobre optimización de setups gaming.</p>
-          </div>
-          <div class="results-section">
-            <span class="results-label">Resultados</span>
-            <p class="results-text">Crecimiento orgánico del 60% en seguidores activos. Reels de unboxing y comparativas generando alto engagement. Aumento significativo en ventas de periféricos gamer y componentes de alto rendimiento.</p>
-          </div>
-        </div>
-      </div>
-
+      
       <!-- PROJECT 4 -->
       <div class="project-item">
         <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
