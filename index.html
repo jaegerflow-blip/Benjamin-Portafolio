@@ -210,6 +210,40 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
 /* ===================== REVEAL ANIMATIONS (REMOVED - USING AOS) ===================== */
 /* AOS now handles all scroll animations */
 
+/* ===================== FEATURED REEL ===================== */
+#featured-reel{background:var(--s1);padding-block:clamp(3rem,6vw,5rem)}
+.reel-container{max-width:360px;margin-inline:auto;position:relative}
+.reel-phone{position:relative;background:var(--s2);border:2px solid rgba(0,255,136,.15);border-radius:var(--r-lg);padding:8px;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(0,255,136,.1);overflow:hidden}
+.reel-phone::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(0,255,136,.05),transparent 60%);pointer-events:none;z-index:1}
+.reel-screen{position:relative;aspect-ratio:9/16;border-radius:calc(var(--r-lg) - 4px);overflow:hidden;background:var(--s3);display:flex;align-items:center;justify-content:center}
+.reel-video{width:100%;height:100%;object-fit:cover}
+.reel-placeholder{display:flex;flex-direction:column;align-items:center;gap:1rem;color:var(--muted);text-align:center;padding:2rem}
+.reel-placeholder i{color:var(--accent);opacity:.5}
+.reel-controls{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.75rem;z-index:10}
+.reel-control-btn{width:44px;height:44px;border-radius:var(--r-full);background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;transition:all .2s}
+.reel-control-btn:hover{background:rgba(0,255,136,.2);border-color:rgba(0,255,136,.4);transform:scale(1.1)}
+.reel-notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:60px;height:5px;background:var(--bg);border-radius:3px;z-index:10}
+
+/* ===================== ACCORDION ===================== */
+.accordion-wrapper{display:flex;flex-direction:column;gap:1rem;max-width:800px;margin-inline:auto}
+.accordion-item{background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:all .3s}
+.accordion-item:hover{border-color:rgba(0,255,136,.2)}
+.accordion-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem;cursor:pointer;gap:1rem}
+.accordion-header-left{display:flex;align-items:center;gap:1rem;flex:1}
+.accordion-img{width:48px;height:48px;border-radius:var(--r-md);object-fit:cover;border:2px solid rgba(0,255,136,.2)}
+.accordion-title{font-family:var(--font-d);font-weight:700;font-size:1.1rem;color:var(--text)}
+.accordion-handle{font-size:.78rem;color:var(--faint);font-family:var(--font-b)}
+.accordion-icon{width:24px;height:24px;color:var(--accent);transition:transform .3s;flex-shrink:0}
+.accordion-item.open .accordion-icon{transform:rotate(180deg)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+.accordion-item.open .accordion-body{max-height:500px}
+.accordion-content{padding:0 1.5rem 1.5rem;display:flex;flex-direction:column;gap:1.25rem}
+.accordion-section{display:flex;flex-direction:column;gap:.5rem}
+.accordion-section-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);font-weight:600}
+.accordion-section-text{font-size:.9rem;color:var(--muted);line-height:1.7}
+.accordion-link{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.2);border-radius:var(--r-md);color:var(--accent-soft);font-size:.8rem;font-weight:500;transition:all .2s;width:fit-content;text-decoration:none}
+.accordion-link:hover{background:rgba(0,255,136,.2);color:var(--accent)}
+
 /* ===================== MODAL ===================== */
 .modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
 .modal.open{display:flex;opacity:1}
@@ -248,6 +282,12 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   .modal-content{margin:1rem;max-width:calc(100vw - 2rem)}
   .modal-body{padding:1.5rem}
   .modal-image{max-width:300px}
+  .accordion-header{padding:1.25rem}
+  .accordion-img{width:40px;height:40px}
+  .accordion-title{font-size:1rem}
+  .reel-container{max-width:280px}
+  .reel-phone{padding:6px}
+  .reel-control-btn{width:40px;height:40px}
 }
 @media(max-width:480px){
   .stats-grid{grid-template-columns:1fr 1fr}
@@ -255,6 +295,9 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   .phones-row{gap:0.75rem}
   .phone{width:110px;height:220px}
   .floating-tag{font-size:.65rem;padding:.3rem .8rem}
+  .accordion-header{padding:1rem}
+  .accordion-content{padding:0 1rem 1rem}
+  .reel-container{max-width:240px}
 }
 </style>
 </head>
@@ -408,7 +451,40 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   </div>
 </section>
 
-<!-- WORK -->
+<!-- FEATURED REEL -->
+<section id="featured-reel">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" style="text-align:center;margin-bottom:2.5rem">
+      <span class="label">Featured Reel</span>
+      <h2 style="margin-top:.75rem">Contenido que Convierte</h2>
+      <p style="margin-top:.5rem;max-width:52ch;margin-inline:auto">Reels interactivos diseñados para maximizar engagement y ventas.</p>
+    </div>
+    <div class="reel-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+      <div class="reel-phone">
+        <div class="reel-notch"></div>
+        <div class="reel-screen">
+          <!-- Si tienes un video, reemplaza el placeholder por: -->
+          <!-- <video class="reel-video" src="./reel.mp4" loop muted playsinline></video> -->
+          <div class="reel-placeholder">
+            <i data-lucide="play-circle" style="width:48px;height:48px"></i>
+            <p style="font-size:.9rem">Tu reel destacado<br/>se mostrará aquí</p>
+            <p style="font-size:.75rem;color:var(--faint)">Reemplaza con un archivo MP4</p>
+          </div>
+        </div>
+        <div class="reel-controls">
+          <button class="reel-control-btn" id="reelPlay" aria-label="Play/Pause">
+            <i data-lucide="play" style="width:18px;height:18px"></i>
+          </button>
+          <button class="reel-control-btn" id="reelMute" aria-label="Mute/Unmute">
+            <i data-lucide="volume-x" style="width:18px;height:18px"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK / ACCORDION -->
 <section id="work">
   <div class="container">
     <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
@@ -416,114 +492,159 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
       <h2 data-es="Proyectos recientes" data-en="Recent Work">Proyectos recientes</h2>
       <p data-es="Marcas con las que he colaborado recientemente." data-en="Brands I've recently worked with.">Marcas con las que he colaborado recientemente.</p>
     </div>
-    <div class="phones-row" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
 
-      <!-- PHONE 1 -->
-      <div class="phone-wrap" data-instagram="https://www.instagram.com/universopc_vzla/" data-title="Universo PC" data-description="Gestión de contenido y Community Management para tienda de tecnología">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/1.jpg" alt="Universo PC" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+    <div class="accordion-wrapper" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+
+      <!-- ACCORDION 1 -->
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <div class="accordion-header-left">
+            <img src="./imagenes/1.jpg" alt="Universo PC" class="accordion-img">
+            <div>
+              <div class="accordion-title">Universo PC</div>
+              <div class="accordion-handle">@universopc_vzla</div>
+            </div>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          <i data-lucide="chevron-down" class="accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-content">
+            <div class="accordion-section">
+              <span class="accordion-section-label">Estrategia</span>
+              <p class="accordion-section-text">Gestión de inventario tecnológico y creación de comunidad gamer enfocada en la educación del consumidor sobre componentes de PC, builds personalizadas y tendencias de hardware.</p>
+            </div>
+            <div class="accordion-section">
+              <span class="accordion-section-label">Resultados</span>
+              <p class="accordion-section-text">Aumento de engagement mediante reels de hardware y atención al cliente automatizada. Incremento del 40% en consultas de builds personalizadas y mejora en la tasa de conversión de ventas de componentes de PC.</p>
+            </div>
+            <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="accordion-link">
+              <i data-lucide="external-link" style="width:12px;height:12px"></i>
+              Ver perfil
+            </a>
           </div>
         </div>
-        <span class="phone-label">Universo PC</span>
-        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-link">@universopc_vzla</a>
       </div>
 
-      <!-- PHONE 2 -->
-      <div class="phone-wrap" data-instagram="https://www.instagram.com/multipc_sambil/" data-title="Multi PC Sambil" data-description="Community Management y contenido para tienda en centro comercial">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/2.jpg" alt="Multi PC Sambil" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- ACCORDION 2 -->
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <div class="accordion-header-left">
+            <img src="./imagenes/2.jpg" alt="Multi PC Sambil" class="accordion-img">
+            <div>
+              <div class="accordion-title">Multi PC Sambil</div>
+              <div class="accordion-handle">@multipc_sambil</div>
+            </div>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          <i data-lucide="chevron-down" class="accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-content">
+            <div class="accordion-section">
+              <span class="accordion-section-label">Estrategia</span>
+              <p class="accordion-section-text">Community Management y contenido para tienda física en centro comercial. Enfoque en experiencia de compra in-store, promociones flash y contenido visual de alta calidad para productos de tecnología.</p>
+            </div>
+            <div class="accordion-section">
+              <span class="accordion-section-label">Resultados</span>
+              <p class="accordion-section-text">Incremento del tráfico a la tienda física del 25% mediante campañas de stories geolocalizadas. Mejora en la percepción de marca y fidelización de clientes recurrentes.</p>
+            </div>
+            <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer" class="accordion-link">
+              <i data-lucide="external-link" style="width:12px;height:12px"></i>
+              Ver perfil
+            </a>
           </div>
         </div>
-        <span class="phone-label">Multi PC Sambil</span>
-        <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer" class="phone-link">@multipc_sambil</a>
       </div>
 
-      <!-- PHONE 3 -->
-      <div class="phone-wrap" data-instagram="https://www.instagram.com/multimediagaming10/" data-title="Multimedia Gaming" data-description="Gestión de contenido para tienda de gaming y componentes">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/3.jpg" alt="Multimedia Gaming" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- ACCORDION 3 -->
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <div class="accordion-header-left">
+            <img src="./imagenes/3.jpg" alt="Multimedia Gaming" class="accordion-img">
+            <div>
+              <div class="accordion-title">Multimedia Gaming</div>
+              <div class="accordion-handle">@multimediagaming10</div>
+            </div>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          <i data-lucide="chevron-down" class="accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-content">
+            <div class="accordion-section">
+              <span class="accordion-section-label">Estrategia</span>
+              <p class="accordion-section-text">Gestión de contenido para tienda de gaming y componentes. Creación de reviews de hardware gamer, comparativas de periféricos y contenido educativo sobre optimización de setups gaming.</p>
+            </div>
+            <div class="accordion-section">
+              <span class="accordion-section-label">Resultados</span>
+              <p class="accordion-section-text">Crecimiento orgánico del 60% en seguidores activos. Reels de unboxing y comparativas generando alto engagement. Aumento significativo en ventas de periféricos gamer y componentes de alto rendimiento.</p>
+            </div>
+            <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer" class="accordion-link">
+              <i data-lucide="external-link" style="width:12px;height:12px"></i>
+              Ver perfil
+            </a>
           </div>
         </div>
-        <span class="phone-label">Multimedia Gaming</span>
-        <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer" class="phone-link">@multimediagaming10</a>
       </div>
 
-      <!-- PHONE 4 -->
-      <div class="phone-wrap" data-instagram="https://www.instagram.com/tecnisevencomputer/" data-title="Tecniseven Computer" data-description="Community Management y estrategia de contenido">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/4.jpg" alt="Tecniseven Computer" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- ACCORDION 4 -->
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <div class="accordion-header-left">
+            <img src="./imagenes/4.jpg" alt="Tecniseven Computer" class="accordion-img">
+            <div>
+              <div class="accordion-title">Tecniseven Computer</div>
+              <div class="accordion-handle">@tecnisevencomputer</div>
+            </div>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          <i data-lucide="chevron-down" class="accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-content">
+            <div class="accordion-section">
+              <span class="accordion-section-label">Estrategia</span>
+              <p class="accordion-section-text">Community Management y estrategia de contenido técnico enfocado en reparaciones, mantenimiento de equipos y asesoría especializada en hardware de alto rendimiento.</p>
+            </div>
+            <div class="accordion-section">
+              <span class="accordion-section-label">Resultados</span>
+              <p class="accordion-section-text">Posicionamiento como referente técnico en la comunidad. Reducción del 30% en tiempo de respuesta al cliente mediante automatización. Incremento en solicitudes de servicio técnico especializado.</p>
+            </div>
+            <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer" class="accordion-link">
+              <i data-lucide="external-link" style="width:12px;height:12px"></i>
+              Ver perfil
+            </a>
           </div>
         </div>
-        <span class="phone-label">Tecniseven Computer</span>
-        <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer" class="phone-link">@tecnisevencomputer</a>
       </div>
 
-      <!-- PHONE 5 -->
-      <div class="phone-wrap" data-instagram="#" data-title="5ta Marca" data-description="Próximo proyecto Community Management">
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <img src="./imagenes/5.jpg" alt="5ta Marca" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- ACCORDION 5 -->
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <div class="accordion-header-left">
+            <img src="./imagenes/5.jpg" alt="Universo PC Gaming" class="accordion-img">
+            <div>
+              <div class="accordion-title">Universo PC Gaming</div>
+              <div class="accordion-handle">@universopc_vzla</div>
+            </div>
           </div>
-          <div class="phone-overlay">
-            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          <i data-lucide="chevron-down" class="accordion-icon"></i>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-content">
+            <div class="accordion-section">
+              <span class="accordion-section-label">Estrategia</span>
+              <p class="accordion-section-text">Especializado en ventas de componentes de PC y hardware gamer. Enfoque en builds personalizadas, asesoría técnica especializada y contenido visual de alta calidad para entusiastas del gaming.</p>
+            </div>
+            <div class="accordion-section">
+              <span class="accordion-section-label">Resultados</span>
+              <p class="accordion-section-text">Mayor autoridad en el nicho de hardware gamer. Aumento del 50% en consultas de builds personalizadas. Contenido técnico generando alta retención y compartidos orgánicos.</p>
+            </div>
+            <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="accordion-link">
+              <i data-lucide="external-link" style="width:12px;height:12px"></i>
+              Ver perfil
+            </a>
           </div>
         </div>
-        <span class="phone-label">5ta Marca</span>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="phone-link">@quinta_cuenta</a>
       </div>
 
-    </div>
-    <p class="faint" style="font-size:.75rem;margin-top:1.5rem;text-align:center" data-es="Haz clic en cada teléfono para ver más detalles" data-en="Click each phone to see more details">Haz clic en cada teléfono para ver más detalles</p>
-  </div>
-</section>
-
-<!-- MODAL -->
-<div class="modal" id="phoneModal">
-  <div class="modal-content">
-    <button class="modal-close" id="modalClose">
-      <i data-lucide="x" style="width:20px;height:20px"></i>
-    </button>
-    <div class="modal-body">
-      <div class="modal-header">
-        <h3 id="modalTitle">Universo PC</h3>
-        <p id="modalDescription">Gestión de contenido y Community Management</p>
-      </div>
-      <img id="modalImage" class="modal-image" src="" alt="">
-      <div class="modal-actions">
-        <a href="#" id="modalInstagram" class="modal-btn" target="_blank" rel="noopener noreferrer">
-          <i data-lucide="instagram" style="width:16px;height:16px"></i>
-          <span>Ver Instagram</span>
-        </a>
-        <button class="modal-btn-ghost" id="modalCloseBtn">
-          <span>Cerrar</span>
-        </button>
-      </div>
     </div>
   </div>
 </section>
@@ -608,10 +729,9 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   <div class="container footer-inner">
     <span class="faint" style="font-size:.82rem">© 2025 Daniel Toro</span>
     <div style="display:flex;align-items:center;gap:.5rem;color:var(--muted);font-size:.78rem">
-      <span data-es="Powered by" data-en="Powered by">Powered by</span>
+      <span>Creado por</span>
       <a href="https://jaegerflow.com" target="_blank" rel="noopener noreferrer" class="jaeger-seal">
-        <span class="syne">JaegerFlow</span>
-        <span>⚡</span>
+        <span class="syne">jaegerflow</span>
       </a>
     </div>
   </div>
@@ -732,82 +852,53 @@ const statObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
 
-// ===================== PHONE MODAL SYSTEM =====================
-const modal = document.getElementById('phoneModal');
-const modalTitle = document.getElementById('modalTitle');
-const modalDescription = document.getElementById('modalDescription');
-const modalImage = document.getElementById('modalImage');
-const modalInstagram = document.getElementById('modalInstagram');
-const modalClose = document.getElementById('modalClose');
-const modalCloseBtn = document.getElementById('modalCloseBtn');
-
-// Phone click handlers
-document.querySelectorAll('.phone-wrap').forEach(phoneWrap => {
-  phoneWrap.addEventListener('click', (e) => {
-    // Prevent link clicks from triggering modal
-    if (e.target.closest('.phone-link')) return;
-    
-    const instagram = phoneWrap.dataset.instagram;
-    const title = phoneWrap.dataset.title;
-    const description = phoneWrap.dataset.description;
-    const phoneScreen = phoneWrap.querySelector('.phone-screen img');
-    
-    // Update modal content
-    modalTitle.textContent = title;
-    modalDescription.textContent = description;
-    modalInstagram.href = instagram;
-    
-    // Set modal image
-    if (phoneScreen && phoneScreen.src && !phoneScreen.src.includes('about:blank')) {
-      modalImage.src = phoneScreen.src;
-      modalImage.alt = title;
-      modalImage.style.display = 'block';
-    } else {
-      modalImage.style.display = 'none';
+// ===================== ACCORDION =====================
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const item = header.parentElement;
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+    // Open clicked if wasn't open
+    if (!isOpen) {
+      item.classList.add('open');
     }
-    
-    // Open modal with animation
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    
-    // Animate modal content
-    gsap.fromTo('.modal-content', 
-      { scale: 0.8, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' }
-    );
   });
 });
 
-// Close modal handlers
-function closeModal() {
-  gsap.to('.modal-content', {
-    scale: 0.8,
-    opacity: 0,
-    duration: 0.2,
-    ease: 'power2.in',
-    onComplete: () => {
-      modal.classList.remove('open');
-      document.body.style.overflow = '';
+// ===================== FEATURED REEL CONTROLS =====================
+const reelPlayBtn = document.getElementById('reelPlay');
+const reelMuteBtn = document.getElementById('reelMute');
+const reelVideo = document.querySelector('.reel-video');
+let isPlaying = false;
+let isMuted = true;
+
+if (reelPlayBtn && reelVideo) {
+  reelPlayBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      reelVideo.pause();
+      reelPlayBtn.innerHTML = '<i data-lucide="play" style="width:18px;height:18px"></i>';
+    } else {
+      reelVideo.play();
+      reelPlayBtn.innerHTML = '<i data-lucide="pause" style="width:18px;height:18px"></i>';
     }
+    isPlaying = !isPlaying;
+    lucide.createIcons();
   });
 }
 
-modalClose.addEventListener('click', closeModal);
-modalCloseBtn.addEventListener('click', closeModal);
-
-// Close on backdrop click
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    closeModal();
-  }
-});
-
-// Close on ESC key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && modal.classList.contains('open')) {
-    closeModal();
-  }
-});
+if (reelMuteBtn && reelVideo) {
+  reelMuteBtn.addEventListener('click', () => {
+    reelVideo.muted = !isMuted;
+    if (isMuted) {
+      reelMuteBtn.innerHTML = '<i data-lucide="volume-2" style="width:18px;height:18px"></i>';
+    } else {
+      reelMuteBtn.innerHTML = '<i data-lucide="volume-x" style="width:18px;height:18px"></i>';
+    }
+    isMuted = !isMuted;
+    lucide.createIcons();
+  });
+}
 </script>
 </body>
 </html>
