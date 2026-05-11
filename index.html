@@ -15,24 +15,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+<!-- AOS (Animate On Scroll) -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
 <style>
 /* ===================== TOKENS ===================== */
 :root {
-  --bg:          #0a0a0f;
-  --s1:          #111118;
-  --s2:          #1a1a24;
-  --s3:          #222230;
-  --border:      rgba(255,255,255,0.07);
-  --text:        #f1f0f7;
-  --muted:       #9999aa;
-  --faint:       #5a5a6e;
-  --accent:      #9b5cf6;
-  --accent-soft: #c4b5fd;
-  --neon:        #39ff14;
-  --shadow-v:    0 0 40px rgba(155,92,246,0.15);
+  --bg:          #0a0a0a;
+  --s1:          #0f0f14;
+  --s2:          #1a1a1f;
+  --s3:          #25252b;
+  --border:      rgba(255,255,255,0.08);
+  --text:        #f5f5f7;
+  --muted:       #a0a0a8;
+  --faint:       #6b7280;
+  --accent:      #00ff88;
+  --accent-soft: #00cc6a;
+  --accent-glow: #00ff88;
+  --neon:        #00ff88;
+  --shadow-v:    0 0 40px rgba(0,255,136,0.15);
   --r-sm: 0.4rem; --r-md: 0.6rem; --r-lg: 1rem; --r-full: 9999px;
   --font-d: 'Syne', sans-serif;
   --font-b: 'DM Sans', sans-serif;
@@ -50,7 +55,7 @@ ul{list-style:none}
 
 /* ===================== TYPOGRAPHY ===================== */
 .syne{font-family:var(--font-d)}
-h1{font-family:var(--font-d);font-weight:800;font-size:clamp(2.8rem,8vw,7.5rem);line-height:1.05;background:linear-gradient(135deg,var(--accent),var(--accent-soft));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h1{font-family:var(--font-d);font-weight:800;font-size:clamp(2.8rem,8vw,7.5rem);line-height:1.05;background:linear-gradient(135deg,var(--accent),var(--accent-soft),var(--accent-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:2}
 h2{font-family:var(--font-d);font-weight:700;font-size:clamp(1.6rem,3.5vw,2.8rem);line-height:1.15}
 h3{font-family:var(--font-d);font-weight:700;font-size:clamp(1.1rem,2vw,1.4rem)}
 .label{font-family:var(--font-b);font-weight:500;font-size:0.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft)}
@@ -68,41 +73,42 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 .nav-logo{font-family:var(--font-d);font-weight:800;font-size:1.1rem;letter-spacing:-.01em}
 .nav-links{display:flex;align-items:center;gap:1.75rem}
 .nav-links a{font-size:.875rem;font-weight:500;color:var(--muted);transition:color .2s}
-.nav-links a:hover{color:var(--text)}
+.nav-links a:hover{color:var(--accent)}
 .lang-btn{font-size:.78rem;font-weight:500;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--r-full);color:var(--muted);transition:all .2s;letter-spacing:.05em}
-.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,255,136,0.1)}
 .nav-burger{display:none;flex-direction:column;gap:5px;width:28px;padding:4px 0}
 .nav-burger span{display:block;height:2px;background:var(--text);border-radius:2px;transition:.3s}
 .mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-family:var(--font-d);font-weight:700;font-size:2rem;color:var(--muted);transition:color .2s}
-.mobile-menu a:hover{color:var(--text)}
+.mobile-menu a:hover{color:var(--accent)}
 
 /* ===================== HERO ===================== */
 #hero{min-height:100vh;display:flex;align-items:center;padding-top:5rem;position:relative;overflow:hidden}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;width:100%}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;border:1px solid rgba(155,92,246,.3);border-radius:var(--r-full);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:1.5rem;width:fit-content}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;border:1px solid rgba(0,255,136,.3);border-radius:var(--r-full);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:1.5rem;width:fit-content;background:rgba(0,255,136,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:relative;z-index:2}
 .hero-tagline{font-size:clamp(1rem,2vw,1.25rem);color:var(--muted);margin:.75rem 0 1.5rem;max-width:52ch}
 .hero-bio{font-size:.95rem;color:var(--muted);max-width:46ch;margin-bottom:2.5rem;line-height:1.7}
 .cta-row{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;background:var(--accent);color:#fff;border-radius:var(--r-md);font-weight:500;font-size:.9rem;transition:all .2s;box-shadow:0 4px 20px rgba(155,92,246,.3)}
-.btn-primary:hover{background:#8b4de6;transform:translateY(-2px);box-shadow:0 8px 30px rgba(155,92,246,.4)}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#000;border-radius:var(--r-md);font-weight:600;font-size:.9rem;transition:all .3s;box-shadow:0 4px 20px rgba(0,255,136,.3);position:relative;overflow:hidden;z-index:2}
+.btn-primary:hover{background:linear-gradient(135deg,var(--accent-soft),var(--accent));transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,136,.5)}
 .btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border:1px solid var(--border);border-radius:var(--r-md);font-weight:500;font-size:.9rem;color:var(--muted);transition:all .2s}
-.btn-ghost:hover{border-color:var(--accent-soft);color:var(--text)}
+.btn-ghost:hover{border-color:var(--accent-soft);color:var(--accent-soft);background:rgba(0,255,136,.05)}
 
-/* Blob */
+/* Blob - Modern Premium Design */
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:480px}
-.blob{width:320px;height:320px;border-radius:60% 40% 30% 70%/60% 30% 70% 40%;background:linear-gradient(135deg,rgba(155,92,246,.25),rgba(196,181,253,.1));border:1px solid rgba(155,92,246,.2);animation:morph 8s ease-in-out infinite;position:relative;transform-style:preserve-3d;will-change:transform}
-@keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}50%{border-radius:50% 50% 40% 60%/30% 60% 70% 40%}75%{border-radius:70% 30% 50% 50%/40% 50% 60% 50%}}
-.blob-inner{position:absolute;inset:12px;border-radius:inherit;background:linear-gradient(135deg,rgba(155,92,246,.12),transparent);filter:blur(1px)}
-.blob-glow{position:absolute;inset:-20px;border-radius:inherit;background:radial-gradient(circle,rgba(155,92,246,.12),transparent 70%);animation:pulse-glow 4s ease-in-out infinite alternate}
-@keyframes pulse-glow{from{opacity:.4}to{opacity:1}}
-.floating-tag{position:absolute;padding:.3rem .8rem;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-full);font-size:.72rem;font-weight:500;color:var(--accent-soft);white-space:nowrap;animation:float-tag 6s ease-in-out infinite}
+.blob-container{position:relative;width:320px;height:320px;transform-style:preserve-3d;perspective:1000px}
+.blob{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(0,255,136,0.3),rgba(0,204,106,0.1),transparent);border:2px solid rgba(0,255,136,0.2);position:relative;overflow:hidden;box-shadow:0 0 60px rgba(0,255,136,0.2),inset 0 0 60px rgba(0,255,136,0.1)}
+.blob::before{content:'';position:absolute;inset:10%;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,0.2),transparent);animation:inner-glow 4s ease-in-out infinite alternate}
+.blob::after{content:'';position:absolute;inset:-50%;border-radius:50%;background:conic-gradient(from 0deg,transparent,rgba(0,255,136,0.1),transparent);animation:rotate 8s linear infinite}
+@keyframes inner-glow{from{transform:scale(0.8);opacity:0.5}to{transform:scale(1.2);opacity:1}}
+@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.floating-tag{position:absolute;padding:.4rem 1rem;background:var(--s2);border:1px solid rgba(0,255,136,0.3);border-radius:var(--r-full);font-size:.72rem;font-weight:600;color:var(--accent-soft);white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,255,136,0.15)}
 .ft1{top:15%;left:-10%;animation-delay:0s}
 .ft2{top:25%;right:-5%;animation-delay:1.5s}
 .ft3{bottom:25%;left:-5%;animation-delay:3s}
 .ft4{bottom:15%;right:-10%;animation-delay:4.5s}
-@keyframes float-tag{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes float-tag{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.05)}}
 .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--faint);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;animation:bounce-arrow 2s ease-in-out infinite}
 @keyframes bounce-arrow{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
 
@@ -121,7 +127,7 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 .bento{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:1.25rem}
 .bento-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem;transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
 .bento-card::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none}
-.bento-card:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(155,92,246,.2)}
+.bento-card:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(0,255,136,.2)}
 .bento-wide{grid-column:1;grid-row:1/3}
 .bento-sm{grid-column:2}
 .bento-icon{width:2.5rem;height:2.5rem;color:var(--accent);margin-bottom:1rem}
@@ -135,26 +141,27 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 #work .section-header{margin-bottom:3rem}
 .phones-row{display:flex;gap:1.5rem;justify-content:center;align-items:flex-end;perspective:1200px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:1rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .phone-wrap{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:.75rem;cursor:pointer}
-.phone{width:130px;height:260px;background:var(--s3);border-radius:20px;border:2px solid rgba(255,255,255,.12);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.phone{width:130px;height:260px;background:var(--s3);border-radius:20px;border:2px solid rgba(0,255,136,.15);position:relative;overflow:hidden;transition:all .3s;box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 20px rgba(0,255,136,.1);cursor:pointer}
 .phone:nth-child(1){transform:rotateY(-6deg)}
-.phone:nth-child(1):hover{transform:rotateY(-8deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone:nth-child(1):hover{transform:rotateY(-8deg) translateY(-8px) scale(1.05);box-shadow:0 20px 50px rgba(0,255,136,.3),0 0 30px rgba(0,255,136,.2);cursor:pointer}
 .phone-wrap:nth-child(2) .phone{transform:rotateY(-3deg)}
-.phone-wrap:nth-child(2) .phone:hover{transform:rotateY(-5deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-wrap:nth-child(2) .phone:hover{transform:rotateY(-5deg) translateY(-8px) scale(1.05);box-shadow:0 20px 50px rgba(0,255,136,.3),0 0 30px rgba(0,255,136,.2);cursor:pointer}
 .phone-wrap:nth-child(3) .phone{transform:rotateY(0deg)}
-.phone-wrap:nth-child(3) .phone:hover{transform:rotateY(0deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-wrap:nth-child(3) .phone:hover{transform:rotateY(0deg) translateY(-8px) scale(1.05);box-shadow:0 20px 50px rgba(0,255,136,.3),0 0 30px rgba(0,255,136,.2);cursor:pointer}
 .phone-wrap:nth-child(4) .phone{transform:rotateY(3deg)}
-.phone-wrap:nth-child(4) .phone:hover{transform:rotateY(5deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-wrap:nth-child(4) .phone:hover{transform:rotateY(5deg) translateY(-8px) scale(1.05);box-shadow:0 20px 50px rgba(0,255,136,.3),0 0 30px rgba(0,255,136,.2);cursor:pointer}
 .phone-wrap:nth-child(5) .phone{transform:rotateY(6deg)}
-.phone-wrap:nth-child(5) .phone:hover{transform:rotateY(8deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-wrap:nth-child(5) .phone:hover{transform:rotateY(8deg) translateY(-8px) scale(1.05);box-shadow:0 20px 50px rgba(0,255,136,.3),0 0 30px rgba(0,255,136,.2);cursor:pointer}
 .phone-screen{position:absolute;inset:8px 6px;border-radius:14px;overflow:hidden;background:var(--s2)}
 .phone-screen img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .phone:hover .phone-screen img{transform:scale(1.05)}
 .phone-notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:40px;height:5px;background:var(--bg);border-radius:3px;z-index:2}
-.phone-overlay{position:absolute;inset:8px 6px;border-radius:14px;background:rgba(155,92,246,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:opacity .25s;z-index:3}
+.phone-overlay{position:absolute;inset:8px 6px;border-radius:14px;background:linear-gradient(135deg,rgba(0,255,136,.8),rgba(0,204,106,.8));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:all .3s;z-index:3;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
 .phone:hover .phone-overlay{opacity:1}
 .phone-overlay span{font-size:.72rem;font-weight:500;color:#fff;letter-spacing:.05em}
 .phone-label{font-size:.72rem;color:var(--muted);text-align:center;max-width:120px}
-.phone-link{font-size:.68rem;color:var(--accent-soft);text-decoration:underline;text-underline-offset:3px}
+.phone-link{font-size:.68rem;color:var(--accent-soft);text-decoration:underline;text-underline-offset:3px;transition:color .2s}
+.phone-link:hover{color:var(--accent)}
 
 /* Upload placeholder */
 .phone-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--faint);font-size:.7rem;text-align:center;padding:.5rem}
@@ -164,51 +171,67 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 #tools .section-header{margin-bottom:2.5rem}
 .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:1rem}
 .tool-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.25rem .75rem;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);transition:all .2s;cursor:default}
-.tool-item:hover{transform:translateY(-4px);border-color:rgba(155,92,246,.3)}
+.tool-item:hover{transform:translateY(-4px);border-color:rgba(0,255,136,.3)}
 .tool-item img{width:36px;height:36px;object-fit:contain;filter:grayscale(1) opacity(.5);transition:filter .2s}
 .tool-item:hover img{filter:grayscale(0) opacity(1)}
 .tool-item span{font-size:.65rem;color:var(--muted);text-align:center;line-height:1.3}
 .tool-item:hover span{color:var(--text)}
 
 /* Glow per tool */
-.tool-ps:hover{box-shadow:0 4px 20px rgba(49,168,255,.2)}
+.tool-ps:hover{box-shadow:0 4px 20px rgba(0,255,136,.2)}
 .tool-ai:hover{box-shadow:0 4px 20px rgba(255,154,0,.2)}
 .tool-ae:hover{box-shadow:0 4px 20px rgba(121,89,255,.2)}
-.tool-pr:hover{box-shadow:0 4px 20px rgba(155,92,246,.2)}
+.tool-pr:hover{box-shadow:0 4px 20px rgba(0,255,136,.2)}
 .tool-id:hover{box-shadow:0 4px 20px rgba(255,54,58,.2)}
 .tool-c4d:hover{box-shadow:0 4px 20px rgba(1,109,196,.2)}
-.tool-lr:hover{box-shadow:0 4px 20px rgba(49,168,255,.15)}
+.tool-lr:hover{box-shadow:0 4px 20px rgba(0,255,136,.15)}
 .tool-cv:hover{box-shadow:0 4px 20px rgba(0,195,255,.2)}
 .tool-dr:hover{box-shadow:0 4px 20px rgba(84,188,127,.2)}
 .tool-au:hover{box-shadow:0 4px 20px rgba(0,168,210,.2)}
 
 /* ===================== CONTACT ===================== */
 #contact{position:relative;overflow:hidden;text-align:center}
-.contact-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(155,92,246,.06),transparent 70%);pointer-events:none}
+.contact-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,255,136,.06),transparent 70%);pointer-events:none}
 #contact h2{margin-bottom:1rem}
 #contact p{color:var(--muted);margin-bottom:2.5rem;max-width:46ch;margin-inline:auto}
-.contact-email{display:inline-block;font-size:.9rem;color:var(--accent-soft);margin-top:1.5rem;border-bottom:1px solid rgba(196,181,253,.3);padding-bottom:.2rem}
+.contact-email{display:inline-block;font-size:.9rem;color:var(--accent-soft);margin-top:1.5rem;border-bottom:1px solid rgba(0,255,136,.3);padding-bottom:.2rem}
 
 /* ===================== FOOTER ===================== */
 footer{padding:2rem 0;border-top:1px solid var(--border)}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.jaeger-seal{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1.1rem;border:1px solid var(--neon);border-radius:var(--r-full);color:var(--neon);font-size:.82rem;transition:all .25s;box-shadow:0 0 12px rgba(57,255,20,.25);text-shadow:0 0 8px rgba(57,255,20,.5)}
-.jaeger-seal:hover{box-shadow:0 0 28px rgba(57,255,20,.55);transform:scale(1.03)}
+.jaeger-seal{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1.1rem;border:1px solid var(--neon);border-radius:var(--r-full);color:var(--neon);font-size:.82rem;transition:all .25s;box-shadow:0 0 12px rgba(0,255,136,.25);text-shadow:0 0 8px rgba(0,255,136,.5)}
+.jaeger-seal:hover{box-shadow:0 0 28px rgba(0,255,136,.55);transform:scale(1.03)}
 .jaeger-seal .syne{font-weight:800}
 
 /* ===================== SECTION HEADER ===================== */
 .section-header{display:flex;flex-direction:column;gap:.5rem}
 .section-header p{color:var(--muted);font-size:.98rem;max-width:52ch}
 
-/* ===================== REVEAL ANIMATIONS ===================== */
-.reveal{opacity:0;clip-path:inset(15% 0 0 0);will-change:opacity,clip-path}
-.reveal.in{opacity:1;clip-path:inset(0% 0 0 0);transition:opacity .7s cubic-bezier(.16,1,.3,1),clip-path .7s cubic-bezier(.16,1,.3,1)}
+/* ===================== REVEAL ANIMATIONS (REMOVED - USING AOS) ===================== */
+/* AOS now handles all scroll animations */
+
+/* ===================== MODAL ===================== */
+.modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.modal.open{display:flex;opacity:1}
+.modal-content{background:var(--s2);border:1px solid rgba(0,255,136,.2);border-radius:var(--r-lg);max-width:90vw;max-height:90vh;overflow:auto;position:relative;box-shadow:0 20px 60px rgba(0,255,136,.2)}
+.modal-close{position:absolute;top:1rem;right:1rem;width:40px;height:40px;background:var(--s3);border:1px solid var(--border);border-radius:var(--r-full);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1001;color:var(--muted);transition:all .2s}
+.modal-close:hover{background:rgba(0,255,136,.1);border-color:var(--accent);color:var(--accent)}
+.modal-body{padding:2rem}
+.modal-header{text-align:center;margin-bottom:2rem}
+.modal-header h3{font-size:1.8rem;margin-bottom:.5rem;color:var(--accent-soft)}
+.modal-header p{color:var(--muted)}
+.modal-image{width:100%;max-width:400px;height:auto;border-radius:var(--r-lg);margin:0 auto 2rem;display:block;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.modal-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.modal-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#000;border-radius:var(--r-md);font-weight:600;transition:all .3s;text-decoration:none}
+.modal-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,136,.4)}
+.modal-btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border:1px solid rgba(0,255,136,.3);border-radius:var(--r-md);color:var(--accent-soft);transition:all .2s;text-decoration:none}
+.modal-btn-ghost:hover{background:rgba(0,255,136,.1);border-color:var(--accent)}
 
 /* ===================== RESPONSIVE ===================== */
 @media(max-width:768px){
   .hero-grid{grid-template-columns:1fr;text-align:center}
   .hero-visual{height:280px;order:-1}
-  .blob{width:220px;height:220px}
+  .blob-container{width:220px;height:220px}
   .ft1,.ft3{left:0}.ft2,.ft4{right:0}
   .hero-bio,.hero-tagline{max-width:100%;margin-inline:auto}
   .cta-row{justify-content:center}
@@ -222,10 +245,16 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   .nav-links{display:none}
   .nav-burger{display:flex}
   .footer-inner{justify-content:center}
+  .modal-content{margin:1rem;max-width:calc(100vw - 2rem)}
+  .modal-body{padding:1.5rem}
+  .modal-image{max-width:300px}
 }
 @media(max-width:480px){
   .stats-grid{grid-template-columns:1fr 1fr}
   .tools-grid{grid-template-columns:repeat(3,1fr)}
+  .phones-row{gap:0.75rem}
+  .phone{width:110px;height:220px}
+  .floating-tag{font-size:.65rem;padding:.3rem .8rem}
 }
 </style>
 </head>
@@ -264,18 +293,18 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
   <div class="container">
     <div class="hero-grid">
       <div class="hero-text">
-        <div class="hero-badge">
+        <div class="hero-badge" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
           <i data-lucide="zap" style="width:12px;height:12px"></i>
           <span>Creative Director · Video Editor · Brand Designer</span>
         </div>
-        <h1>Daniel<br/>Toro</h1>
-        <p class="hero-tagline" data-es="Diseño que comunica. Movimiento que impacta." data-en="Design that communicates. Motion that impacts.">
+        <h1 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Daniel<br/>Toro</h1>
+        <p class="hero-tagline" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" data-es="Diseño que comunica. Movimiento que impacta." data-en="Design that communicates. Motion that impacts.">
           Diseño que comunica. Movimiento que impacta.
         </p>
-        <p class="hero-bio" data-es="6+ años creando identidades visuales, videos de marca y animaciones 3D que hacen que la gente se detenga a mirar." data-en="6+ years building visual identities, brand videos and 3D animations that make people stop and look.">
+        <p class="hero-bio" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" data-es="6+ años creando identidades visuales, videos de marca y animaciones 3D que hacen que la gente se detenga a mirar." data-en="6+ years building visual identities, brand videos and 3D animations that make people stop and look.">
           6+ años creando identidades visuales, videos de marca y animaciones 3D que hacen que la gente se detenga a mirar.
         </p>
-        <div class="cta-row">
+        <div class="cta-row" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
           <a href="#work" class="btn-primary">
             <i data-lucide="play-circle" style="width:16px;height:16px"></i>
             <span data-es="Ver mi trabajo" data-en="See my work">Ver mi trabajo</span>
@@ -286,15 +315,14 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
         </div>
       </div>
 
-      <div class="hero-visual" id="heroVisual">
-        <div class="blob-glow"></div>
-        <div class="blob" id="blobEl">
-          <div class="blob-inner"></div>
+      <div class="hero-visual" id="heroVisual" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
+        <div class="blob-container">
+          <div class="blob" id="blobEl"></div>
         </div>
-        <div class="floating-tag ft1">After Effects</div>
-        <div class="floating-tag ft2">Cinema 4D</div>
-        <div class="floating-tag ft3">Premiere Pro</div>
-        <div class="floating-tag ft4">Photoshop</div>
+        <div class="floating-tag ft1" data-aos="fade-up" data-aos-duration="600" data-aos-delay="800">After Effects</div>
+        <div class="floating-tag ft2" data-aos="fade-up" data-aos-duration="600" data-aos-delay="900">Cinema 4D</div>
+        <div class="floating-tag ft3" data-aos="fade-up" data-aos-duration="600" data-aos-delay="1000">Premiere Pro</div>
+        <div class="floating-tag ft4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="1100">Photoshop</div>
       </div>
     </div>
   </div>
@@ -308,7 +336,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
 <section id="about">
   <div class="container">
     <div class="about-grid">
-      <div class="about-text reveal">
+      <div class="about-text" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
         <span class="label" data-es="Sobre mí" data-en="About me">Sobre mí</span>
         <h2 style="margin-top:.75rem" data-es="Empecé con Photoshop a los 14. Nunca paré." data-en="Started with Photoshop at 14. Never stopped.">
           Empecé con Photoshop a los 14. Nunca paré.
@@ -317,7 +345,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
           Lo que empezó como un hobby se convirtió en una carrera. Pasé por animación 2D y 3D en Cinema 4D, diseño gráfico, branding corporativo y gigantografía. Hoy me especializo en edición de video y diseño visual de marca, buscando proyectos donde cada detalle importa.
         </p>
       </div>
-      <div class="stats-grid reveal">
+      <div class="stats-grid" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
         <div class="stat-card">
           <span class="stat-num" data-count="6">0</span>
           <span class="stat-label" data-es="Años de experiencia" data-en="Years of experience">Años de experiencia</span>
@@ -342,34 +370,34 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
 <!-- SERVICES -->
 <section id="services">
   <div class="container">
-    <div class="section-header reveal">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
       <span class="label" data-es="Servicios" data-en="Services">Servicios</span>
       <h2 data-es="¿Qué puedo hacer por ti?" data-en="What can I do for you?">¿Qué puedo hacer por ti?</h2>
       <p data-es="Desde la idea hasta el pixel final." data-en="From concept to final pixel.">Desde la idea hasta el pixel final.</p>
     </div>
     <div class="bento">
-      <div class="bento-card bento-wide reveal">
+      <div class="bento-card bento-wide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
         <i data-lucide="film" class="bento-icon"></i>
         <h3 data-es="Edición de Video" data-en="Video Editing">Edición de Video</h3>
         <p data-es="Videos de marca, reels, contenido para YouTube, edición de videoclips musicales y material promocional. El servicio principal — donde el movimiento cuenta la historia." data-en="Brand videos, reels, YouTube content, music video editing and promotional material. The core service — where motion tells the story.">
           Videos de marca, reels, contenido para YouTube, edición de videoclips musicales y material promocional. El servicio principal — donde el movimiento cuenta la historia.
         </p>
       </div>
-      <div class="bento-card bento-sm reveal">
+      <div class="bento-card bento-sm" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
         <i data-lucide="palette" class="bento-icon"></i>
         <h3 data-es="Diseño Gráfico" data-en="Graphic Design">Diseño Gráfico</h3>
         <p data-es="Banners, miniaturas, logotipos, diseño para impresión y gigantografía a gran escala." data-en="Banners, thumbnails, logos, print design and large-format.">
           Banners, miniaturas, logotipos y gigantografía.
         </p>
       </div>
-      <div class="bento-card bento-sm reveal">
+      <div class="bento-card bento-sm" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
         <i data-lucide="layers" class="bento-icon"></i>
         <h3 data-es="Branding & Identidad" data-en="Branding & Identity">Branding & Identidad</h3>
         <p data-es="Creación de logotipos, paletas de color y manuales de marca completos." data-en="Logo creation, color palettes and complete brand manuals.">
           Logos, paletas de color y manuales de marca.
         </p>
       </div>
-      <div class="bento-card bento-sm reveal">
+      <div class="bento-card bento-sm" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
         <i data-lucide="boxes" class="bento-icon"></i>
         <h3 data-es="Animación 3D & Motion" data-en="3D & Motion">Animación 3D & Motion</h3>
         <p data-es="Escenas en Cinema 4D, motion graphics y efectos visuales en After Effects." data-en="Cinema 4D scenes, motion graphics and After Effects VFX.">
@@ -383,169 +411,168 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
 <!-- WORK -->
 <section id="work">
   <div class="container">
-    <div class="section-header reveal">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
       <span class="label" data-es="Trabajos" data-en="Work">Trabajos</span>
       <h2 data-es="Proyectos recientes" data-en="Recent Work">Proyectos recientes</h2>
       <p data-es="Marcas con las que he colaborado recientemente." data-en="Brands I've recently worked with.">Marcas con las que he colaborado recientemente.</p>
     </div>
-    <div class="phones-row reveal">
+    <div class="phones-row" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
 
       <!-- PHONE 1 -->
-      <div class="phone-wrap">
-        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <!-- REEMPLAZA ESTA IMAGEN CON TU CAPTURA DE universopc_vzla -->
-              <div class="phone-placeholder">
-                <i data-lucide="image"></i>
-                <span>Sube captura<br/>universopc_vzla</span>
-              </div>
-            </div>
-            <div class="phone-overlay">
-              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
-            </div>
+      <div class="phone-wrap" data-instagram="https://www.instagram.com/universopc_vzla/" data-title="Universo PC" data-description="Gestión de contenido y Community Management para tienda de tecnología">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="./imagenes/1.jpg" alt="Universo PC" style="width:100%;height:100%;object-fit:cover;object-position:center;">
           </div>
-        </a>
+          <div class="phone-overlay">
+            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          </div>
+        </div>
         <span class="phone-label">Universo PC</span>
         <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-link">@universopc_vzla</a>
       </div>
 
       <!-- PHONE 2 -->
-      <div class="phone-wrap">
-        <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <div class="phone-placeholder">
-                <i data-lucide="image"></i>
-                <span>Sube captura<br/>multipc_sambil</span>
-              </div>
-            </div>
-            <div class="phone-overlay">
-              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
-            </div>
+      <div class="phone-wrap" data-instagram="https://www.instagram.com/multipc_sambil/" data-title="Multi PC Sambil" data-description="Community Management y contenido para tienda en centro comercial">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="./imagenes/2.jpg" alt="Multi PC Sambil" style="width:100%;height:100%;object-fit:cover;object-position:center;">
           </div>
-        </a>
+          <div class="phone-overlay">
+            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          </div>
+        </div>
         <span class="phone-label">Multi PC Sambil</span>
         <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer" class="phone-link">@multipc_sambil</a>
       </div>
 
       <!-- PHONE 3 -->
-      <div class="phone-wrap">
-        <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <div class="phone-placeholder">
-                <i data-lucide="image"></i>
-                <span>Sube captura<br/>multimediagaming10</span>
-              </div>
-            </div>
-            <div class="phone-overlay">
-              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
-            </div>
+      <div class="phone-wrap" data-instagram="https://www.instagram.com/multimediagaming10/" data-title="Multimedia Gaming" data-description="Gestión de contenido para tienda de gaming y componentes">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="./imagenes/3.jpg" alt="Multimedia Gaming" style="width:100%;height:100%;object-fit:cover;object-position:center;">
           </div>
-        </a>
+          <div class="phone-overlay">
+            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          </div>
+        </div>
         <span class="phone-label">Multimedia Gaming</span>
         <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer" class="phone-link">@multimediagaming10</a>
       </div>
 
       <!-- PHONE 4 -->
-      <div class="phone-wrap">
-        <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <div class="phone-placeholder">
-                <i data-lucide="image"></i>
-                <span>Sube captura<br/>tecnisevencomputer</span>
-              </div>
-            </div>
-            <div class="phone-overlay">
-              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
-            </div>
+      <div class="phone-wrap" data-instagram="https://www.instagram.com/tecnisevencomputer/" data-title="Tecniseven Computer" data-description="Community Management y estrategia de contenido">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="./imagenes/4.jpg" alt="Tecniseven Computer" style="width:100%;height:100%;object-fit:cover;object-position:center;">
           </div>
-        </a>
+          <div class="phone-overlay">
+            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          </div>
+        </div>
         <span class="phone-label">Tecniseven Computer</span>
         <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer" class="phone-link">@tecnisevencomputer</a>
       </div>
 
-      <!-- PHONE 5 — 5ta cuenta pendiente -->
-      <div class="phone-wrap">
-        <a href="#" target="_blank" rel="noopener noreferrer" id="phone5link">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <div class="phone-placeholder">
-                <i data-lucide="image"></i>
-                <span>Sube captura<br/>5ta cuenta</span>
-              </div>
-            </div>
-            <div class="phone-overlay">
-              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
-              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
-            </div>
+      <!-- PHONE 5 -->
+      <div class="phone-wrap" data-instagram="#" data-title="5ta Marca" data-description="Próximo proyecto Community Management">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="./imagenes/5.jpg" alt="5ta Marca" style="width:100%;height:100%;object-fit:cover;object-position:center;">
           </div>
-        </a>
-        <span class="phone-label" id="phone5label">5ta Marca</span>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="phone-link" id="phone5handle">@quinta_cuenta</a>
+          <div class="phone-overlay">
+            <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+            <span data-es="Ver detalles" data-en="View details">Ver detalles</span>
+          </div>
+        </div>
+        <span class="phone-label">5ta Marca</span>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="phone-link">@quinta_cuenta</a>
       </div>
 
     </div>
-    <p class="faint" style="font-size:.75rem;margin-top:1.5rem;text-align:center" data-es="Haz clic en cada teléfono para visitar el perfil de Instagram" data-en="Click each phone to visit the Instagram profile">Haz clic en cada teléfono para visitar el perfil de Instagram</p>
+    <p class="faint" style="font-size:.75rem;margin-top:1.5rem;text-align:center" data-es="Haz clic en cada teléfono para ver más detalles" data-en="Click each phone to see more details">Haz clic en cada teléfono para ver más detalles</p>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="phoneModal">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">
+      <i data-lucide="x" style="width:20px;height:20px"></i>
+    </button>
+    <div class="modal-body">
+      <div class="modal-header">
+        <h3 id="modalTitle">Universo PC</h3>
+        <p id="modalDescription">Gestión de contenido y Community Management</p>
+      </div>
+      <img id="modalImage" class="modal-image" src="" alt="">
+      <div class="modal-actions">
+        <a href="#" id="modalInstagram" class="modal-btn" target="_blank" rel="noopener noreferrer">
+          <i data-lucide="instagram" style="width:16px;height:16px"></i>
+          <span>Ver Instagram</span>
+        </a>
+        <button class="modal-btn-ghost" id="modalCloseBtn">
+          <span>Cerrar</span>
+        </button>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- TOOLS -->
 <section id="tools">
   <div class="container">
-    <div class="section-header reveal">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
       <span class="label" data-es="Herramientas" data-en="Tools">Herramientas</span>
       <h2 data-es="Stack creativo" data-en="Creative stack">Stack creativo</h2>
     </div>
-    <div class="tools-grid">
-      <div class="tool-item tool-ps reveal">
+    <div class="tools-grid" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+      <div class="tool-item tool-ps" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
         <img src="https://cdn.simpleicons.org/adobephotoshop" alt="Adobe Photoshop" width="36" height="36" loading="lazy"/>
         <span>Photoshop</span>
       </div>
-      <div class="tool-item tool-ai reveal">
+      <div class="tool-item tool-ai" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
         <img src="https://cdn.simpleicons.org/adobeillustrator" alt="Adobe Illustrator" width="36" height="36" loading="lazy"/>
         <span>Illustrator</span>
       </div>
-      <div class="tool-item tool-ae reveal">
+      <div class="tool-item tool-ae" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
         <img src="https://cdn.simpleicons.org/adobeaftereffects" alt="Adobe After Effects" width="36" height="36" loading="lazy"/>
         <span>After Effects</span>
       </div>
-      <div class="tool-item tool-pr reveal">
+      <div class="tool-item tool-pr" data-aos="fade-up" data-aos-duration="600" data-aos-delay="400">
         <img src="https://cdn.simpleicons.org/adobepremierepro" alt="Adobe Premiere Pro" width="36" height="36" loading="lazy"/>
         <span>Premiere Pro</span>
       </div>
-      <div class="tool-item tool-id reveal">
+      <div class="tool-item tool-id" data-aos="fade-up" data-aos-duration="600" data-aos-delay="500">
         <img src="https://cdn.simpleicons.org/adobeindesign" alt="Adobe InDesign" width="36" height="36" loading="lazy"/>
         <span>InDesign</span>
       </div>
-      <div class="tool-item tool-lr reveal">
+      <div class="tool-item tool-lr" data-aos="fade-up" data-aos-duration="600" data-aos-delay="600">
         <img src="https://cdn.simpleicons.org/adobelightroom" alt="Adobe Lightroom" width="36" height="36" loading="lazy"/>
         <span>Lightroom</span>
       </div>
-      <div class="tool-item tool-cv reveal">
+      <div class="tool-item tool-cv" data-aos="fade-up" data-aos-duration="600" data-aos-delay="700">
         <img src="https://cdn.simpleicons.org/canva" alt="Canva" width="36" height="36" loading="lazy"/>
         <span>Canva</span>
       </div>
-      <div class="tool-item tool-dr reveal">
+      <div class="tool-item tool-dr" data-aos="fade-up" data-aos-duration="600" data-aos-delay="800">
         <img src="https://cdn.simpleicons.org/davinciresolve" alt="DaVinci Resolve" width="36" height="36" loading="lazy"/>
         <span>DaVinci Resolve</span>
       </div>
-      <div class="tool-item tool-au reveal">
+      <div class="tool-item tool-au" data-aos="fade-up" data-aos-duration="600" data-aos-delay="900">
         <img src="https://cdn.simpleicons.org/adobeaudition" alt="Adobe Audition" width="36" height="36" loading="lazy"/>
         <span>Audition</span>
       </div>
-      <div class="tool-item tool-c4d reveal" style="position:relative">
+      <div class="tool-item tool-c4d" data-aos="fade-up" data-aos-duration="600" data-aos-delay="1000" style="position:relative">
         <div style="width:36px;height:36px;background:linear-gradient(135deg,#016dc4,#003d7a);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-d);font-weight:800;font-size:.8rem">C4D</div>
         <span>Cinema 4D</span>
       </div>
@@ -560,19 +587,19 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
 <section id="contact" style="background:var(--s1)">
   <div class="container" style="position:relative;z-index:1;text-align:center">
     <div class="contact-glow"></div>
-    <span class="label reveal" data-es="Contacto" data-en="Contact">Contacto</span>
-    <h2 class="reveal" style="margin-top:.75rem" data-es="¿Tienes un proyecto en mente?" data-en="Got a project in mind?">¿Tienes un proyecto en mente?</h2>
-    <p class="reveal" style="margin:.75rem auto 2.5rem" data-es="Hablemos. Estoy disponible para proyectos freelance." data-en="Let's talk. I'm available for freelance projects.">
+    <span class="label" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" data-es="Contacto" data-en="Contact">Contacto</span>
+    <h2 data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" style="margin-top:.75rem" data-es="¿Tienes un proyecto en mente?" data-en="Got a project in mind?">¿Tienes un proyecto en mente?</h2>
+    <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" style="margin:.75rem auto 2.5rem" data-es="Hablemos. Estoy disponible para proyectos freelance." data-en="Let's talk. I'm available for freelance projects.">
       Hablemos. Estoy disponible para proyectos freelance.
     </p>
-    <a href="mailto:daniel@correo.com" class="btn-primary reveal" style="display:inline-flex">
+    <a href="mailto:daniel@correo.com" class="btn-primary" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" style="display:inline-flex">
       <i data-lucide="mail" style="width:16px;height:16px"></i>
       <span data-es="Enviar mensaje" data-en="Send message">Enviar mensaje</span>
     </a>
-    <a href="mailto:daniel@correo.com" class="contact-email reveal" style="display:block;margin-top:1.5rem">
+    <a href="mailto:daniel@correo.com" class="contact-email" style="display:block;margin-top:1.5rem">
       daniel@correo.com
     </a>
-    <p class="faint reveal" style="font-size:.75rem;margin-top:.4rem">← <span data-es="Reemplaza con tu email real" data-en="Replace with your real email">Reemplaza con tu email real</span></p>
+    <p class="faint" style="font-size:.75rem;margin-top:.4rem">← <span data-es="Reemplaza con tu email real" data-en="Replace with your real email">Reemplaza con tu email real</span></p>
   </div>
 </section>
 
@@ -591,6 +618,15 @@ footer{padding:2rem 0;border-top:1px solid var(--border)}
 </footer>
 
 <script>
+// ===================== INITIALIZATION =====================
+// Initialize AOS
+AOS.init({
+  duration: 800,
+  easing: 'ease-out',
+  once: true,
+  offset: 100
+});
+
 // ===================== ICONS =====================
 lucide.createIcons();
 
@@ -623,38 +659,56 @@ mobileMenu.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => mobileMenu.classList.remove('open'));
 });
 
-// ===================== HERO 3D TILT =====================
+// ===================== HERO 3D TILT ENHANCED =====================
 const heroVisual = document.getElementById('heroVisual');
 const blobEl = document.getElementById('blobEl');
+const blobContainer = heroVisual.querySelector('.blob-container');
+
 document.addEventListener('mousemove', (e) => {
   if(window.innerWidth < 768) return;
-  const cx = window.innerWidth / 2;
-  const cy = window.innerHeight / 2;
-  const rx = ((e.clientY - cy) / cy) * -6;
-  const ry = ((e.clientX - cx) / cx) * 6;
-  blobEl.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-  blobEl.style.transition = 'transform 0.15s ease-out';
+  
+  const rect = heroVisual.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  const angleX = ((e.clientY - centerY) / centerY) * -15;
+  const angleY = ((e.clientX - centerX) / centerX) * 15;
+  
+  gsap.to(blobContainer, {
+    rotationX: angleX,
+    rotationY: angleY,
+    duration: 0.3,
+    ease: 'power2.out'
+  });
+  
+  // Floating tags follow mouse slightly
+  gsap.to('.floating-tag', {
+    x: (e.clientX - centerX) * 0.02,
+    y: (e.clientY - centerY) * 0.02,
+    duration: 0.4,
+    ease: 'power2.out'
+  });
 });
 
-// ===================== SCROLL REVEALS =====================
-gsap.registerPlugin(ScrollTrigger);
-document.querySelectorAll('.reveal').forEach((el, i) => {
-  gsap.fromTo(el,
-    { opacity: 0, clipPath: 'inset(20% 0 0 0)' },
-    {
-      opacity: 1,
-      clipPath: 'inset(0% 0 0 0)',
-      duration: 0.8,
-      ease: 'power3.out',
-      delay: (i % 4) * 0.08,
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 85%',
-        once: true
-      }
-    }
-  );
+// Reset on mouse leave
+document.addEventListener('mouseleave', () => {
+  gsap.to(blobContainer, {
+    rotationX: 0,
+    rotationY: 0,
+    duration: 0.5,
+    ease: 'power2.out'
+  });
+  
+  gsap.to('.floating-tag', {
+    x: 0,
+    y: 0,
+    duration: 0.5,
+    ease: 'power2.out'
+  });
 });
+
+// ===================== SCROLL REVEALS (REMOVED - USING AOS) =====================
+// AOS now handles all scroll animations
 
 // ===================== COUNT-UP STATS =====================
 function countUp(el, target, duration) {
@@ -678,10 +732,82 @@ const statObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
 
-// ===================== PHONE IMAGE UPLOAD =====================
-// Para agregar imágenes a los teléfonos: reemplaza el div .phone-placeholder
-// con un <img src="TU_IMAGEN.jpg" alt="Nombre" style="width:100%;height:100%;object-fit:cover"/>
-// dentro del div .phone-screen correspondiente.
+// ===================== PHONE MODAL SYSTEM =====================
+const modal = document.getElementById('phoneModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalDescription = document.getElementById('modalDescription');
+const modalImage = document.getElementById('modalImage');
+const modalInstagram = document.getElementById('modalInstagram');
+const modalClose = document.getElementById('modalClose');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+// Phone click handlers
+document.querySelectorAll('.phone-wrap').forEach(phoneWrap => {
+  phoneWrap.addEventListener('click', (e) => {
+    // Prevent link clicks from triggering modal
+    if (e.target.closest('.phone-link')) return;
+    
+    const instagram = phoneWrap.dataset.instagram;
+    const title = phoneWrap.dataset.title;
+    const description = phoneWrap.dataset.description;
+    const phoneScreen = phoneWrap.querySelector('.phone-screen img');
+    
+    // Update modal content
+    modalTitle.textContent = title;
+    modalDescription.textContent = description;
+    modalInstagram.href = instagram;
+    
+    // Set modal image
+    if (phoneScreen && phoneScreen.src && !phoneScreen.src.includes('about:blank')) {
+      modalImage.src = phoneScreen.src;
+      modalImage.alt = title;
+      modalImage.style.display = 'block';
+    } else {
+      modalImage.style.display = 'none';
+    }
+    
+    // Open modal with animation
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    
+    // Animate modal content
+    gsap.fromTo('.modal-content', 
+      { scale: 0.8, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' }
+    );
+  });
+});
+
+// Close modal handlers
+function closeModal() {
+  gsap.to('.modal-content', {
+    scale: 0.8,
+    opacity: 0,
+    duration: 0.2,
+    ease: 'power2.in',
+    onComplete: () => {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+modalClose.addEventListener('click', closeModal);
+modalCloseBtn.addEventListener('click', closeModal);
+
+// Close on backdrop click
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    closeModal();
+  }
+});
+
+// Close on ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) {
+    closeModal();
+  }
+});
 </script>
 </body>
 </html>
