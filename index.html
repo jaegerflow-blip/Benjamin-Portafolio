@@ -141,7 +141,7 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 #work .section-header{margin-bottom:3rem}
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:3rem}
 .project-item{display:flex;flex-direction:column;gap:1.5rem}
-.phone-mockup{display:block;aspect-ratio:9/16;border-radius:36px;border:8px solid #1f1f2e;box-shadow:0 20px 40px rgba(0,0,0,0.5);overflow:hidden;transition:all .3s;cursor:pointer;position:relative}
+.phone-mockup{display:block;aspect-ratio:9/16;border-radius:36px;border:8px solid #1f1f2e;box-shadow:0 20px 40px rgba(0,0,0,0.5);overflow:hidden;transition:all .3s;cursor:pointer;position:relative;max-width:180px;margin:0 auto}
 .phone-mockup:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.7),0 0 30px rgba(0,255,136,0.3)}
 .phone-screen{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .4s}
 .phone-mockup:hover .phone-screen{transform:scale(1.05)}
@@ -221,36 +221,11 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 .reel-phone{position:relative;background:var(--s2);border:2px solid rgba(0,255,136,.15);border-radius:var(--r-lg);padding:8px;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(0,255,136,.1);overflow:hidden}
 .reel-phone::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(0,255,136,.05),transparent 60%);pointer-events:none;z-index:1}
 .reel-screen{position:relative;aspect-ratio:9/16;border-radius:calc(var(--r-lg) - 4px);overflow:hidden;background:var(--s3);display:flex;align-items:center;justify-content:center}
-.reel-video{width:100%;height:100%;object-fit:cover}
 .reel-placeholder{display:flex;flex-direction:column;align-items:center;gap:1rem;color:var(--muted);text-align:center;padding:2rem}
 .reel-placeholder i{color:var(--accent);opacity:.5}
 .reel-controls{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.75rem;z-index:10}
 .reel-control-btn{width:44px;height:44px;border-radius:var(--r-full);background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;transition:all .2s}
-.reel-control-btn:hover{background:rgba(0,255,136,.2);border-color:rgba(0,255,136,.4);transform:scale(1.1)}
-.reel-notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:60px;height:5px;background:var(--bg);border-radius:3px;z-index:10}
-
-/* Phone Details - Estrategia y Resultados */
-.phone-details{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:280px;background:var(--s2);border:1px solid rgba(0,255,136,.2);border-radius:var(--r-lg);padding:1.5rem;opacity:0;visibility:hidden;transition:all .3s;z-index:10;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 30px rgba(0,255,136,.15);pointer-events:none}
-.phone-wrap:hover .phone-details{opacity:1;visibility:visible;transform:translateX(-50%) translateY(10px);pointer-events:auto}
-.phone-detail-section{margin-bottom:1rem}
-.phone-detail-section:last-child{margin-bottom:0}
-.phone-detail-label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);font-weight:600;margin-bottom:.5rem}
-.phone-detail-text{font-size:.85rem;color:var(--muted);line-height:1.6}
-
-/* ===================== MODAL ===================== */
-.modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
-.modal.open{display:flex;opacity:1}
-.modal-content{background:var(--s2);border:1px solid rgba(0,255,136,.2);border-radius:var(--r-lg);max-width:90vw;max-height:90vh;overflow:auto;position:relative;box-shadow:0 20px 60px rgba(0,255,136,.2)}
-.modal-close{position:absolute;top:1rem;right:1rem;width:40px;height:40px;background:var(--s3);border:1px solid var(--border);border-radius:var(--r-full);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1001;color:var(--muted);transition:all .2s}
-.modal-close:hover{background:rgba(0,255,136,.1);border-color:var(--accent);color:var(--accent)}
-.modal-body{padding:2rem}
-.modal-header{text-align:center;margin-bottom:2rem}
-.modal-header h3{font-size:1.8rem;margin-bottom:.5rem;color:var(--accent-soft)}
-.modal-header p{color:var(--muted)}
-.modal-image{width:100%;max-width:400px;height:auto;border-radius:var(--r-lg);margin:0 auto 2rem;display:block;box-shadow:0 10px 40px rgba(0,0,0,.3)}
-.modal-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.modal-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#000;border-radius:var(--r-md);font-weight:600;transition:all .3s;text-decoration:none}
-.modal-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,136,.4)}
+.reel-control-btn:hover{background:rgba(0,255,136,.2);border-color:rgba(0,255,136,.4);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,136,.4)}
 .modal-btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border:1px solid rgba(0,255,136,.3);border-radius:var(--r-md);color:var(--accent-soft);transition:all .2s;text-decoration:none}
 .modal-btn-ghost:hover{background:rgba(0,255,136,.1);border-color:var(--accent)}
 
@@ -267,7 +242,7 @@ section{padding-block:clamp(4rem,8vw,7rem)}
   .bento-wide{grid-column:1;grid-row:auto}
   .bento-sm{grid-column:1}
   .projects-grid{grid-template-columns:1fr;gap:2rem}
-  .phone-mockup{max-width:200px;margin:0 auto}
+  .phone-mockup{max-width:280px;margin:0 auto}
   .carousel-container{padding:1rem 0}
   .carousel-track{gap:1rem}
   .tool-item-carousel{min-width:120px;padding:1.5rem 1rem}
@@ -292,7 +267,8 @@ section{padding-block:clamp(4rem,8vw,7rem)}
 @media(max-width:480px){
   .stats-grid{grid-template-columns:1fr 1fr}
   .tools-grid{grid-template-columns:repeat(3,1fr)}
-  .phone-mockup{max-width:160px}
+  .phone-mockup{max-width:280px;margin:0 auto}
+  .projects-grid{gap:1.5rem}
   .carousel-track{gap:0.75rem}
   .tool-item-carousel{min-width:100px;padding:1rem .75rem}
   .tool-item-carousel i{width:24px;height:24px}
@@ -775,9 +751,9 @@ section{padding-block:clamp(4rem,8vw,7rem)}
   .tech-stack-section {
     padding: 4rem 0;
     background: var(--bg); /* O usa #0a0a0f si no agarra la variable */
-    overflow: hidden;
     position: relative;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 10;
   }
   .tech-stack-title {
     text-align: center;
@@ -983,29 +959,6 @@ const statObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.5 });
 document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
-
-// ===================== TECH STACK CAROUSEL CONTROLS =====================
-document.querySelectorAll('.tool-item-carousel').forEach(tool => {
-  // Pause animation on hover
-  tool.addEventListener('mouseenter', () => {
-    const track = tool.closest('.carousel-track');
-    if (track) track.style.animationPlayState = 'paused';
-  });
-  
-  tool.addEventListener('mouseleave', () => {
-    const track = tool.closest('.carousel-track');
-    if (track) track.style.animationPlayState = 'running';
-  });
-  
-  // Click to pause/resume
-  tool.addEventListener('click', () => {
-    const track = tool.closest('.carousel-track');
-    if (track) {
-      const isPaused = track.style.animationPlayState === 'paused';
-      track.style.animationPlayState = isPaused ? 'running' : 'paused';
-    }
-  });
-});
 
 // ===================== FEATURED REEL CONTROLS =====================
 const reelPlayBtn = document.getElementById('reelPlay');
