@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Daniel Toro — Video Editor & Brand Designer</title>
+<meta name="description" content="Portafolio de Daniel Toro — Editor de video, diseñador gráfico, animador 3D y estratega de marca visual."/>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<style>
+/* ===================== TOKENS ===================== */
+:root {
+  --bg:          #0a0a0f;
+  --s1:          #111118;
+  --s2:          #1a1a24;
+  --s3:          #222230;
+  --border:      rgba(255,255,255,0.07);
+  --text:        #f1f0f7;
+  --muted:       #9999aa;
+  --faint:       #5a5a6e;
+  --accent:      #9b5cf6;
+  --accent-soft: #c4b5fd;
+  --neon:        #39ff14;
+  --shadow-v:    0 0 40px rgba(155,92,246,0.15);
+  --r-sm: 0.4rem; --r-md: 0.6rem; --r-lg: 1rem; --r-full: 9999px;
+  --font-d: 'Syne', sans-serif;
+  --font-b: 'DM Sans', sans-serif;
+}
+
+/* ===================== RESET ===================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:1rem;line-height:1.6;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+ul{list-style:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===================== TYPOGRAPHY ===================== */
+.syne{font-family:var(--font-d)}
+h1{font-family:var(--font-d);font-weight:800;font-size:clamp(2.8rem,8vw,7.5rem);line-height:1.05;background:linear-gradient(135deg,var(--accent),var(--accent-soft));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-family:var(--font-d);font-weight:700;font-size:clamp(1.6rem,3.5vw,2.8rem);line-height:1.15}
+h3{font-family:var(--font-d);font-weight:700;font-size:clamp(1.1rem,2vw,1.4rem)}
+.label{font-family:var(--font-b);font-weight:500;font-size:0.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft)}
+.muted{color:var(--muted)}
+.faint{color:var(--faint)}
+
+/* ===================== LAYOUT ===================== */
+.container{max-width:1100px;margin-inline:auto;padding-inline:clamp(1rem,4vw,3rem)}
+section{padding-block:clamp(4rem,8vw,7rem)}
+
+/* ===================== NAVBAR ===================== */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;padding:1rem 0}
+#navbar.scrolled{background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{font-family:var(--font-d);font-weight:800;font-size:1.1rem;letter-spacing:-.01em}
+.nav-links{display:flex;align-items:center;gap:1.75rem}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.lang-btn{font-size:.78rem;font-weight:500;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--r-full);color:var(--muted);transition:all .2s;letter-spacing:.05em}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.nav-burger{display:none;flex-direction:column;gap:5px;width:28px;padding:4px 0}
+.nav-burger span{display:block;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--font-d);font-weight:700;font-size:2rem;color:var(--muted);transition:color .2s}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ===================== HERO ===================== */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:5rem;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;border:1px solid rgba(155,92,246,.3);border-radius:var(--r-full);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:1.5rem;width:fit-content}
+.hero-tagline{font-size:clamp(1rem,2vw,1.25rem);color:var(--muted);margin:.75rem 0 1.5rem;max-width:52ch}
+.hero-bio{font-size:.95rem;color:var(--muted);max-width:46ch;margin-bottom:2.5rem;line-height:1.7}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;background:var(--accent);color:#fff;border-radius:var(--r-md);font-weight:500;font-size:.9rem;transition:all .2s;box-shadow:0 4px 20px rgba(155,92,246,.3)}
+.btn-primary:hover{background:#8b4de6;transform:translateY(-2px);box-shadow:0 8px 30px rgba(155,92,246,.4)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border:1px solid var(--border);border-radius:var(--r-md);font-weight:500;font-size:.9rem;color:var(--muted);transition:all .2s}
+.btn-ghost:hover{border-color:var(--accent-soft);color:var(--text)}
+
+/* Blob */
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:480px}
+.blob{width:320px;height:320px;border-radius:60% 40% 30% 70%/60% 30% 70% 40%;background:linear-gradient(135deg,rgba(155,92,246,.25),rgba(196,181,253,.1));border:1px solid rgba(155,92,246,.2);animation:morph 8s ease-in-out infinite;position:relative;transform-style:preserve-3d;will-change:transform}
+@keyframes morph{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}25%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}50%{border-radius:50% 50% 40% 60%/30% 60% 70% 40%}75%{border-radius:70% 30% 50% 50%/40% 50% 60% 50%}}
+.blob-inner{position:absolute;inset:12px;border-radius:inherit;background:linear-gradient(135deg,rgba(155,92,246,.12),transparent);filter:blur(1px)}
+.blob-glow{position:absolute;inset:-20px;border-radius:inherit;background:radial-gradient(circle,rgba(155,92,246,.12),transparent 70%);animation:pulse-glow 4s ease-in-out infinite alternate}
+@keyframes pulse-glow{from{opacity:.4}to{opacity:1}}
+.floating-tag{position:absolute;padding:.3rem .8rem;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-full);font-size:.72rem;font-weight:500;color:var(--accent-soft);white-space:nowrap;animation:float-tag 6s ease-in-out infinite}
+.ft1{top:15%;left:-10%;animation-delay:0s}
+.ft2{top:25%;right:-5%;animation-delay:1.5s}
+.ft3{bottom:25%;left:-5%;animation-delay:3s}
+.ft4{bottom:15%;right:-10%;animation-delay:4.5s}
+@keyframes float-tag{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--faint);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;animation:bounce-arrow 2s ease-in-out infinite}
+@keyframes bounce-arrow{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* ===================== ABOUT ===================== */
+#about{background:var(--s1)}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+.about-text p{color:var(--muted);font-size:.98rem;line-height:1.8;margin-top:1rem;max-width:52ch}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.stat-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.5rem;text-align:center;transition:transform .2s,box-shadow .2s}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-v)}
+.stat-num{font-family:var(--font-d);font-weight:800;font-size:2.5rem;color:var(--accent);display:block}
+.stat-label{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+
+/* ===================== SERVICES ===================== */
+#services .section-header{margin-bottom:3rem}
+.bento{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:1.25rem}
+.bento-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem;transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.bento-card::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none}
+.bento-card:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(155,92,246,.2)}
+.bento-wide{grid-column:1;grid-row:1/3}
+.bento-sm{grid-column:2}
+.bento-icon{width:2.5rem;height:2.5rem;color:var(--accent);margin-bottom:1rem}
+.bento-card h3{margin-bottom:.6rem}
+.bento-card p{font-size:.9rem;color:var(--muted);line-height:1.7}
+.bento-wide .bento-icon{width:3rem;height:3rem}
+.bento-wide h3{font-size:clamp(1.3rem,2.5vw,1.8rem)}
+
+/* ===================== WORK ===================== */
+#work{background:var(--s1)}
+#work .section-header{margin-bottom:3rem}
+.phones-row{display:flex;gap:1.5rem;justify-content:center;align-items:flex-end;perspective:1200px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:1rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.phone-wrap{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:.75rem;cursor:pointer}
+.phone{width:130px;height:260px;background:var(--s3);border-radius:20px;border:2px solid rgba(255,255,255,.12);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.phone:nth-child(1){transform:rotateY(-6deg)}
+.phone:nth-child(1):hover{transform:rotateY(-8deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-wrap:nth-child(2) .phone{transform:rotateY(-3deg)}
+.phone-wrap:nth-child(2) .phone:hover{transform:rotateY(-5deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-wrap:nth-child(3) .phone{transform:rotateY(0deg)}
+.phone-wrap:nth-child(3) .phone:hover{transform:rotateY(0deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-wrap:nth-child(4) .phone{transform:rotateY(3deg)}
+.phone-wrap:nth-child(4) .phone:hover{transform:rotateY(5deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-wrap:nth-child(5) .phone{transform:rotateY(6deg)}
+.phone-wrap:nth-child(5) .phone:hover{transform:rotateY(8deg) translateY(-8px);box-shadow:0 20px 50px rgba(155,92,246,.25)}
+.phone-screen{position:absolute;inset:8px 6px;border-radius:14px;overflow:hidden;background:var(--s2)}
+.phone-screen img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.phone:hover .phone-screen img{transform:scale(1.05)}
+.phone-notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:40px;height:5px;background:var(--bg);border-radius:3px;z-index:2}
+.phone-overlay{position:absolute;inset:8px 6px;border-radius:14px;background:rgba(155,92,246,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:opacity .25s;z-index:3}
+.phone:hover .phone-overlay{opacity:1}
+.phone-overlay span{font-size:.72rem;font-weight:500;color:#fff;letter-spacing:.05em}
+.phone-label{font-size:.72rem;color:var(--muted);text-align:center;max-width:120px}
+.phone-link{font-size:.68rem;color:var(--accent-soft);text-decoration:underline;text-underline-offset:3px}
+
+/* Upload placeholder */
+.phone-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--faint);font-size:.7rem;text-align:center;padding:.5rem}
+.phone-placeholder svg{width:24px;height:24px;opacity:.4}
+
+/* ===================== TOOLS ===================== */
+#tools .section-header{margin-bottom:2.5rem}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:1rem}
+.tool-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.25rem .75rem;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);transition:all .2s;cursor:default}
+.tool-item:hover{transform:translateY(-4px);border-color:rgba(155,92,246,.3)}
+.tool-item img{width:36px;height:36px;object-fit:contain;filter:grayscale(1) opacity(.5);transition:filter .2s}
+.tool-item:hover img{filter:grayscale(0) opacity(1)}
+.tool-item span{font-size:.65rem;color:var(--muted);text-align:center;line-height:1.3}
+.tool-item:hover span{color:var(--text)}
+
+/* Glow per tool */
+.tool-ps:hover{box-shadow:0 4px 20px rgba(49,168,255,.2)}
+.tool-ai:hover{box-shadow:0 4px 20px rgba(255,154,0,.2)}
+.tool-ae:hover{box-shadow:0 4px 20px rgba(121,89,255,.2)}
+.tool-pr:hover{box-shadow:0 4px 20px rgba(155,92,246,.2)}
+.tool-id:hover{box-shadow:0 4px 20px rgba(255,54,58,.2)}
+.tool-c4d:hover{box-shadow:0 4px 20px rgba(1,109,196,.2)}
+.tool-lr:hover{box-shadow:0 4px 20px rgba(49,168,255,.15)}
+.tool-cv:hover{box-shadow:0 4px 20px rgba(0,195,255,.2)}
+.tool-dr:hover{box-shadow:0 4px 20px rgba(84,188,127,.2)}
+.tool-au:hover{box-shadow:0 4px 20px rgba(0,168,210,.2)}
+
+/* ===================== CONTACT ===================== */
+#contact{position:relative;overflow:hidden;text-align:center}
+.contact-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(155,92,246,.06),transparent 70%);pointer-events:none}
+#contact h2{margin-bottom:1rem}
+#contact p{color:var(--muted);margin-bottom:2.5rem;max-width:46ch;margin-inline:auto}
+.contact-email{display:inline-block;font-size:.9rem;color:var(--accent-soft);margin-top:1.5rem;border-bottom:1px solid rgba(196,181,253,.3);padding-bottom:.2rem}
+
+/* ===================== FOOTER ===================== */
+footer{padding:2rem 0;border-top:1px solid var(--border)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.jaeger-seal{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1.1rem;border:1px solid var(--neon);border-radius:var(--r-full);color:var(--neon);font-size:.82rem;transition:all .25s;box-shadow:0 0 12px rgba(57,255,20,.25);text-shadow:0 0 8px rgba(57,255,20,.5)}
+.jaeger-seal:hover{box-shadow:0 0 28px rgba(57,255,20,.55);transform:scale(1.03)}
+.jaeger-seal .syne{font-weight:800}
+
+/* ===================== SECTION HEADER ===================== */
+.section-header{display:flex;flex-direction:column;gap:.5rem}
+.section-header p{color:var(--muted);font-size:.98rem;max-width:52ch}
+
+/* ===================== REVEAL ANIMATIONS ===================== */
+.reveal{opacity:0;clip-path:inset(15% 0 0 0);will-change:opacity,clip-path}
+.reveal.in{opacity:1;clip-path:inset(0% 0 0 0);transition:opacity .7s cubic-bezier(.16,1,.3,1),clip-path .7s cubic-bezier(.16,1,.3,1)}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-visual{height:280px;order:-1}
+  .blob{width:220px;height:220px}
+  .ft1,.ft3{left:0}.ft2,.ft4{right:0}
+  .hero-bio,.hero-tagline{max-width:100%;margin-inline:auto}
+  .cta-row{justify-content:center}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .bento{grid-template-columns:1fr;grid-template-rows:auto}
+  .bento-wide{grid-column:1;grid-row:auto}
+  .bento-sm{grid-column:1}
+  .phones-row{gap:1rem;padding-inline:1rem;justify-content:flex-start;scroll-snap-type:x mandatory}
+  .phone-wrap{scroll-snap-align:center}
+  .tools-grid{grid-template-columns:repeat(4,1fr)}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .footer-inner{justify-content:center}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .tools-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo syne">Daniel Toro</a>
+    <div class="nav-links">
+      <a href="#about" class="nav-link" data-es="Sobre mí" data-en="About">Sobre mí</a>
+      <a href="#services" class="nav-link" data-es="Servicios" data-en="Services">Servicios</a>
+      <a href="#work" class="nav-link" data-es="Trabajos" data-en="Work">Trabajos</a>
+      <a href="#tools" class="nav-link" data-es="Herramientas" data-en="Tools">Herramientas</a>
+      <a href="#contact" class="nav-link" data-es="Contacto" data-en="Contact">Contacto</a>
+      <button class="lang-btn" id="langBtn">EN</button>
+    </div>
+    <button class="nav-burger" id="burger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link" data-es="Sobre mí" data-en="About">Sobre mí</a>
+  <a href="#services" class="mobile-link" data-es="Servicios" data-en="Services">Servicios</a>
+  <a href="#work" class="mobile-link" data-es="Trabajos" data-en="Work">Trabajos</a>
+  <a href="#tools" class="mobile-link" data-es="Herramientas" data-en="Tools">Herramientas</a>
+  <a href="#contact" class="mobile-link" data-es="Contacto" data-en="Contact">Contacto</a>
+  <button class="lang-btn" id="langBtnMobile">EN</button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <i data-lucide="zap" style="width:12px;height:12px"></i>
+          <span>Creative Director · Video Editor · Brand Designer</span>
+        </div>
+        <h1>Daniel<br/>Toro</h1>
+        <p class="hero-tagline" data-es="Diseño que comunica. Movimiento que impacta." data-en="Design that communicates. Motion that impacts.">
+          Diseño que comunica. Movimiento que impacta.
+        </p>
+        <p class="hero-bio" data-es="6+ años creando identidades visuales, videos de marca y animaciones 3D que hacen que la gente se detenga a mirar." data-en="6+ years building visual identities, brand videos and 3D animations that make people stop and look.">
+          6+ años creando identidades visuales, videos de marca y animaciones 3D que hacen que la gente se detenga a mirar.
+        </p>
+        <div class="cta-row">
+          <a href="#work" class="btn-primary">
+            <i data-lucide="play-circle" style="width:16px;height:16px"></i>
+            <span data-es="Ver mi trabajo" data-en="See my work">Ver mi trabajo</span>
+          </a>
+          <a href="#contact" class="btn-ghost">
+            <span data-es="Contactar" data-en="Contact">Contactar</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual">
+        <div class="blob-glow"></div>
+        <div class="blob" id="blobEl">
+          <div class="blob-inner"></div>
+        </div>
+        <div class="floating-tag ft1">After Effects</div>
+        <div class="floating-tag ft2">Cinema 4D</div>
+        <div class="floating-tag ft3">Premiere Pro</div>
+        <div class="floating-tag ft4">Photoshop</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <i data-lucide="chevron-down" style="width:18px;height:18px"></i>
+    <span data-es="scroll" data-en="scroll">scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="label" data-es="Sobre mí" data-en="About me">Sobre mí</span>
+        <h2 style="margin-top:.75rem" data-es="Empecé con Photoshop a los 14. Nunca paré." data-en="Started with Photoshop at 14. Never stopped.">
+          Empecé con Photoshop a los 14. Nunca paré.
+        </h2>
+        <p data-es="Lo que empezó como un hobby se convirtió en una carrera. Pasé por animación 2D y 3D en Cinema 4D, diseño gráfico, branding corporativo y gigantografía. Hoy me especializo en edición de video y diseño visual de marca, buscando proyectos donde cada detalle importa." data-en="What started as a hobby became a career. I went through 2D and 3D animation with Cinema 4D, graphic design, corporate branding and large-format print. Today I specialize in video editing and visual brand design, looking for projects where every detail matters.">
+          Lo que empezó como un hobby se convirtió en una carrera. Pasé por animación 2D y 3D en Cinema 4D, diseño gráfico, branding corporativo y gigantografía. Hoy me especializo en edición de video y diseño visual de marca, buscando proyectos donde cada detalle importa.
+        </p>
+      </div>
+      <div class="stats-grid reveal">
+        <div class="stat-card">
+          <span class="stat-num" data-count="6">0</span>
+          <span class="stat-label" data-es="Años de experiencia" data-en="Years of experience">Años de experiencia</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" data-count="4">0</span>
+          <span class="stat-label" data-es="Marcas activas" data-en="Active brands">Marcas activas</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">∞</span>
+          <span class="stat-label" data-es="Creatividad" data-en="Creativity">Creatividad</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">1</span>
+          <span class="stat-label" data-es="Pasión: storytelling visual" data-en="Passion: visual storytelling">Pasión: storytelling visual</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label" data-es="Servicios" data-en="Services">Servicios</span>
+      <h2 data-es="¿Qué puedo hacer por ti?" data-en="What can I do for you?">¿Qué puedo hacer por ti?</h2>
+      <p data-es="Desde la idea hasta el pixel final." data-en="From concept to final pixel.">Desde la idea hasta el pixel final.</p>
+    </div>
+    <div class="bento">
+      <div class="bento-card bento-wide reveal">
+        <i data-lucide="film" class="bento-icon"></i>
+        <h3 data-es="Edición de Video" data-en="Video Editing">Edición de Video</h3>
+        <p data-es="Videos de marca, reels, contenido para YouTube, edición de videoclips musicales y material promocional. El servicio principal — donde el movimiento cuenta la historia." data-en="Brand videos, reels, YouTube content, music video editing and promotional material. The core service — where motion tells the story.">
+          Videos de marca, reels, contenido para YouTube, edición de videoclips musicales y material promocional. El servicio principal — donde el movimiento cuenta la historia.
+        </p>
+      </div>
+      <div class="bento-card bento-sm reveal">
+        <i data-lucide="palette" class="bento-icon"></i>
+        <h3 data-es="Diseño Gráfico" data-en="Graphic Design">Diseño Gráfico</h3>
+        <p data-es="Banners, miniaturas, logotipos, diseño para impresión y gigantografía a gran escala." data-en="Banners, thumbnails, logos, print design and large-format.">
+          Banners, miniaturas, logotipos y gigantografía.
+        </p>
+      </div>
+      <div class="bento-card bento-sm reveal">
+        <i data-lucide="layers" class="bento-icon"></i>
+        <h3 data-es="Branding & Identidad" data-en="Branding & Identity">Branding & Identidad</h3>
+        <p data-es="Creación de logotipos, paletas de color y manuales de marca completos." data-en="Logo creation, color palettes and complete brand manuals.">
+          Logos, paletas de color y manuales de marca.
+        </p>
+      </div>
+      <div class="bento-card bento-sm reveal">
+        <i data-lucide="boxes" class="bento-icon"></i>
+        <h3 data-es="Animación 3D & Motion" data-en="3D & Motion">Animación 3D & Motion</h3>
+        <p data-es="Escenas en Cinema 4D, motion graphics y efectos visuales en After Effects." data-en="Cinema 4D scenes, motion graphics and After Effects VFX.">
+          Cinema 4D, motion graphics y After Effects.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label" data-es="Trabajos" data-en="Work">Trabajos</span>
+      <h2 data-es="Proyectos recientes" data-en="Recent Work">Proyectos recientes</h2>
+      <p data-es="Marcas con las que he colaborado recientemente." data-en="Brands I've recently worked with.">Marcas con las que he colaborado recientemente.</p>
+    </div>
+    <div class="phones-row reveal">
+
+      <!-- PHONE 1 -->
+      <div class="phone-wrap">
+        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <!-- REEMPLAZA ESTA IMAGEN CON TU CAPTURA DE universopc_vzla -->
+              <div class="phone-placeholder">
+                <i data-lucide="image"></i>
+                <span>Sube captura<br/>universopc_vzla</span>
+              </div>
+            </div>
+            <div class="phone-overlay">
+              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
+            </div>
+          </div>
+        </a>
+        <span class="phone-label">Universo PC</span>
+        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-link">@universopc_vzla</a>
+      </div>
+
+      <!-- PHONE 2 -->
+      <div class="phone-wrap">
+        <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-placeholder">
+                <i data-lucide="image"></i>
+                <span>Sube captura<br/>multipc_sambil</span>
+              </div>
+            </div>
+            <div class="phone-overlay">
+              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
+            </div>
+          </div>
+        </a>
+        <span class="phone-label">Multi PC Sambil</span>
+        <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer" class="phone-link">@multipc_sambil</a>
+      </div>
+
+      <!-- PHONE 3 -->
+      <div class="phone-wrap">
+        <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-placeholder">
+                <i data-lucide="image"></i>
+                <span>Sube captura<br/>multimediagaming10</span>
+              </div>
+            </div>
+            <div class="phone-overlay">
+              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
+            </div>
+          </div>
+        </a>
+        <span class="phone-label">Multimedia Gaming</span>
+        <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer" class="phone-link">@multimediagaming10</a>
+      </div>
+
+      <!-- PHONE 4 -->
+      <div class="phone-wrap">
+        <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-placeholder">
+                <i data-lucide="image"></i>
+                <span>Sube captura<br/>tecnisevencomputer</span>
+              </div>
+            </div>
+            <div class="phone-overlay">
+              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
+            </div>
+          </div>
+        </a>
+        <span class="phone-label">Tecniseven Computer</span>
+        <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer" class="phone-link">@tecnisevencomputer</a>
+      </div>
+
+      <!-- PHONE 5 — 5ta cuenta pendiente -->
+      <div class="phone-wrap">
+        <a href="#" target="_blank" rel="noopener noreferrer" id="phone5link">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-placeholder">
+                <i data-lucide="image"></i>
+                <span>Sube captura<br/>5ta cuenta</span>
+              </div>
+            </div>
+            <div class="phone-overlay">
+              <i data-lucide="external-link" style="width:20px;height:20px;color:#fff"></i>
+              <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
+            </div>
+          </div>
+        </a>
+        <span class="phone-label" id="phone5label">5ta Marca</span>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="phone-link" id="phone5handle">@quinta_cuenta</a>
+      </div>
+
+    </div>
+    <p class="faint" style="font-size:.75rem;margin-top:1.5rem;text-align:center" data-es="Haz clic en cada teléfono para visitar el perfil de Instagram" data-en="Click each phone to visit the Instagram profile">Haz clic en cada teléfono para visitar el perfil de Instagram</p>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label" data-es="Herramientas" data-en="Tools">Herramientas</span>
+      <h2 data-es="Stack creativo" data-en="Creative stack">Stack creativo</h2>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-item tool-ps reveal">
+        <img src="https://cdn.simpleicons.org/adobephotoshop" alt="Adobe Photoshop" width="36" height="36" loading="lazy"/>
+        <span>Photoshop</span>
+      </div>
+      <div class="tool-item tool-ai reveal">
+        <img src="https://cdn.simpleicons.org/adobeillustrator" alt="Adobe Illustrator" width="36" height="36" loading="lazy"/>
+        <span>Illustrator</span>
+      </div>
+      <div class="tool-item tool-ae reveal">
+        <img src="https://cdn.simpleicons.org/adobeaftereffects" alt="Adobe After Effects" width="36" height="36" loading="lazy"/>
+        <span>After Effects</span>
+      </div>
+      <div class="tool-item tool-pr reveal">
+        <img src="https://cdn.simpleicons.org/adobepremierepro" alt="Adobe Premiere Pro" width="36" height="36" loading="lazy"/>
+        <span>Premiere Pro</span>
+      </div>
+      <div class="tool-item tool-id reveal">
+        <img src="https://cdn.simpleicons.org/adobeindesign" alt="Adobe InDesign" width="36" height="36" loading="lazy"/>
+        <span>InDesign</span>
+      </div>
+      <div class="tool-item tool-lr reveal">
+        <img src="https://cdn.simpleicons.org/adobelightroom" alt="Adobe Lightroom" width="36" height="36" loading="lazy"/>
+        <span>Lightroom</span>
+      </div>
+      <div class="tool-item tool-cv reveal">
+        <img src="https://cdn.simpleicons.org/canva" alt="Canva" width="36" height="36" loading="lazy"/>
+        <span>Canva</span>
+      </div>
+      <div class="tool-item tool-dr reveal">
+        <img src="https://cdn.simpleicons.org/davinciresolve" alt="DaVinci Resolve" width="36" height="36" loading="lazy"/>
+        <span>DaVinci Resolve</span>
+      </div>
+      <div class="tool-item tool-au reveal">
+        <img src="https://cdn.simpleicons.org/adobeaudition" alt="Adobe Audition" width="36" height="36" loading="lazy"/>
+        <span>Audition</span>
+      </div>
+      <div class="tool-item tool-c4d reveal" style="position:relative">
+        <div style="width:36px;height:36px;background:linear-gradient(135deg,#016dc4,#003d7a);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-d);font-weight:800;font-size:.8rem">C4D</div>
+        <span>Cinema 4D</span>
+      </div>
+    </div>
+    <p class="faint" style="font-size:.8rem;margin-top:2rem" data-es="~6 años trabajando con Adobe Creative Suite" data-en="~6 years working with Adobe Creative Suite">
+      ~6 años trabajando con Adobe Creative Suite
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--s1)">
+  <div class="container" style="position:relative;z-index:1;text-align:center">
+    <div class="contact-glow"></div>
+    <span class="label reveal" data-es="Contacto" data-en="Contact">Contacto</span>
+    <h2 class="reveal" style="margin-top:.75rem" data-es="¿Tienes un proyecto en mente?" data-en="Got a project in mind?">¿Tienes un proyecto en mente?</h2>
+    <p class="reveal" style="margin:.75rem auto 2.5rem" data-es="Hablemos. Estoy disponible para proyectos freelance." data-en="Let's talk. I'm available for freelance projects.">
+      Hablemos. Estoy disponible para proyectos freelance.
+    </p>
+    <a href="mailto:daniel@correo.com" class="btn-primary reveal" style="display:inline-flex">
+      <i data-lucide="mail" style="width:16px;height:16px"></i>
+      <span data-es="Enviar mensaje" data-en="Send message">Enviar mensaje</span>
+    </a>
+    <a href="mailto:daniel@correo.com" class="contact-email reveal" style="display:block;margin-top:1.5rem">
+      daniel@correo.com
+    </a>
+    <p class="faint reveal" style="font-size:.75rem;margin-top:.4rem">← <span data-es="Reemplaza con tu email real" data-en="Replace with your real email">Reemplaza con tu email real</span></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <span class="faint" style="font-size:.82rem">© 2025 Daniel Toro</span>
+    <div style="display:flex;align-items:center;gap:.5rem;color:var(--muted);font-size:.78rem">
+      <span data-es="Powered by" data-en="Powered by">Powered by</span>
+      <a href="https://jaegerflow.com" target="_blank" rel="noopener noreferrer" class="jaeger-seal">
+        <span class="syne">JaegerFlow</span>
+        <span>⚡</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===================== ICONS =====================
+lucide.createIcons();
+
+// ===================== LANG SYSTEM =====================
+let lang = 'es';
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('[data-es]').forEach(el => {
+    el.textContent = el.dataset[l];
+  });
+  document.getElementById('langBtn').textContent = l === 'es' ? 'EN' : 'ES';
+  document.getElementById('langBtnMobile').textContent = l === 'es' ? 'EN' : 'ES';
+}
+document.getElementById('langBtn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+document.getElementById('langBtnMobile').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+
+// ===================== NAVBAR SCROLL =====================
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ===================== MOBILE MENU =====================
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// ===================== HERO 3D TILT =====================
+const heroVisual = document.getElementById('heroVisual');
+const blobEl = document.getElementById('blobEl');
+document.addEventListener('mousemove', (e) => {
+  if(window.innerWidth < 768) return;
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const rx = ((e.clientY - cy) / cy) * -6;
+  const ry = ((e.clientX - cx) / cx) * 6;
+  blobEl.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+  blobEl.style.transition = 'transform 0.15s ease-out';
+});
+
+// ===================== SCROLL REVEALS =====================
+gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity: 0, clipPath: 'inset(20% 0 0 0)' },
+    {
+      opacity: 1,
+      clipPath: 'inset(0% 0 0 0)',
+      duration: 0.8,
+      ease: 'power3.out',
+      delay: (i % 4) * 0.08,
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 85%',
+        once: true
+      }
+    }
+  );
+});
+
+// ===================== COUNT-UP STATS =====================
+function countUp(el, target, duration) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { el.textContent = target + '+'; clearInterval(timer); return; }
+    el.textContent = Math.floor(start);
+  }, 16);
+}
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const el = e.target;
+      const count = parseInt(el.dataset.count);
+      if(!isNaN(count)) countUp(el, count, 1200);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
+
+// ===================== PHONE IMAGE UPLOAD =====================
+// Para agregar imágenes a los teléfonos: reemplaza el div .phone-placeholder
+// con un <img src="TU_IMAGEN.jpg" alt="Nombre" style="width:100%;height:100%;object-fit:cover"/>
+// dentro del div .phone-screen correspondiente.
+</script>
+</body>
+</html>
