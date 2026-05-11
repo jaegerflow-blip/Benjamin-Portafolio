@@ -771,81 +771,88 @@ section{padding-block:clamp(4rem,8vw,7rem)}
   </div>
 </section>
 
-<!-- TECH STACK -->
-<section id="tech-stack-section">
-  <div class="container">
-    <div class="tech-header">
-      <h2 class="tech-title">HERRAMIENTAS Y TECNOLOGÍAS</h2>
-      <p class="tech-subtitle">Suite profesional para Community Management y creación de contenido</p>
-    </div>
-    
-    <div class="carousel-wrapper">
-      <!-- Blur masks for smooth edges -->
-      <div class="blur-mask blur-left"></div>
-      <div class="blur-mask blur-right"></div>
-      
-      <div class="carousel-track">
-        <!-- First set -->
-        <div class="tech-item">
-          <i data-lucide="briefcase" class="tech-icon"></i>
-          <span class="tech-name">Meta Business Suite</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="scissors" class="tech-icon"></i>
-          <span class="tech-name">CapCut Pro</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="palette" class="tech-icon"></i>
-          <span class="tech-name">Canva Pro</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="file-text" class="tech-icon"></i>
-          <span class="tech-name">Notion</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="video" class="tech-icon"></i>
-          <span class="tech-name">InShot</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="trending-up" class="tech-icon"></i>
-          <span class="tech-name">Metricool</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="image" class="tech-icon"></i>
-          <span class="tech-name">Photoshop Premium</span>
-        </div>
-        
-        <!-- Duplicate for infinite scroll -->
-        <div class="tech-item">
-          <i data-lucide="briefcase" class="tech-icon"></i>
-          <span class="tech-name">Meta Business Suite</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="scissors" class="tech-icon"></i>
-          <span class="tech-name">CapCut Pro</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="palette" class="tech-icon"></i>
-          <span class="tech-name">Canva Pro</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="file-text" class="tech-icon"></i>
-          <span class="tech-name">Notion</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="video" class="tech-icon"></i>
-          <span class="tech-name">InShot</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="trending-up" class="tech-icon"></i>
-          <span class="tech-name">Metricool</span>
-        </div>
-        <div class="tech-item">
-          <i data-lucide="image" class="tech-icon"></i>
-          <span class="tech-name">Photoshop Premium</span>
-        </div>
-      </div>
-    </div>
+<style>
+  .tech-stack-section {
+    padding: 4rem 0;
+    background: var(--bg); /* O usa #0a0a0f si no agarra la variable */
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .tech-stack-title {
+    text-align: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    color: #888;
+    margin-bottom: 2rem;
+  }
+  .marquee-container {
+    display: flex;
+    width: 200vw;
+    animation: scrollText 25s linear infinite;
+  }
+  .marquee-container:hover {
+    animation-play-state: paused;
+  }
+  .tech-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+  }
+  .tech-item:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  @keyframes scrollText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  /* Sombras laterales para efecto de difuminado */
+  .tech-stack-section::before, .tech-stack-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+  }
+  .tech-stack-section::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+  }
+  .tech-stack-section::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
+  }
+</style>
+
+<section class="tech-stack-section">
+  <h3 class="tech-stack-title">HERRAMIENTAS Y TECNOLOGÍAS</h3>
+  <div class="marquee-container">
+    <div class="tech-item"><i data-lucide="facebook"></i> Meta Business</div>
+    <div class="tech-item"><i data-lucide="video"></i> CapCut</div>
+    <div class="tech-item"><i data-lucide="image"></i> Canva</div>
+    <div class="tech-item"><i data-lucide="message-square"></i> ChatGPT</div>
+    <div class="tech-item"><i data-lucide="layout"></i> Notion</div>
+    <div class="tech-item"><i data-lucide="film"></i> InShot</div>
+    <div class="tech-item"><i data-lucide="bar-chart"></i> Metricool</div>
+    <div class="tech-item"><i data-lucide="pen-tool"></i> Photoshop</div>
+    <div class="tech-item"><i data-lucide="facebook"></i> Meta Business</div>
+    <div class="tech-item"><i data-lucide="video"></i> CapCut</div>
+    <div class="tech-item"><i data-lucide="image"></i> Canva</div>
+    <div class="tech-item"><i data-lucide="message-square"></i> ChatGPT</div>
+    <div class="tech-item"><i data-lucide="layout"></i> Notion</div>
+    <div class="tech-item"><i data-lucide="film"></i> InShot</div>
+    <div class="tech-item"><i data-lucide="bar-chart"></i> Metricool</div>
+    <div class="tech-item"><i data-lucide="pen-tool"></i> Photoshop</div>
   </div>
 </section>
 
