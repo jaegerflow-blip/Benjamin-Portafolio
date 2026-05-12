@@ -89,11 +89,6 @@ body{
 .ambient-mesh{position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%, rgba(134,239,172,0.03) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(251,191,132,0.02) 0%, transparent 50%);opacity:.3}
 @keyframes drift-orb{0%,100%{transform:translate(0, 0)}25%{transform:translate(30px, -20px)}75%{transform:translate(-40px, 15px)}}
 @keyframes drift-halo{0%,100%{transform:translate(0, 0) scale(1)}33%{transform:translate(20px, -10px) scale(1.05)}66%{transform:translate(-15px, 20px) scale(0.95)}}
-@media(max-width:768px){
-  .ambient-orb{width:200px;height:200px;filter:blur(60px)}
-  .ambient-halo{opacity:.08}
-  .ambient-mesh{opacity:.15}
-}
 
 /* Legacy variables for compatibility */
 :root{
@@ -314,6 +309,13 @@ h1{font-family:var(--font-d);font-weight:800;font-size:clamp(2.8rem,8vw,7.5rem);
 .reel-phone{position:relative;background:var(--s2);border:2px solid rgba(0,255,136,.15);border-radius:var(--r-lg);padding:8px;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(0,255,136,.1);overflow:hidden}
 .reel-phone::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(0,255,136,.05),transparent 60%);pointer-events:none;z-index:1}
 .reel-screen{position:relative;aspect-ratio:9/16;border-radius:calc(var(--r-lg) - 4px);overflow:hidden;background:var(--s3);display:flex;align-items:center;justify-content:center}
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
 .reel-placeholder{display:flex;flex-direction:column;align-items:center;gap:1rem;color:var(--muted);text-align:center;padding:2rem}
 .reel-placeholder i{color:var(--accent);opacity:.5}
 .reel-controls{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.75rem;z-index:10}
@@ -322,60 +324,6 @@ h1{font-family:var(--font-d);font-weight:800;font-size:clamp(2.8rem,8vw,7.5rem);
 .modal-btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border:1px solid rgba(0,255,136,.3);border-radius:var(--r-md);color:var(--accent-soft);transition:all .2s;text-decoration:none}
 .modal-btn-ghost:hover{background:rgba(0,255,136,.1);border-color:var(--accent)}
 
-/* ===================== RESPONSIVE ===================== */
-@media(max-width:768px){
-  .hero-grid{grid-template-columns:1fr;text-align:center}
-  .hero-visual{height:280px;order:-1}
-  .blob-container{width:220px;height:220px}
-  .ft1,.ft3{left:0}.ft2,.ft4{right:0}
-  .hero-bio,.hero-tagline{max-width:100%;margin-inline:auto}
-  .cta-row{justify-content:center}
-  .about-grid{grid-template-columns:1fr;gap:2.5rem}
-  .bento{grid-template-columns:1fr;grid-template-rows:auto}
-  .bento-wide{grid-column:1;grid-row:auto}
-  .bento-sm{grid-column:1}
-  .projects-grid{grid-template-columns:repeat(2,1fr);gap:1.25rem}
-  .phone-mockup{max-width:160px}
-  .carousel-container{padding:1rem 0}
-  .carousel-track{gap:1rem}
-  .tool-item-carousel{min-width:120px;padding:1.5rem 1rem}
-  #tech-stack-section{padding:3rem 0}
-  .tech-title{font-size:1rem;letter-spacing:0.2em}
-  .carousel-track{gap:2rem;animation-duration:20s}
-  .tech-item{min-width:120px}
-  .tech-icon{width:32px;height:32px}
-  .tech-name{font-size:0.75rem}
-  .blur-mask{width:60px}
-  .tools-grid{grid-template-columns:repeat(4,1fr)}
-  .nav-links{display:none}
-  .nav-burger{display:flex}
-  .footer-inner{justify-content:center}
-  .modal-content{margin:1rem;max-width:calc(100vw - 2rem)}
-  .modal-body{padding:1.5rem}
-  .modal-image{max-width:300px}
-  .reel-container{max-width:280px}
-  .reel-phone{padding:6px}
-  .reel-control-btn{width:40px;height:40px}
-}
-@media(max-width:480px){
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .tools-grid{grid-template-columns:repeat(3,1fr)}
-  .phone-mockup{max-width:140px;margin:0 auto}
-  .projects-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
-  .carousel-track{gap:0.75rem}
-  .tool-item-carousel{min-width:100px;padding:1rem .75rem}
-  .tool-item-carousel i{width:24px;height:24px}
-  .tool-item-carousel span{font-size:.75rem}
-  #tech-stack-section{padding:2rem 0}
-  .tech-title{font-size:0.9rem;letter-spacing:0.15em}
-  .carousel-track{gap:1.5rem;animation-duration:15s}
-  .tech-item{min-width:100px}
-  .tech-icon{width:28px;height:28px}
-  .tech-name{font-size:0.7rem}
-  .blur-mask{width:40px}
-  .floating-tag{font-size:.65rem;padding:.3rem .8rem}
-  .reel-container{max-width:240px}
-}
 
 /* ===================== MOBILE SCROLL FIX ===================== */
 html, body {
@@ -488,6 +436,53 @@ html, body {
 
 /* Pause on hover */
 .carousel-wrapper:hover .carousel-track{animation-play-state:paused}
+
+@media(max-width:768px){
+  html,body{overflow-x:hidden !important;max-width:100vw !important}
+  .container{padding-inline:1rem !important}
+  #hero{min-height:auto !important;padding-top:5.5rem !important;padding-bottom:3rem !important}
+  .hero-grid{grid-template-columns:1fr !important;gap:2rem !important}
+  .hero-text{text-align:left !important;width:100% !important;overflow:hidden !important}
+  h1{font-size:clamp(2.2rem,12vw,4rem) !important;line-height:.95 !important;word-break:break-word !important;overflow-wrap:break-word !important}
+  h2{font-size:clamp(1.4rem,6vw,2.2rem) !important;word-break:break-word !important}
+  .hero-badge{max-width:100% !important;flex-wrap:wrap !important;white-space:normal !important}
+  .hero-badge span{font-size:.62rem !important;white-space:normal !important;overflow:hidden !important;text-overflow:ellipsis !important}
+  .hero-tagline,.hero-bio{font-size:.92rem !important;max-width:100% !important;word-break:break-word !important}
+  .hero-visual{height:240px !important;order:-1 !important;width:100% !important}
+  .blob-container{width:200px !important;height:200px !important;margin-inline:auto !important}
+  .floating-tag{font-size:.62rem !important;padding:.25rem .55rem !important;max-width:120px !important;overflow:hidden !important;text-overflow:ellipsis !important;white-space:nowrap !important}
+  .cta-row{flex-direction:column !important;align-items:stretch !important;gap:.75rem !important}
+  .btn-primary,.btn-ghost{width:100% !important;max-width:280px !important;justify-content:center !important}
+  .about-grid{grid-template-columns:1fr !important;gap:2.5rem !important}
+  .bento{grid-template-columns:1fr !important;grid-template-rows:auto !important}
+  .bento-wide{grid-column:1 !important;grid-row:auto !important}
+  .bento-sm{grid-column:1 !important}
+  .projects-grid{flex-direction:column !important;align-items:center !important}
+  .phone-mockup{max-width:240px !important}
+  .carousel-track{gap:1rem !important}
+  .tool-item-carousel{min-width:120px !important;padding:1.5rem 1rem !important}
+  .tools-grid{grid-template-columns:repeat(4,1fr) !important}
+  .nav-links{display:none !important}
+  .nav-burger{display:flex !important}
+  .footer-inner{justify-content:center !important}
+  .modal-content{margin:1rem !important;max-width:calc(100vw - 2rem) !important}
+  .modal-body{padding:1.5rem !important}
+  .reel-container{max-width:280px !important}
+  .reel-phone{padding:6px !important}
+}
+
+@media(max-width:480px){
+  h1{font-size:clamp(2rem,14vw,3rem) !important}
+  .hero-badge span{font-size:.58rem !important;letter-spacing:.05em !important}
+  .btn-primary,.btn-ghost{font-size:.85rem !important}
+  .stats-grid{grid-template-columns:1fr 1fr !important}
+  .tools-grid{grid-template-columns:repeat(3,1fr) !important}
+  .phone-mockup{max-width:280px !important;margin:0 auto !important}
+  .projects-grid{gap:1.5rem !important}
+  .carousel-track{gap:.75rem !important;animation-duration:15s !important}
+  .tool-item-carousel{min-width:100px !important;padding:1rem .75rem !important}
+  .container{padding-inline:.75rem !important}
+}
 </style>
 </head>
 <body>
@@ -669,13 +664,9 @@ html, body {
       <div class="reel-phone">
         <div class="reel-notch"></div>
         <div class="reel-screen">
-          <!-- Si tienes un video, reemplaza el placeholder por: -->
-          <!-- <video class="reel-video" src="./reel.mp4" loop muted playsinline></video> -->
-          <div class="reel-placeholder">
-            <i data-lucide="play-circle" style="width:48px;height:48px"></i>
-            <p style="font-size:.9rem">Tu reel destacado<br/>se mostrará aquí</p>
-            <p style="font-size:.75rem;color:var(--faint)">Reemplaza con un archivo MP4</p>
-          </div>
+          <video class="reel-video" id="featuredVideo" autoplay muted loop playsinline preload="auto">
+  <source src="./imagenes/video.mp4" type="video/mp4">
+</video>
         </div>
         <div class="reel-controls">
           <button class="reel-control-btn" id="reelPlay" aria-label="Play/Pause">
