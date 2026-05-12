@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Daniel Toro — Video Editor & Brand Designer</title>
+<meta name="description" content="Portafolio de Daniel Toro — Editor de video, diseñador gráfico, animador 3D y estratega de marca visual."/>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- AOS (Animate On Scroll) -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<style>
+/* ===================== TOKENS ===================== */
+:root,
+[data-theme="light"]{
+  --bg:#f6f3ee;
+  --surface:#ffffff;
+  --surface-2:#f1ede7;
+  --surface-3:#e8e2d9;
+  --text:#111214;
+  --muted:#5f6470;
+  --faint:#8c8c97;
+  --border:rgba(20,20,20,0.08);
+
+  --accent-lime:#16a34a;
+  --accent-violet:#7c3aed;
+  --accent-cyan:#0891b2;
+  --accent-coral:#e11d48;
+  --accent-gold:#d97706;
+
+  --hero-gradient:linear-gradient(135deg,#7c3aed 0%, #0891b2 35%, #16a34a 70%, #d97706 100%);
+  --card-gradient:linear-gradient(135deg, rgba(124,58,237,.08), rgba(8,145,178,.06), rgba(22,163,74,.06));
+  --glow-soft:0 10px 40px rgba(124,58,237,.08);
+  --glow-strong:0 16px 60px rgba(8,145,178,.12);
+
+  --theme-name:"light";
+}
+
+[data-theme="dark"]{
+  --bg:#0b0b10;
+  --surface:#12131a;
+  --surface-2:#171720;
+  --surface-3:#1f1f2b;
+  --text:#f5f7fb;
+  --muted:#a7adb8;
+  --faint:#6b7280;
+  --border:rgba(255,255,255,0.08);
+
+  --accent-lime:#86efac;
+  --accent-violet:#8b5cf6;
+  --accent-cyan:#22d3ee;
+  --accent-coral:#fb7185;
+  --accent-gold:#fbbf24;
+
+  --hero-gradient:linear-gradient(135deg,#8b5cf6 0%, #22d3ee 30%, #86efac 65%, #fbbf24 100%);
+  --card-gradient:linear-gradient(135deg, rgba(139,92,246,.08), rgba(34,211,238,.06), rgba(134,239,172,.06));
+  --glow-soft:0 10px 40px rgba(139,92,246,.08);
+  --glow-strong:0 16px 60px rgba(34,211,238,.12);
+
+  --theme-name:"dark";
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  transition:background-color .45s ease, color .45s ease;
+}
+
+/* ===================== AMBIENT BACKGROUND ===================== */
+.ambient-background{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.ambient-orb{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(34,211,238,0.15), rgba(139,92,246,0.08));filter:blur(80px);opacity:.4}
+.ambient-orb-1{top:-100px;left:-100px;animation:drift-orb 20s ease-in-out infinite}
+.ambient-halo{position:absolute;border-radius:50%;border:2px solid;opacity:.12}
+.ambient-halo-1{width:200px;height:200px;border-color:var(--accent-cyan);top:10%;right:-50px;filter:blur(40px);animation:drift-halo 25s ease-in-out infinite}
+.ambient-halo-2{width:250px;height:250px;border-color:var(--accent-violet);bottom:-80px;left:-80px;filter:blur(50px);animation:drift-halo 30s ease-in-out infinite reverse}
+.ambient-mesh{position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%, rgba(134,239,172,0.03) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(251,191,132,0.02) 0%, transparent 50%);opacity:.3}
+@keyframes drift-orb{0%,100%{transform:translate(0, 0)}25%{transform:translate(30px, -20px)}75%{transform:translate(-40px, 15px)}}
+@keyframes drift-halo{0%,100%{transform:translate(0, 0) scale(1)}33%{transform:translate(20px, -10px) scale(1.05)}66%{transform:translate(-15px, 20px) scale(0.95)}}
+
+/* Legacy variables for compatibility */
+:root{
+  --s1:var(--surface);
+  --s2:var(--surface-2);
+  --s3:var(--surface-3);
+  --accent:var(--accent-lime);
+  --accent-soft:var(--accent-lime);
+  --r-sm:0.5rem; --r-md: 1rem; --r-lg:1.5rem; --r-full:9999px;
+  --font-d: 'Syne', sans-serif;
+  --font-b: 'DM Sans', sans-serif;
+}
+
+/* ===================== RESET ===================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:1rem;line-height:1.6;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+ul{list-style:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===================== TYPOGRAPHY ===================== */
+.syne{font-family:var(--font-d)}
+h1{font-family:var(--font-d);font-weight:800;font-size:clamp(2.8rem,8vw,7.5rem);line-height:1.05;background:linear-gradient(135deg,var(--accent),var(--accent-soft),var(--accent-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:2}
+h2{font-family:var(--font-d);font-weight:700;font-size:clamp(1.6rem,3.5vw,2.8rem);line-height:1.15}
+h3{font-family:var(--font-d);font-weight:700;font-size:clamp(1.1rem,2vw,1.4rem)}
+.label{font-family:var(--font-b);font-weight:500;font-size:0.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft)}
+.muted{color:var(--muted)}
+.faint{color:var(--faint)}
+
+/* ===================== LAYOUT ===================== */
+.container{max-width:1100px;margin-inline:auto;padding-inline:clamp(1rem,4vw,3rem)}
+section{padding-block:clamp(4rem,8vw,7rem)}
+
+/* ===================== NAVBAR ===================== */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;padding:1rem 0}
+#navbar.scrolled{background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{font-family:var(--font-d);font-weight:800;font-size:1.1rem;letter-spacing:-.01em}
+.nav-links{display:flex;align-items:center;gap:1.75rem}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.lang-btn{font-size:.78rem;font-weight:500;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--r-full);color:var(--muted);transition:all .2s;letter-spacing:.05em}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,255,136,0.1)}
+.theme-toggle{font-size:.78rem;font-weight:500;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--r-full);color:var(--muted);transition:all .2s;letter-spacing:.05em;background:var(--surface-2);cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:44px}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent);background:rgba(124,77,255,.1)}
+.theme-icon{font-size:1.1rem;transition:transform .3s ease}
+.theme-toggle:hover .theme-icon{transform:rotate(180deg) scale(1.1)}
+.nav-burger{display:none;flex-direction:column;gap:5px;width:28px;padding:4px 0}
+.nav-burger span{display:block;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--font-d);font-weight:700;font-size:2rem;color:var(--muted);transition:color .2s}
+.mobile-menu a:hover{color:var(--accent)}
+
+/* ===================== HERO ===================== */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:5rem;position:relative;overflow:hidden;background:#0b0b10}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;width:100%}
+.hero-text{z-index:2;position:relative}
+.hero-reading-shield{position:absolute;top:-20px;left:-30px;right:-30px;bottom:-20px;background:linear-gradient(180deg, rgba(8,8,12,0.72), rgba(8,8,12,0.46));backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.05);border-radius:28px;z-index:-1}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;border:1px solid var(--accent-violet);border-radius:var(--r-full);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-violet);margin-bottom:1.5rem;width:fit-content;background:rgba(124,58,237,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:relative;z-index:2}
+h1{font-family:var(--font-d);font-weight:800;font-size:clamp(2.8rem,8vw,7.5rem);line-height:1.05;background:linear-gradient(135deg,var(--text) 0%, var(--accent-violet) 50%, var(--text) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:2;text-shadow:0 0 20px rgba(139,92,246,.3)}
+.hero-tagline{font-size:clamp(1rem,2vw,1.25rem);color:var(--muted);margin:.75rem 0 1.5rem;max-width:52ch}
+.hero-bio{font-size:.95rem;color:var(--muted);max-width:46ch;margin-bottom:2.5rem;line-height:1.7}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;background:linear-gradient(135deg,var(--accent-violet),var(--accent-cyan));color:#fff;border-radius:var(--r-md);font-weight:600;font-size:.9rem;transition:all .3s;box-shadow:0 4px 20px rgba(139,92,246,.3);position:relative;overflow:hidden;z-index:2}
+.btn-primary:hover{background:linear-gradient(135deg,var(--accent-cyan),var(--accent-violet));transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,211,238,.5)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border:1px solid var(--border);border-radius:var(--r-md);font-weight:500;font-size:.9rem;color:var(--text);transition:all .2s}
+.btn-ghost:hover{border-color:var(--accent-cyan);color:var(--accent-cyan);background:rgba(34,211,238,.05)}
+
+.jaeger-seal{display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 1.2rem;background:#000000;border:1.5px solid #39ff14;border-radius:9999px;font-family:-apple-system,'SF Pro Display','Helvetica Neue',sans-serif;font-weight:600;font-size:0.82rem;letter-spacing:-0.01em;color:#39ff14;text-shadow:0 0 10px rgba(57,255,20,0.7),0 0 20px rgba(57,255,20,0.4);box-shadow:0 0 14px rgba(57,255,20,0.3),inset 0 0 14px rgba(57,255,20,0.05);transition:all 0.25s ease;text-decoration:none}
+.jaeger-seal:hover{box-shadow:0 0 28px rgba(57,255,20,0.6),inset 0 0 20px rgba(57,255,20,0.1);text-shadow:0 0 14px rgba(57,255,20,0.9),0 0 30px rgba(57,255,20,0.5);transform:scale(1.04)}
+
+/* Hero Art Composition */
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:480px}
+.hero-art{position:relative;width:400px;height:400px}
+.art-orb{position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 40% 40%, rgba(139,92,246,0.4), rgba(34,211,238,0.2));filter:blur(60px);opacity:.25;top:50%;left:50%;transform:translate(-50%, -50%);animation:float-orb 8s ease-in-out infinite}
+.art-halo{position:absolute;border-radius:50%;border:2px solid;opacity:.15}
+.art-halo-1{width:240px;height:240px;border-color:var(--accent-violet);top:50%;left:50%;transform:translate(-50%, -50%);filter:blur(20px);animation:drift-halo 12s ease-in-out infinite}
+.art-halo-2{width:280px;height:280px;border-color:var(--accent-cyan);top:50%;left:50%;transform:translate(-50%, -50%);filter:blur(30px);animation:drift-halo 15s ease-in-out infinite reverse}
+.art-ribbon{position:absolute;width:160px;height:40px;background:linear-gradient(90deg, rgba(134,239,172,0.2), rgba(139,92,246,0.1));border-radius:80px/20px;top:30%;right:10%;transform:rotate(-8deg);opacity:.3;filter:blur(8px)}
+.art-pill{position:absolute;width:12px;height:12px;border-radius:12px;opacity:.6}
+.art-pill-1{background:var(--accent-coral);top:20%;left:15%;animation:float-pill 4s ease-in-out infinite}
+.art-pill-2{background:var(--accent-gold);bottom:25%;right:20%;animation:float-pill 5s ease-in-out infinite 1s}
+.art-diamond{position:absolute;width:16px;height:16px;background:var(--accent-lime);transform:rotate(45deg);top:60%;left:25%;opacity:.5;animation:float-diamond 6s ease-in-out infinite}
+@keyframes float-orb{0%,100%{transform:translate(-50%, -50%) scale(1)}50%{transform:translate(-50%, -50%) scale(1.1)}}
+@keyframes drift-halo{0%,100%{transform:translate(-50%, -50%) scale(1)}25%{transform:translate(-45%, -55%) scale(1.05)}75%{transform:translate(-55%, -45%) scale(0.95)}}
+@keyframes float-pill{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes float-diamond{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(-6px)}}
+.hero-graphics{position:absolute;inset:0;pointer-events:none}
+.hero-graphics::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, rgba(139,92,246,0.02), transparent 70%);opacity:.6}
+@keyframes inner-glow{from{transform:scale(0.8);opacity:0.5}to{transform:scale(1.2);opacity:1}}
+@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(180deg)}}
+@keyframes drift{0%,100%{transform:translateX(0) translateY(0)}25%{transform:translateX(20px) translateY(-5px)}75%{transform:translateX(-15px) translateY(5px)}}
+.floating-tag{position:absolute;padding:.4rem 1rem;background:var(--surface-2);border:1px solid var(--accent-violet);border-radius:var(--r-full);font-size:.72rem;font-weight:600;color:var(--accent-violet);white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(124,77,255,0.15);transition:all .3s ease;z-index:3}
+.floating-tag:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 8px 30px rgba(124,77,255,0.25);border-color:var(--accent-cyan)}
+.tag-after{color:var(--accent-coral)}
+.tag-premiere{background:linear-gradient(135deg, var(--accent-violet), var(--accent-cyan))}
+.tag-photoshop{background:linear-gradient(135deg, var(--accent-cyan), var(--accent-lime))}
+.tag-cinema{background:linear-gradient(135deg, var(--accent-cyan), var(--accent-violet))}
+.ft1{top:15%;left:-10%;animation-delay:0s}
+.ft2{top:25%;right:-5%;animation-delay:1.5s}
+.ft3{bottom:25%;left:-5%;animation-delay:3s}
+.ft4{bottom:15%;right:-10%;animation-delay:4.5s}
+@keyframes float-tag{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.05)}}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--faint);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;animation:bounce-arrow 2s ease-in-out infinite}
+@keyframes bounce-arrow{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* ===================== ABOUT ===================== */
+#about{background:var(--surface)}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center}
+.about-text p{color:var(--muted);font-size:.98rem;line-height:1.8;margin-top:1rem;max-width:52ch}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.stat-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.5rem;text-align:center;transition:transform .2s,box-shadow .2s}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-v)}
+.stat-num{font-family:var(--font-d);font-weight:800;font-size:2.5rem;color:var(--accent);display:block}
+.stat-label{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+
+/* ===================== SERVICES ===================== */
+#services{background:linear-gradient(135deg, var(--surface), var(--surface-2))}
+#services .section-header{margin-bottom:3rem}
+.bento{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:1.25rem}
+.bento-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem;transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.bento-card::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none}
+.bento-card:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(0,255,136,.2)}
+.bento-wide{grid-column:1;grid-row:1/3}
+.bento-sm{grid-column:2}
+.bento-icon{width:2.5rem;height:2.5rem;color:var(--accent);margin-bottom:1rem}
+.bento-card h3{margin-bottom:.6rem}
+.bento-card p{font-size:.9rem;color:var(--muted);line-height:1.7}
+.bento-wide .bento-icon{width:3rem;height:3rem}
+.bento-wide h3{font-size:clamp(1.3rem,2.5vw,1.8rem)}
+
+/* ===================== WORK ===================== */
+#work{background:var(--bg);position:relative}
+.projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;justify-items:center;align-items:start}
+.project-item{display:flex;flex-direction:column;gap:1.5rem}
+.phone-mockup{display:block;max-width:180px;width:100%;aspect-ratio:9/16;margin:0 auto;border-radius:28px;border:6px solid #1f1f2e;box-shadow:0 20px 40px rgba(0,0,0,0.5);overflow:hidden;transition:all .3s;cursor:pointer;position:relative}
+.phone-mockup:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.7),0 0 30px rgba(0,255,136,0.3)}
+.phone-screen{width:100%;height:100%;object-fit:cover;border-radius:20px;background-size:cover;background-position:center;transition:transform .4s}
+.phone-mockup:hover .phone-screen{transform:scale(1.05)}
+.project-info{display:flex;flex-direction:column;gap:1rem}
+.project-info h3{font-size:1.3rem;color:var(--text);margin:0}
+.project-handle{font-size:.85rem;color:var(--accent-soft);font-weight:500}
+.strategy-section,.results-section{display:flex;flex-direction:column;gap:.5rem}
+.strategy-label,.results-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);font-weight:600}
+.strategy-text,.results-text{font-size:.9rem;color:var(--muted);line-height:1.6;margin:0}
+
+/* Upload placeholder */
+.phone-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--faint);font-size:.7rem;text-align:center;padding:.5rem}
+.phone-placeholder svg{width:24px;height:24px;opacity:.4}
+
+/* Phone Details - Estrategia y Resultados */
+.phone-details{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:280px;background:var(--s2);border:1px solid rgba(0,255,136,.2);border-radius:var(--r-lg);padding:1.5rem;opacity:0;visibility:hidden;transition:all .3s;z-index:10;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 30px rgba(0,255,136,.15);pointer-events:none}
+.phone-wrap:hover .phone-details{opacity:1;visibility:visible;transform:translateX(-50%) translateY(10px);pointer-events:auto}
+.phone-detail-section{margin-bottom:1rem}
+.phone-detail-section:last-child{margin-bottom:0}
+.phone-detail-label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-soft);font-weight:600;margin-bottom:.5rem}
+.phone-detail-text{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+/* ===================== TECH STACK CAROUSEL ===================== */
+#tech-stack{background:var(--s1);padding-block:clamp(3rem,6vw,5rem)}
+.carousel-container{position:relative;overflow:hidden;width:100%;padding:2rem 0}
+.carousel-track{display:flex;gap:2rem;animation:marquee 30s linear infinite}
+.carousel-track:hover{animation-play-state:paused}
+.tool-item-carousel{display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:2rem 1.5rem;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);min-width:140px;text-align:center;transition:all .3s;cursor:pointer;position:relative}
+.tool-item-carousel:hover{transform:translateY(-8px);border-color:rgba(0,255,136,.3);box-shadow:0 15px 40px rgba(0,255,136,.2)}
+.tool-item-carousel i{color:var(--accent);transition:all .3s}
+.tool-item-carousel:hover i{color:var(--accent-soft);transform:scale(1.1)}
+.tool-item-carousel span{font-size:.85rem;color:var(--text);font-weight:500}
+.tool-item-carousel:hover span{color:var(--accent)}
+
+/* Tooltip */
+.tool-item-carousel::after{content:attr(data-tooltip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%) translateY(-8px);background:var(--bg);color:var(--text);padding:.75rem 1rem;border-radius:var(--r-md);font-size:.75rem;white-space:nowrap;opacity:0;visibility:hidden;transition:all .2s;z-index:100;box-shadow:0 10px 30px rgba(0,0,0,.5);border:1px solid rgba(0,255,136,.2);max-width:200px;text-align:center}
+.tool-item-carousel:hover::after{opacity:1;visibility:visible;transform:translateX(-50%) translateY(-12px)}
+
+/* Marquee Animation */
+@keyframes marquee{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(calc(-50% - 1rem))}
+}
+
+/* ===================== TOOLS ===================== */
+#tools .section-header{margin-bottom:2.5rem}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:1rem}
+.tool-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.25rem .75rem;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-lg);transition:all .2s;cursor:default}
+.tool-item:hover{transform:translateY(-4px);border-color:rgba(0,255,136,.3)}
+.tool-item img{width:36px;height:36px;object-fit:contain;filter:grayscale(1) opacity(.5);transition:filter .2s}
+.tool-item:hover img{filter:grayscale(0) opacity(1)}
+.tool-item span{font-size:.65rem;color:var(--muted);text-align:center;line-height:1.3}
+.tool-item:hover span{color:var(--text)}
+
+/* Glow per tool */
+.tool-ps:hover{box-shadow:0 4px 20px rgba(0,255,136,.2)}
+.tool-ai:hover{box-shadow:0 4px 20px rgba(255,154,0,.2)}
+.tool-ae:hover{box-shadow:0 4px 20px rgba(121,89,255,.2)}
+.tool-pr:hover{box-shadow:0 4px 20px rgba(0,255,136,.2)}
+.tool-id:hover{box-shadow:0 4px 20px rgba(255,54,58,.2)}
+.tool-c4d:hover{box-shadow:0 4px 20px rgba(1,109,196,.2)}
+.tool-lr:hover{box-shadow:0 4px 20px rgba(0,255,136,.15)}
+.tool-cv:hover{box-shadow:0 4px 20px rgba(0,195,255,.2)}
+.tool-dr:hover{box-shadow:0 4px 20px rgba(84,188,127,.2)}
+.tool-au:hover{box-shadow:0 4px 20px rgba(0,168,210,.2)}
+
+/* ===================== CONTACT ===================== */
+#contact{position:relative;overflow:hidden;text-align:center}
+.section-header p{color:var(--muted);font-size:.98rem;max-width:52ch}
+
+/* ===================== REVEAL ANIMATIONS (REMOVED - USING AOS) ===================== */
+/* AOS now handles all scroll animations */
+
+/* ===================== FEATURED REEL ===================== */
+#featured-reel{background:var(--s1);padding-block:clamp(3rem,6vw,5rem)}
+.reel-container{max-width:360px;margin-inline:auto;position:relative}
+.reel-phone{position:relative;background:var(--s2);border:2px solid rgba(0,255,136,.15);border-radius:var(--r-lg);padding:8px;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(0,255,136,.1);overflow:hidden}
+.reel-phone::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(0,255,136,.05),transparent 60%);pointer-events:none;z-index:1}
+.reel-screen{position:relative;aspect-ratio:9/16;border-radius:calc(var(--r-lg) - 4px);overflow:hidden;background:var(--s3);display:flex;align-items:center;justify-content:center}
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+.reel-placeholder{display:flex;flex-direction:column;align-items:center;gap:1rem;color:var(--muted);text-align:center;padding:2rem}
+.reel-placeholder i{color:var(--accent);opacity:.5}
+.reel-controls{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.75rem;z-index:10}
+.reel-control-btn{width:44px;height:44px;border-radius:var(--r-full);background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;transition:all .2s}
+.reel-control-btn:hover{background:rgba(0,255,136,.2);border-color:rgba(0,255,136,.4);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,136,.4)}
+.modal-btn-ghost{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border:1px solid rgba(0,255,136,.3);border-radius:var(--r-md);color:var(--accent-soft);transition:all .2s;text-decoration:none}
+.modal-btn-ghost:hover{background:rgba(0,255,136,.1);border-color:var(--accent)}
+
+
+/* ===================== MOBILE SCROLL FIX ===================== */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.projects-grid, .phones-row, .carousel-wrapper, .carousel-track {
+  max-width: 100%;
+}
+
+/* ===================== TECH STACK ===================== */
+#tech-stack-section{background:var(--surface-2);padding:4rem 0;position:relative;overflow:hidden}
+.tech-header{text-align:center;margin-bottom:3rem}
+.tech-title{font-size:1.2rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent-soft);font-weight:600;margin-bottom:0.5rem}
+.tech-subtitle{font-size:0.9rem;color:var(--muted);max-width:500px;margin:0 auto}
+
+.carousel-wrapper{position:relative;width:100%;overflow-x:hidden;overflow-y:visible;padding-bottom:80px;margin-bottom:-80px}
+.carousel-track{display:flex;gap:3rem;animation:carousel-scroll 25s linear infinite;will-change:transform}
+.tech-item{display:flex;flex-direction:column;align-items:center;gap:0.75rem;min-width:140px;text-align:center;flex-shrink:0}
+.tech-icon{width:40px;height:40px;color:var(--muted);filter:grayscale(1) opacity(0.6);transition:all 0.3s ease}
+.tech-name{font-size:0.85rem;color:var(--muted);font-weight:500;transition:color 0.3s ease}
+
+.tech-item{position:relative;z-index:5}
+.tech-item:hover .tech-icon{filter:grayscale(0) opacity(1);color:var(--accent);transform:scale(1.1)}
+.tool-item-carousel{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.75rem;
+  padding:2rem 1.5rem;
+  background:var(--s2);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  min-width:140px;
+  text-align:center;
+  transition:all .3s;
+  cursor:pointer;
+  position:relative;
+  z-index:1;
+}
+
+.tool-item-carousel:hover{
+  transform:translateY(-8px);
+  border-color:rgba(0,255,136,.3);
+  box-shadow:0 15px 40px rgba(0,255,136,.2);
+  z-index:50;
+}
+
+.tool-item-carousel img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+  opacity:.6;
+  filter:brightness(0) invert(1);
+  transition:opacity .3s, filter .3s, transform .3s;
+}
+
+.tool-item-carousel:hover img{
+  opacity:1;
+  filter:none;
+  transform:scale(1.08);
+}
+
+.tool-item-carousel .tool-fallback{
+  display:none;
+  width:32px;
+  height:32px;
+  border-radius:6px;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:800;
+  font-size:.65rem;
+  line-height:1;
+}
+
+.carousel-container{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  padding:2rem 0;
+}
+
+.carousel-track{
+  display:flex;
+  gap:2rem;
+  animation:marquee 30s linear infinite;
+}
+
+.carousel-track:hover{
+  animation-play-state:paused;
+}
+.tech-item:hover .tech-name{color:var(--text)}
+
+/* Blur masks for smooth edges */
+.blur-mask{position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.blur-left{left:0;background:linear-gradient(to right, var(--s1) 0%, transparent 100%)}
+.blur-right{right:0;background:linear-gradient(to left, var(--s1) 0%, transparent 100%)}
+
+/* Carousel animation */
+@keyframes carousel-scroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(calc(-50% - 1.5rem))}
+}
+
+/* Pause on hover */
+.carousel-wrapper:hover .carousel-track{animation-play-state:paused}
+
+@media(max-width:768px){
+  html,body{overflow-x:hidden !important;max-width:100vw !important}
+  .container{padding-inline:1rem !important}
+  #hero{min-height:auto !important;padding-top:5.5rem !important;padding-bottom:3rem !important}
+  .hero-grid{grid-template-columns:1fr !important;gap:2rem !important}
+  .hero-text{text-align:left !important;width:100% !important;overflow:hidden !important}
+  h1{font-size:clamp(2.2rem,12vw,4rem) !important;line-height:.95 !important;word-break:break-word !important;overflow-wrap:break-word !important}
+  h2{font-size:clamp(1.4rem,6vw,2.2rem) !important;word-break:break-word !important}
+  .hero-badge{max-width:100% !important;flex-wrap:wrap !important;white-space:normal !important}
+  .hero-badge span{font-size:.62rem !important;white-space:normal !important;overflow:hidden !important;text-overflow:ellipsis !important}
+  .hero-tagline,.hero-bio{font-size:.92rem !important;max-width:100% !important;word-break:break-word !important}
+  .hero-visual{height:240px !important;order:-1 !important;width:100% !important}
+  .blob-container{width:200px !important;height:200px !important;margin-inline:auto !important}
+  .floating-tag{font-size:.62rem !important;padding:.25rem .55rem !important;max-width:120px !important;overflow:hidden !important;text-overflow:ellipsis !important;white-space:nowrap !important}
+  .cta-row{flex-direction:column !important;align-items:stretch !important;gap:.75rem !important}
+  .btn-primary,.btn-ghost{width:100% !important;max-width:280px !important;justify-content:center !important}
+  .about-grid{grid-template-columns:1fr !important;gap:2.5rem !important}
+  .bento{grid-template-columns:1fr !important;grid-template-rows:auto !important}
+  .bento-wide{grid-column:1 !important;grid-row:auto !important}
+  .bento-sm{grid-column:1 !important}
+  .projects-grid{flex-direction:column !important;align-items:center !important}
+  .phone-mockup{max-width:240px !important}
+  .carousel-track{gap:1rem !important}
+  .tool-item-carousel{min-width:120px !important;padding:1.5rem 1rem !important}
+  .tools-grid{grid-template-columns:repeat(4,1fr) !important}
+  .nav-links{display:none !important}
+  .nav-burger{display:flex !important}
+  .footer-inner{justify-content:center !important}
+  .modal-content{margin:1rem !important;max-width:calc(100vw - 2rem) !important}
+  .modal-body{padding:1.5rem !important}
+  .reel-container{max-width:280px !important}
+  .reel-phone{padding:6px !important}
+}
+
+@media(max-width:480px){
+  h1{font-size:clamp(2rem,14vw,3rem) !important}
+  .hero-badge span{font-size:.58rem !important;letter-spacing:.05em !important}
+  .btn-primary,.btn-ghost{font-size:.85rem !important}
+  .stats-grid{grid-template-columns:1fr 1fr !important}
+  .tools-grid{grid-template-columns:repeat(3,1fr) !important}
+  .phone-mockup{max-width:280px !important;margin:0 auto !important}
+  .projects-grid{gap:1.5rem !important}
+  .carousel-track{gap:.75rem !important;animation-duration:15s !important}
+  .tool-item-carousel{min-width:100px !important;padding:1rem .75rem !important}
+  .container{padding-inline:.75rem !important}
+}
+</style>
+</head>
+<body>
+<!-- Global Interactive Background -->
+<div class="ambient-background">
+  <div class="ambient-orb ambient-orb-1"></div>
+  <div class="ambient-halo ambient-halo-1"></div>
+  <div class="ambient-halo ambient-halo-2"></div>
+  <div class="ambient-mesh"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo syne">Daniel Toro</a>
+    <div class="nav-links">
+      <a href="#about" class="nav-link" data-es="Sobre mí" data-en="About">Sobre mí</a>
+      <a href="#services" class="nav-link" data-es="Servicios" data-en="Services">Servicios</a>
+      <a href="#work" class="nav-link" data-es="Trabajos" data-en="Work">Trabajos</a>
+      <a href="#tools" class="nav-link" data-es="Herramientas" data-en="Tools">Herramientas</a>
+      <a href="#contact" class="nav-link" data-es="Contacto" data-en="Contact">Contacto</a>
+      <button class="lang-btn" id="langBtn">EN</button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </div>
+    <button class="nav-burger" id="burger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link" data-es="Sobre mí" data-en="About">Sobre mí</a>
+  <a href="#services" class="mobile-link" data-es="Servicios" data-en="Services">Servicios</a>
+  <a href="#work" class="mobile-link" data-es="Trabajos" data-en="Work">Trabajos</a>
+  <a href="#tools" class="mobile-link" data-es="Herramientas" data-en="Tools">Herramientas</a>
+  <a href="#contact" class="mobile-link" data-es="Contacto" data-en="Contact">Contacto</a>
+  <button class="lang-btn" id="langBtnMobile">EN</button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-reading-shield"></div>
+        <div class="hero-badge" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+          <i data-lucide="zap" style="width:12px;height:12px"></i>
+          <span>Creative Director · Video Editor · Brand Designer</span>
+        </div>
+        <h1 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Daniel<br/>Toro</h1>
+        <p class="hero-tagline" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" data-es="Diseño que comunica. Movimiento que impacta." data-en="Design that communicates. Motion that impacts.">
+          Diseño que comunica. Movimiento que impacta.
+        </p>
+        <p class="hero-bio" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" data-es="6+ años creando identidades visuales, videos de marca y animaciones 3D que hacen que la gente se detenga a mirar." data-en="6+ years building visual identities, brand videos and 3D animations that make people stop and look.">
+          6+ años creando identidades visuales, videos de marca y animaciones 3D que hacen que la gente se detenga a mirar.
+        </p>
+        <div class="cta-row" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+          <a href="#work" class="btn-primary">
+            <i data-lucide="play-circle" style="width:16px;height:16px"></i>
+            <span data-es="Ver mi trabajo" data-en="See my work">Ver mi trabajo</span>
+          </a>
+          <a href="#contact" class="btn-ghost">
+            <span data-es="Contactar" data-en="Contact">Contactar</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
+        <div class="hero-art">
+          <div class="art-orb art-orb-1"></div>
+          <div class="art-halo art-halo-1"></div>
+          <div class="art-halo art-halo-2"></div>
+          <div class="art-ribbon art-ribbon-1"></div>
+          <div class="art-pill art-pill-1"></div>
+          <div class="art-pill art-pill-2"></div>
+          <div class="art-diamond art-diamond-1"></div>
+        </div>
+        <div class="floating-tag ft1 tag-premiere" data-aos="fade-up" data-aos-duration="600" data-aos-delay="800">Premiere</div>
+        <div class="floating-tag ft2 tag-cinema" data-aos="fade-up" data-aos-duration="600" data-aos-delay="900">Cinema 4D</div>
+        <div class="floating-tag ft3 tag-photoshop" data-aos="fade-up" data-aos-duration="600" data-aos-delay="1000">Photoshop</div>
+        <div class="floating-tag ft4 tag-after" data-aos="fade-up" data-aos-duration="600" data-aos-delay="1100">After Effects</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <i data-lucide="chevron-down" style="width:18px;height:18px"></i>
+    <span data-es="scroll" data-en="scroll">scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
+        <span class="label" data-es="Sobre mí" data-en="About me">Sobre mí</span>
+        <h2 style="margin-top:.75rem" data-es="Empecé con Photoshop a los 14. Nunca paré." data-en="Started with Photoshop at 14. Never stopped.">
+          Empecé con Photoshop a los 14. Nunca paré.
+        </h2>
+        <p data-es="Lo que empezó como un hobby se convirtió en una carrera. Pasé por animación 2D y 3D en Cinema 4D, diseño gráfico, branding corporativo y gigantografía. Hoy me especializo en edición de video y diseño visual de marca, buscando proyectos donde cada detalle importa." data-en="What started as a hobby became a career. I went through 2D and 3D animation with Cinema 4D, graphic design, corporate branding and large-format print. Today I specialize in video editing and visual brand design, looking for projects where every detail matters.">
+          Lo que empezó como un hobby se convirtió en una carrera. Pasé por animación 2D y 3D en Cinema 4D, diseño gráfico, branding corporativo y gigantografía. Hoy me especializo en edición de video y diseño visual de marca, buscando proyectos donde cada detalle importa.
+        </p>
+      </div>
+      <div class="stats-grid" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+        <div class="stat-card">
+          <span class="stat-num" data-count="6">0</span>
+          <span class="stat-label" data-es="Años de experiencia" data-en="Years of experience">Años de experiencia</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" data-count="4">0</span>
+          <span class="stat-label" data-es="Marcas activas" data-en="Active brands">Marcas activas</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">∞</span>
+          <span class="stat-label" data-es="Creatividad" data-en="Creativity">Creatividad</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">1</span>
+          <span class="stat-label" data-es="Pasión: storytelling visual" data-en="Passion: visual storytelling">Pasión: storytelling visual</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+      <span class="label" data-es="Servicios" data-en="Services">Servicios</span>
+      <h2 data-es="¿Qué puedo hacer por ti?" data-en="What can I do for you?">¿Qué puedo hacer por ti?</h2>
+      <p data-es="Desde la idea hasta el pixel final." data-en="From concept to final pixel.">Desde la idea hasta el pixel final.</p>
+    </div>
+    <div class="bento">
+      <div class="bento-card bento-wide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+        <i data-lucide="film" class="bento-icon"></i>
+        <h3 data-es="Edición de Video" data-en="Video Editing">Edición de Video</h3>
+        <p data-es="Videos de marca, reels, contenido para YouTube, edición de videoclips musicales y material promocional. El servicio principal — donde el movimiento cuenta la historia." data-en="Brand videos, reels, YouTube content, music video editing and promotional material. The core service — where motion tells the story.">
+          Videos de marca, reels, contenido para YouTube, edición de videoclips musicales y material promocional. El servicio principal — donde el movimiento cuenta la historia.
+        </p>
+      </div>
+      <div class="bento-card bento-sm" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+        <i data-lucide="palette" class="bento-icon"></i>
+        <h3 data-es="Diseño Gráfico" data-en="Graphic Design">Diseño Gráfico</h3>
+        <p data-es="Banners, miniaturas, logotipos, diseño para impresión y gigantografía a gran escala." data-en="Banners, thumbnails, logos, print design and large-format.">
+          Banners, miniaturas, logotipos y gigantografía.
+        </p>
+      </div>
+      <div class="bento-card bento-sm" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+        <i data-lucide="layers" class="bento-icon"></i>
+        <h3 data-es="Branding & Identidad" data-en="Branding & Identity">Branding & Identidad</h3>
+        <p data-es="Creación de logotipos, paletas de color y manuales de marca completos." data-en="Logo creation, color palettes and complete brand manuals.">
+          Logos, paletas de color y manuales de marca.
+        </p>
+      </div>
+      <div class="bento-card bento-sm" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+        <i data-lucide="boxes" class="bento-icon"></i>
+        <h3 data-es="Animación 3D & Motion" data-en="3D & Motion">Animación 3D & Motion</h3>
+        <p data-es="Escenas en Cinema 4D, motion graphics y efectos visuales en After Effects." data-en="Cinema 4D scenes, motion graphics and After Effects VFX.">
+          Cinema 4D, motion graphics y After Effects.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED REEL -->
+<section id="featured-reel">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" style="text-align:center;margin-bottom:2.5rem">
+      <span class="label">Featured Reel</span>
+      <h2 style="margin-top:.75rem">Contenido que Convierte</h2>
+      <p style="margin-top:.5rem;max-width:52ch;margin-inline:auto">Reels interactivos diseñados para maximizar engagement y ventas.</p>
+    </div>
+    <div class="reel-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+      <div class="reel-phone">
+        <div class="reel-notch"></div>
+        <div class="reel-screen">
+          <video class="reel-video" id="featuredVideo" autoplay muted loop playsinline preload="auto">
+  <source src="./imagenes/video.mp4" type="video/mp4">
+</video>
+        </div>
+        <div class="reel-controls">
+          <button class="reel-control-btn" id="reelPlay" aria-label="Play/Pause">
+            <i data-lucide="play" style="width:18px;height:18px"></i>
+          </button>
+          <button class="reel-control-btn" id="reelMute" aria-label="Mute/Unmute">
+            <i data-lucide="volume-x" style="width:18px;height:18px"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+      <span class="label" data-es="Trabajos" data-en="Work">Trabajos</span>
+      <h2 data-es="Proyectos recientes" data-en="Recent Work">Proyectos recientes</h2>
+      <p data-es="Marcas con las que he colaborado recientemente." data-en="Brands I've recently worked with.">Marcas con las que he colaborado recientemente.</p>
+    </div>
+    <div class="projects-grid" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+
+      <!-- PROJECT 1 -->
+      <div class="project-item">
+        <a href="https://www.instagram.com/multimediagaming10/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/2.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Multimedia Gaming</h3>
+          <span class="project-handle">@multimediagaming10</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Gestión de inventario tecnológico y creación de comunidad gamer enfocada en la educación del consumidor sobre componentes de PC, builds personalizadas y tendencias de hardware.</p>
+          </div>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Aumento de engagement mediante reels de hardware y atención al cliente automatizada. Incremento del 40% en consultas de builds personalizadas y mejora en la tasa de conversión de ventas de componentes de PC.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="project-item">
+        <a href="https://www.instagram.com/multipc_sambil/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/1.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Multi PC Sambil</h3>
+          <span class="project-handle">@multipc_sambil</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Community Management y contenido para tienda física en centro comercial. Enfoque en experiencia de compra in-store, promociones flash y contenido visual de alta calidad para productos de tecnología.</p>
+          </div>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Incremento del tráfico a la tienda física del 25% mediante campañas de stories geolocalizadas. Mejora en la percepción de marca y fidelización de clientes recurrentes.</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- PROJECT 4 -->
+      <div class="project-item">
+        <a href="https://www.instagram.com/tecnisevencomputer/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/4.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Tecniseven Computer</h3>
+          <span class="project-handle">@tecnisevencomputer</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Community Management y estrategia de contenido técnico enfocado en reparaciones, mantenimiento de equipos y asesoría especializada en hardware de alto rendimiento.</p>
+          </div>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Posicionamiento como referente técnico en la comunidad. Reducción del 30% en tiempo de respuesta al cliente mediante automatización. Incremento en solicitudes de servicio técnico especializado.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 -->
+      <div class="project-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+        <a href="https://www.instagram.com/universopc_vzla/" target="_blank" rel="noopener noreferrer" class="phone-mockup">
+          <div class="phone-screen" style="background-image: url('./imagenes/5.jpg'); background-size: cover; background-position: center;"></div>
+        </a>
+        <div class="project-info">
+          <h3 class="syne">Universo PC</h3>
+          <span class="project-handle">@universopc_vzla</span>
+          <div class="strategy-section">
+            <span class="strategy-label">Estrategia</span>
+            <p class="strategy-text">Especializado en ventas de componentes de PC y hardware gamer. Enfoque en builds personalizadas, asesoría técnica especializada y contenido visual de alta calidad para entusiastas del gaming.</p>
+          </div>
+          <div class="results-section">
+            <span class="results-label">Resultados</span>
+            <p class="results-text">Mayor autoridad en el nicho de hardware gamer. Aumento del 50% en consultas de builds personalizadas. Contenido técnico generando alta retención y compartidos orgánicos en comunidad venezolana.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK CAROUSEL -->
+<section id="tech-stack">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" style="text-align:center;margin-bottom:3rem">
+      <span class="label">Tech Stack</span>
+      <h2 class="syne" style="margin-top:.75rem">Herramientas de Expertise</h2>
+      <p style="margin-top:.5rem;max-width:52ch;margin-inline:auto">Suite profesional para Community Management y edición de contenido</p>
+    </div>
+    
+    <div class="carousel-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+      <div class="carousel-track">
+<div class="tool-item-carousel" data-tooltip="Premiere Pro: Edición profesional de video para contenido de marca">
+  <img src="https://cdn.simpleicons.org/adobepremierepro" alt="Premiere Pro" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#9999ff,#6666cc)">Pr</span>
+  <span>Premiere Pro</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Photoshop: Diseño visual y edición de imágenes para redes sociales">
+  <img src="https://cdn.simpleicons.org/adobephotoshop" alt="Photoshop" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#31a8ff,#0066cc)">Ps</span>
+  <span>Photoshop</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="CapCut: Edición dinámica y retención visual para reels">
+  <img src="https://cdn.simpleicons.org/capcut" alt="CapCut" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#111111,#333333)">CC</span>
+  <span>CapCut</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Canva: Diseño rápido y plantillas para contenido diario">
+  <img src="https://cdn.simpleicons.org/canva" alt="Canva" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#00c4cc,#7d2ae8)">Cv</span>
+  <span>Canva</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Meta Business Suite: Gestión de contenido y análisis de métricas">
+  <img src="https://cdn.simpleicons.org/meta" alt="Meta Business" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#0082fb,#0040ff)">M</span>
+  <span>Meta Business</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Metricool: Monitoreo de engagement y optimización de contenido">
+  <img src="https://cdn.simpleicons.org/metricool" alt="Metricool" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#ff6b35,#ff3300)">Mc</span>
+  <span>Metricool</span>
+</div>
+
+<!-- Duplicado exacto para scroll infinito -->
+<div class="tool-item-carousel" data-tooltip="Premiere Pro: Edición profesional de video para contenido de marca">
+  <img src="https://cdn.simpleicons.org/adobepremierepro" alt="Premiere Pro" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#9999ff,#6666cc)">Pr</span>
+  <span>Premiere Pro</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Photoshop: Diseño visual y edición de imágenes para redes sociales">
+  <img src="https://cdn.simpleicons.org/adobephotoshop" alt="Photoshop" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#31a8ff,#0066cc)">Ps</span>
+  <span>Photoshop</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="CapCut: Edición dinámica y retención visual para reels">
+  <img src="https://cdn.simpleicons.org/capcut" alt="CapCut" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#111111,#333333)">CC</span>
+  <span>CapCut</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Canva: Diseño rápido y plantillas para contenido diario">
+  <img src="https://cdn.simpleicons.org/canva" alt="Canva" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#00c4cc,#7d2ae8)">Cv</span>
+  <span>Canva</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Meta Business Suite: Gestión de contenido y análisis de métricas">
+  <img src="https://cdn.simpleicons.org/meta" alt="Meta Business" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#0082fb,#0040ff)">M</span>
+  <span>Meta Business</span>
+</div>
+
+<div class="tool-item-carousel" data-tooltip="Metricool: Monitoreo de engagement y optimización de contenido">
+  <img src="https://cdn.simpleicons.org/metricool" alt="Metricool" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <span class="tool-fallback" style="background:linear-gradient(135deg,#ff6b35,#ff3300)">Mc</span>
+  <span>Metricool</span>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bg)">
+  <div class="container" style="position:relative;z-index:1;text-align:center">
+    <div class="contact-glow"></div>
+    <span class="label" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" data-es="Contacto" data-en="Contact">Contacto</span>
+    <h2 data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" style="margin-top:.75rem" data-es="¿Tienes un proyecto en mente?" data-en="Got a project in mind?">¿Tienes un proyecto en mente?</h2>
+    <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" style="margin:.75rem auto 2.5rem" data-es="Hablemos. Estoy disponible para proyectos freelance." data-en="Let's talk. I'm available for freelance projects.">
+      Hablemos. Estoy disponible para proyectos freelance.
+    </p>
+    <a href="mailto:daniel@correo.com" class="btn-primary" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" style="display:inline-flex">
+      <i data-lucide="mail" style="width:16px;height:16px"></i>
+      <span data-es="Enviar mensaje" data-en="Send message">Enviar mensaje</span>
+    </a>
+    <a href="mailto:daniel@correo.com" class="contact-email" style="display:block;margin-top:1.5rem">
+      daniel@correo.com
+    </a>
+    <p class="faint" style="font-size:.75rem;margin-top:.4rem">← <span data-es="Reemplaza con tu email real" data-en="Replace with your real email">Reemplaza con tu email real</span></p>
+  </div>
+</section>
+
+<style>
+  .tech-stack-section {
+    padding: 4rem 0;
+    background: var(--bg); /* O usa #0a0a0f si no agarra la variable */
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 10;
+  }
+  .tech-stack-title {
+    text-align: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    color: #888;
+    margin-bottom: 2rem;
+  }
+  .marquee-container {
+    display: flex;
+    width: 200vw;
+    animation: scrollText 25s linear infinite;
+  }
+  .marquee-container:hover {
+    animation-play-state: paused;
+  }
+  .tech-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+  }
+  .tech-item:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  @keyframes scrollText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  </style>
+
+<section class="tech-stack-section">
+  <h3 class="tech-stack-title">HERRAMIENTAS Y TECNOLOGÍAS</h3>
+  <div class="marquee-container">
+    <div class="tech-item"><i data-lucide="facebook"></i> Meta Business</div>
+    <div class="tech-item"><i data-lucide="video"></i> CapCut</div>
+    <div class="tech-item"><i data-lucide="image"></i> Canva</div>
+    <div class="tech-item"><i data-lucide="message-square"></i> ChatGPT</div>
+    <div class="tech-item"><i data-lucide="layout"></i> Notion</div>
+    <div class="tech-item"><i data-lucide="film"></i> InShot</div>
+    <div class="tech-item"><i data-lucide="bar-chart"></i> Metricool</div>
+    <div class="tech-item"><i data-lucide="pen-tool"></i> Photoshop</div>
+    <div class="tech-item"><i data-lucide="facebook"></i> Meta Business</div>
+    <div class="tech-item"><i data-lucide="video"></i> CapCut</div>
+    <div class="tech-item"><i data-lucide="image"></i> Canva</div>
+    <div class="tech-item"><i data-lucide="message-square"></i> ChatGPT</div>
+    <div class="tech-item"><i data-lucide="layout"></i> Notion</div>
+    <div class="tech-item"><i data-lucide="film"></i> InShot</div>
+    <div class="tech-item"><i data-lucide="bar-chart"></i> Metricool</div>
+    <div class="tech-item"><i data-lucide="pen-tool"></i> Photoshop</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <span class="faint" style="font-size:.82rem">© 2025 Daniel Toro</span>
+    <div style="display:flex;align-items:center;gap:.5rem;color:var(--muted);font-size:.78rem">
+      <span>Creado por</span>
+      <a href="https://jaegerflow.com" target="_blank" rel="noopener noreferrer" class="jaeger-seal">
+        <span style="font-family:-apple-system,'SF Pro Display','Helvetica Neue',sans-serif;font-weight:700;letter-spacing:-0.02em">JaegerFlow</span> <span style="font-weight:400;font-size:0.78rem;opacity:0.8">⚡</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===================== INITIALIZATION =====================
+// Initialize AOS
+AOS.init({
+  duration: 800,
+  easing: 'ease-out',
+  once: true,
+  offset: 100
+});
+
+// ===================== ICONS =====================
+lucide.createIcons();
+
+// ===================== LANG SYSTEM =====================
+let lang = 'es';
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('[data-es]').forEach(el => {
+    el.textContent = el.dataset[l];
+  });
+  document.getElementById('langBtn').textContent = l === 'es' ? 'EN' : 'ES';
+  document.getElementById('langBtnMobile').textContent = l === 'es' ? 'EN' : 'ES';
+}
+document.getElementById('langBtn').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+document.getElementById('langBtnMobile').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+
+// ===================== THEME TOGGLE =====================
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('.theme-icon');
+const html = document.documentElement;
+
+// Detect system preference and load saved theme
+const getPreferredTheme = () => {
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+const setTheme = (theme) => {
+  html.setAttribute('data-theme', theme);
+  themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+  localStorage.setItem('theme', theme);
+};
+
+// Initialize theme
+setTheme(getPreferredTheme());
+
+// Toggle theme on button click
+themeToggle.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  setTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+// ===================== NAVBAR SCROLL =====================
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ===================== MOBILE MENU =====================
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// ===================== HERO INTERACTION =====================
+const blobEl = document.getElementById('blobEl');
+const heroVisual = document.getElementById('heroVisual');
+
+let mouseX = 0;
+let mouseY = 0;
+let blobX = 0;
+let blobY = 0;
+
+const handleMouseMove = (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  
+  blobX = (mouseX - window.innerWidth / 2) * 0.02;
+  blobY = (mouseY - window.innerHeight / 2) * 0.02;
+  
+  blobEl.style.transform = `translateX(${blobX}px) translateY(${blobY}px) rotateX(${-blobX}deg) rotateY(${blobY}deg)`;
+};
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+  document.addEventListener('mousemove', handleMouseMove);
+}
+
+// ===================== HERO 3D TILT ENHANCED =====================
+const blobContainer = heroVisual.querySelector('.blob-container');
+
+document.addEventListener('mousemove', (e) => {
+  if(window.innerWidth < 768) return;
+  
+  const rect = heroVisual.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  const angleX = ((e.clientY - centerY) / centerY) * -15;
+  const angleY = ((e.clientX - centerX) / centerX) * 15;
+  
+  gsap.to(blobContainer, {
+    rotationX: angleX,
+    rotationY: angleY,
+    duration: 0.3,
+    ease: 'power2.out'
+  });
+  
+  // Floating tags follow mouse slightly
+  gsap.to('.floating-tag', {
+    x: (e.clientX - centerX) * 0.02,
+    y: (e.clientY - centerY) * 0.02,
+    duration: 0.4,
+    ease: 'power2.out'
+  });
+});
+
+// Reset on mouse leave
+document.addEventListener('mouseleave', () => {
+  gsap.to(blobContainer, {
+    rotationX: 0,
+    rotationY: 0,
+    duration: 0.5,
+    ease: 'power2.out'
+  });
+  
+  gsap.to('.floating-tag', {
+    x: 0,
+    y: 0,
+    duration: 0.5,
+    ease: 'power2.out'
+  });
+});
+
+// ===================== SCROLL REVEALS (REMOVED - USING AOS) =====================
+// AOS now handles all scroll animations
+
+// ===================== COUNT-UP STATS =====================
+function countUp(el, target, duration) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { el.textContent = target + '+'; clearInterval(timer); return; }
+    el.textContent = Math.floor(start);
+  }, 16);
+}
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const el = e.target;
+      const count = parseInt(el.dataset.count);
+      if(!isNaN(count)) countUp(el, count, 1200);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
+
+// ===================== FEATURED REEL CONTROLS =====================
+const reelPlayBtn = document.getElementById('reelPlay');
+const reelMuteBtn = document.getElementById('reelMute');
+const reelVideo = document.querySelector('.reel-video');
+let isPlaying = false;
+let isMuted = true;
+
+if (reelPlayBtn && reelVideo) {
+  reelPlayBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      reelVideo.pause();
+      reelPlayBtn.innerHTML = '<i data-lucide="play" style="width:18px;height:18px"></i>';
+    } else {
+      reelVideo.play();
+      reelPlayBtn.innerHTML = '<i data-lucide="pause" style="width:18px;height:18px"></i>';
+    }
+    isPlaying = !isPlaying;
+    lucide.createIcons();
+  });
+}
+
+if (reelMuteBtn && reelVideo) {
+  reelMuteBtn.addEventListener('click', () => {
+    reelVideo.muted = !isMuted;
+    if (isMuted) {
+      reelMuteBtn.innerHTML = '<i data-lucide="volume-2" style="width:18px;height:18px"></i>';
+    } else {
+      reelMuteBtn.innerHTML = '<i data-lucide="volume-x" style="width:18px;height:18px"></i>';
+    }
+    isMuted = !isMuted;
+    lucide.createIcons();
+  });
+}
+</script>
+
+<div id="js-tooltip" style="
+  position: fixed;
+  z-index: 99999;
+  background: #1a1a1f;
+  color: #f5f5f7;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.78rem;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.45;
+  max-width: 220px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border: 1px solid rgba(0,255,136,0.25);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  white-space: normal;
+  transform: translateX(-50%);
+"></div>
+
+<script>
+(function () {
+  const tooltip = document.getElementById('js-tooltip');
+  const items = document.querySelectorAll('.tool-item-carousel');
+
+  function showTooltip(e) {
+    const text = this.getAttribute('data-tooltip');
+    if (!text) return;
+    tooltip.textContent = text;
+    tooltip.style.opacity = '1';
+    moveTooltip(e);
+  }
+
+  function moveTooltip(e) {
+    const x = e.clientX;
+    const y = e.clientY;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = (y - 80) + 'px';
+  }
+
+  function hideTooltip() {
+    tooltip.style.opacity = '0';
+  }
+
+  items.forEach(item => {
+    item.addEventListener('mouseenter', showTooltip);
+    item.addEventListener('mousemove', moveTooltip);
+    item.addEventListener('mouseleave', hideTooltip);
+  });
+})();
+</script>
+
+</body>
+</html>
